@@ -1,6 +1,10 @@
 body {
-    /*background-image: url("https://c402277.ssl.cf1.rackcdn.com/photos/2842/images/hero_small/shutterstock_12730534.jpg?1352150501");*/
+    background-image: url("https://wallpapersite.com/images/wallpapers/stars-3840x2160-galaxy-4k-6362.jpg");
     margin:0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .container{

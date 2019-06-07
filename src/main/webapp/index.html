@@ -13,95 +13,289 @@
 </head>
 
 <body>
-    <canvas id="bg" class="background"></canvas>
+<canvas id="bg" class="background"></canvas>
 
-    <div id="nav">
-        <ul id="nav">
-            <li><a class="active" href="#">Home</a></li>
-            <li style="float:right"><a target="_blank" href="https://github.com/ToOgFyrreTyvende/21_del3">Github</a>
-            </li>
-        </ul>
-    </div>
+<div id="nav">
+    <ul id="nav">
+        <li><a class="active" href="#">Home</a></li>
+        <li style="float:right"><a target="_blank" href="https://github.com/ToOgFyrreTyvende/21_del3">Github</a>
+        </li>
+    </ul>
+</div>
 
-    <div class="container">
-        <h1>List of all users</h1>
-        <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
-            Create
-        </button>
-        <span id="counter">0</span>
-        <table class="table table-striped">
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Initials</th>
-                <th>Roles</th>
-                <th>CPR</th>
-                <th>Updatus</th>
-                <th>Deletus</th>
-            </tr>
-            <tbody id="user">
-            </tbody>
-        </table>
-    </div>
+<div class="container">
+    <h1 style="color:white;" > List of all users</h1>
+    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
+        Create User
+    </button>
+    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
+        Create Raw Material
+    </button>
+    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
+        Create Raw Material Batch
+    </button>
+    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createReceptModal">
+        Create Recept
+    </button>
+    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
+        Create Product Batch
+    </button>
+    <span id="counter">0</span>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Initials</th>
+            <th>Roles</th>
+            <th>CPR</th>
+            <th>Updatus</th>
+            <th>Deletus</th>
+        </tr>
+        <tbody id="user">
+        </tbody>
+    </table>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" style="display:none;" id="createUserModal" tabindex="-1" role="dialog"
-        aria-labelledby="createUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="inputForm">
-                        <div id="name-group" class="form-group">
-                            <label for="userId">User ID</label>
-                            <input type="number" id="userIdInput" min="11" max="99" class="form-control" name="userId" placeholder="42">
-                        </div>
+<!-- Modal USER-->
+<div class="modal fade" style="display:none;" id="createUserModal" tabindex="-1" role="dialog"
+     aria-labelledby="createUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inputForm">
+                    <div id="id-group" class="form-group">
+                        <label for="userId">User ID</label>
+                        <input type="number" id="userIdInput" min="11" max="99" class="form-control" name="userId" placeholder="42">
+                    </div>
 
-                        <div id="email-group" class="form-group">
-                            <label for="userName">Username</label>
-                            <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Harry Potter">
-                        </div>
+                    <div id="name-group" class="form-group">
+                        <label for="userName">Username</label>
+                        <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Harry Potter">
+                    </div>
 
-                        <div id="email-group" class="form-group">
-                            <label for="ini">Initials</label>
-                            <input type="text" id="iniInput" class="form-control" name="ini" placeholder="HP">
-                        </div>
+                    <div id="ini-group" class="form-group">
+                        <label for="ini">Initials</label>
+                        <input type="text" id="iniInput" class="form-control" name="ini" placeholder="HP">
+                    </div>
 
-                        <div id="email-group" class="form-group">
-                            <label for="cpr">CPR</label>
-                            <input type="text" id="cprInput" class="form-control" name="cpr" placeholder="123456-1234">
-                        </div>
+                    <div id="cpr-group" class="form-group">
+                        <label for="cpr">CPR</label>
+                        <input type="text" id="cprInput" class="form-control" name="cpr" placeholder="123456-1234">
+                    </div>
 
-                        <div id="email-group" class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="passwordInput" class="form-control" name="password" placeholder="/dev/ttyUSB0">
-                        </div>
+                    GitHub
+                    ToOgFyrreTyvende/21_del3
+                    Contribute to ToOgFyrreTyvende/21_del3 development by creating an account on GitHub.
+                    <div id="password-group" class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="passwordInput" class="form-control" name="password" placeholder="/dev/ttyUSB0">
+                    </div>
 
-                        <div id="email-group" class="form-group">
-                            <label for="roles">Roles</label>
-                            <select class="form-control" id="roles" name="roles" multiple="multiple">
-                            </select>
-                        </div>
+                    <div id="roles-group" class="form-group">
+                        <label for="roles">Roles</label>
+                        <select class="form-control" id="roles" name="roles" multiple="multiple">
+                        </select>
+                    </div>
 
-                        <button id="submitForm" class="btn btn-success">Submit <span
-                                class="fa fa-arrow-right"></span></button>
+                    <button id="submitForm" class="btn btn-success">Submit <span
+                            class="fa fa-arrow-right"></span></button>
 
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="renders.js"></script>
-    <script src="script.js"></script>
+<!-- Modal RAW MAT -->
+<div class="modal fade" style="display:none;" id="createRawMatModal" tabindex="-1" role="dialog"
+     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> Raw</span> Material</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inputForm">
+                    <div id="rawMatId-group" class="form-group">
+                        <label for="rawMatId">Raw Material ID</label>
+                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="42">
+                    </div>
+
+                    <div id="RawMatName-group" class="form-group">
+                        <label for="rawMatName">Raw Martial Name</label>
+                        <input type="text" id="rawMatNameInput" min="2" max="20" class="form-control" name="rawMatName" placeholder="Salt">
+                    </div>
+
+                    <div id="Supplier-group" class="form-group">
+                        <label for="supplier">Supplier</label>
+                        <input type="text" id="supplierInput" min="2" max="20" class="form-control" name="supplier" placeholder="Novo Nordisk">
+                    </div>
+
+                    <button id="submitForm" class="btn btn-success">Submit <span
+                            class="fa fa-arrow-right"></span></button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal RAW MAT BATCH-->
+<div class="modal fade" style="display:none;" id="createRawMatBatchModal" tabindex="-1" role="dialog"
+     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> Raw</span> Material</span> Batch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inputForm">
+                    <div id="RMBId-group" class="form-group">
+                        <label for="RMBId">Raw Material Batch ID</label>
+                        <input type="number" id="RMBIdInput" min="1" max="99999999" class="form-control" name="RMBId" placeholder="42">
+                    </div>
+
+                    <div id="receptId-group" class="form-group">
+                        <label for="rawMatId">Raw Martial ID</label>
+                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="21">
+                    </div>
+
+                    <div id="amount-group" class="form-group">
+                        <label for="amount">Amount (kg)</label>
+                        <input type="number" id="amountInput" min="0" max="99999999" step="0.0001" class="form-control" name="amount" placeholder="10,65">
+                    </div>
+
+                    <button id="submitForm" class="btn btn-success">Submit <span
+                            class="fa fa-arrow-right"></span></button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal RECEPT-->
+<div class="modal fade" style="display:none;" id="createReceptModal" tabindex="-1" role="dialog"
+     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> Recept</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inputForm">
+                    <div id="id-group" class="form-group">
+                        <label for="receptId">Recept ID</label>
+                        <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="42">
+                    </div>
+
+                    <div id="name-group" class="form-group">
+                        <label for="receptName">Recept Name</label>
+                        <input type="text" id="receptNameInput" min="2" max="20" class="form-control" name="receptName" placeholder="Panodil">
+                    </div>
+
+                    <div id="rawMatId-group" class="form-group">
+                        <label for="rawMatId">Raw Material ID</label>
+                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="10 (Salt)">
+                    </div>
+
+                    <div id="nonNetto-group" class="form-group">
+                        <label for="nonNetto">non Netto (kg)</label>
+                        <input type="number" id="nonNettoInput" min="0.05" max="20.0" step="0.0001" class="form-control" name="nonNetto" placeholder="15.3">
+                    </div>
+
+                    <div id="tolerance-group" class="form-group">
+                        <label for="tolerance">Tolerance (%)</label>
+                        <input type="number" id="toleranceInput" min="0.1" max="10.0" step="0.0001" class="form-control" name="tolerance" placeholder="4.3">
+                    </div>
+
+                    <button id="submitForm" class="btn btn-success">Submit <span
+                            class="fa fa-arrow-right"></span></button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal PRODUKTBATCH-->
+<div class="modal fade" style="display:none;" id="createProduktbatchModal" tabindex="-1" role="dialog"
+     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> Product</span> Batch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inputForm">
+                    <div id="pdId-group" class="form-group">
+                        <label for="productBatchId">Productbatch ID</label>
+                        <input type="number" id="productBatchIdInput" min="1" max="99999999" class="form-control" name="productBatchId" placeholder="42">
+                    </div>
+
+                    <div id="receptId-group" class="form-group">
+                        <label for="receptId">Recept ID</label>
+                        <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="21">
+                    </div>
+
+                    <div id="status-group" class="form-group">
+                        <label for="status">Status (0 = Not Initiated / 1 = Under Prodction / 2 = Finished)</label>
+                        <input type="number" id="statusInput" min="0" max="2" class="form-control" name="status" placeholder="1">
+                    </div>
+
+                    <div id="userId-group" class="form-group">
+                        <label for="userId">User ID</label>
+                        <input type="number" id="userIDInput" min="1" max="99999999" class="form-control" name="userID" placeholder="420">
+                    </div>
+
+                    <div id="RMBId-group" class="form-group">
+                        <label for="RMBId">Raw Material Batch ID</label>
+                        <input type="number" id="RMBIdInput" min="1" max="99999999" class="form-control" name="RMBId" placeholder="69">
+                    </div>
+
+                    <div id="tara-group" class="form-group">
+                        <label for="tara">Tara (kg) </label>
+                        <input type="number" id="taraInput" min="0" max="99999999" step="0.0001" class="form-control" name="tara" placeholder="2.09">
+                    </div>
+
+                    <div id="netto-group" class="form-group">
+                        <label for="netto">Netto (kg)</label>
+                        <input type="number" id="nettoInput" min="0" max="99999999" step="0.0001" class="form-control" name="netto" placeholder="13.37">
+                    </div>
+
+                    <button id="submitForm" class="btn btn-success">Submit <span
+                            class="fa fa-arrow-right"></span></button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="renders.js"></script>
+<script src="script.js"></script>
 </body>
 
 </html>

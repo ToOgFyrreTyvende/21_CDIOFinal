@@ -31,6 +31,9 @@ const renders = {
         }
         this.roleEl.html(data);
     },
+
+
+    <!--RenderInputField user-->
     renderInputFields: function(id){
         user = this.users.filter((el) => el.userId === id)[0]
         if(user){
@@ -41,7 +44,7 @@ const renders = {
             $("#passwordInput").val(user.password);
             $(`#roles option`).prop('selected', false);
             user.roles.map((x) => $(`#roles option[value='${x}']`).prop('selected', true))
-            
+
         }
     }
 }
