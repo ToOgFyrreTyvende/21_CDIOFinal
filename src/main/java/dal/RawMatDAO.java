@@ -7,12 +7,14 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatDAO {
+public class RawMatDAO implements dal.interfaces.IRawMatDAO {
 
+    @Override
     public RawMat createRawMat() {
         return new RawMat();
     }
 
+    @Override
     public RawMat getObject(Connection conn, int rawMatID) throws NotFoundException, SQLException {
 
         RawMat rawMat = createRawMat();
@@ -21,6 +23,7 @@ public class RawMatDAO {
         return rawMat;
     }
 
+    @Override
     public void load(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM RawMats WHERE (rawMatID = ? ) ";
@@ -44,6 +47,7 @@ public class RawMatDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public List loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM RawMats ORDER BY rawMatID ASC ";
@@ -56,6 +60,7 @@ public class RawMatDAO {
      * create-method. This will create new row in database according to supplied
      * RawMat contents.
      */
+    @Override
     public synchronized void create(Connection conn, RawMat rawMat) throws SQLException {
 
         String sql = "";
@@ -88,6 +93,7 @@ public class RawMatDAO {
      * @param RawMat This parameter contains the class instance to be saved.
      *               Primary-key field must be set for this to work properly.
      */
+    @Override
     public void save(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
 
         String sql = "UPDATE RawMats SET rawMatName = ? WHERE (rawMatID = ? ) ";
@@ -123,6 +129,7 @@ public class RawMatDAO {
      * @param RawMat This parameter contains the class instance to be deleted.
      *               Primary-key field must be set for this to work properly.
      */
+    @Override
     public void delete(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM RawMats WHERE (rawMatID = ? ) ";
@@ -154,6 +161,7 @@ public class RawMatDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public void deleteAll(Connection conn) throws SQLException {
 
         String sql = "DELETE FROM RawMats";
@@ -174,6 +182,7 @@ public class RawMatDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public int countAll(Connection conn) throws SQLException {
 
         String sql = "SELECT count(*) FROM RawMats";
@@ -204,6 +213,7 @@ public class RawMatDAO {
      * @param rawMat This parameter contains the class instance where search will be
      *               based. Primary-key field should not be set.
      */
+    @Override
     public List searchMatching(Connection conn, RawMat rawMat) throws SQLException {
 
         List searchResults;

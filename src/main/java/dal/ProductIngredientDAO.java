@@ -7,12 +7,14 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class ProductIngredientDAO {
+public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
 
+    @Override
     public ProductIngredient createproductIngredient() {
         return new ProductIngredient();
     }
 
+    @Override
     public ProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException {
 
         ProductIngredient productIngredient = createproductIngredient();
@@ -21,6 +23,7 @@ public class ProductIngredientDAO {
         return productIngredient;
     }
 
+    @Override
     public void load(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM ProductIngredients WHERE (ingredientId = ? ) ";
@@ -38,6 +41,7 @@ public class ProductIngredientDAO {
         }
     }
 
+    @Override
     public List loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM ProductIngredients ORDER BY ingredientId ASC ";
@@ -56,6 +60,7 @@ public class ProductIngredientDAO {
      *                          the Primary-key field must be set for this to work
      *                          properly.
      */
+    @Override
     public synchronized void create(Connection conn, ProductIngredient productIngredient) throws SQLException {
 
         String sql = "";
@@ -90,6 +95,7 @@ public class ProductIngredientDAO {
      * @param conn              This method requires working database connection.
      * @param productIngredient
      */
+    @Override
     public void save(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
 
         String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ? WHERE (ingredientId = ? ) ";
@@ -125,6 +131,7 @@ public class ProductIngredientDAO {
      * @param conn              This method requires working database connection.
      * @param productIngredient
      */
+    @Override
     public void delete(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM ProductIngredients WHERE (ingredientId = ? ) ";
@@ -156,6 +163,7 @@ public class ProductIngredientDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public void deleteAll(Connection conn) throws SQLException {
 
         String sql = "DELETE FROM ProductIngredients";
@@ -176,6 +184,7 @@ public class ProductIngredientDAO {
      * 
      * @param conn This method requires working database connection.
      */
+    @Override
     public int countAll(Connection conn) throws SQLException {
 
         String sql = "SELECT count(*) FROM ProductIngredients";
@@ -205,6 +214,7 @@ public class ProductIngredientDAO {
      * @param conn              This method requires working database connection.
      * @param productIngredient
      */
+    @Override
     public List searchMatching(Connection conn, ProductIngredient productIngredient) throws SQLException {
 
         List searchResults;

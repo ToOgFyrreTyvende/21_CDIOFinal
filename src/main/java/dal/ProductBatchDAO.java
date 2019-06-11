@@ -6,12 +6,14 @@ import java.math.*;
 import dal.exceptions.NotFoundException;
 import dto.ProductBatch;
 
-public class ProductBatchDAO {
+public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
+    @Override
     public ProductBatch createProductBatch() {
         return new ProductBatch();
     }
 
+    @Override
     public ProductBatch getObject(Connection conn, int prodBatchId) throws NotFoundException, SQLException {
 
         ProductBatch ProductBatch = createProductBatch();
@@ -20,6 +22,7 @@ public class ProductBatchDAO {
         return ProductBatch;
     }
 
+    @Override
     public void load(Connection conn, ProductBatch ProductBatch) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM ProductBatches WHERE (prodBatchId = ? ) ";
@@ -45,6 +48,7 @@ public class ProductBatchDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public List loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM ProductBatches ORDER BY prodBatchId ASC ";
@@ -66,6 +70,7 @@ public class ProductBatchDAO {
      *                     If automatic surrogate-keys are not used the Primary-key
      *                     field must be set for this to work properly.
      */
+    @Override
     public synchronized void create(Connection conn, ProductBatch ProductBatch) throws SQLException {
 
         String sql = "";
@@ -130,6 +135,7 @@ public class ProductBatchDAO {
      * @param ProductBatch This parameter contains the class instance to be saved.
      *                     Primary-key field must be set for this to work properly.
      */
+    @Override
     public void save(Connection conn, ProductBatch ProductBatch) throws NotFoundException, SQLException {
 
         String sql = "UPDATE ProductBatches SET prodId = ?, rawMatBatchId = ?, status = ? WHERE (prodBatchId = ? ) ";
@@ -172,6 +178,7 @@ public class ProductBatchDAO {
      * @param ProductBatch This parameter contains the class instance to be deleted.
      *                     Primary-key field must be set for this to work properly.
      */
+    @Override
     public void delete(Connection conn, ProductBatch ProductBatch) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM ProductBatches WHERE (prodBatchId = ? ) ";
@@ -209,6 +216,7 @@ public class ProductBatchDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public void deleteAll(Connection conn) throws SQLException {
 
         String sql = "DELETE FROM ProductBatches";
@@ -229,6 +237,7 @@ public class ProductBatchDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public int countAll(Connection conn) throws SQLException {
 
         String sql = "SELECT count(*) FROM ProductBatches";
@@ -259,6 +268,7 @@ public class ProductBatchDAO {
      * @param ProductBatch This parameter contains the class instance where search
      *                     will be based. Primary-key field should not be set.
      */
+    @Override
     public List searchMatching(Connection conn, ProductBatch ProductBatch) throws SQLException {
 
         List searchResults;
