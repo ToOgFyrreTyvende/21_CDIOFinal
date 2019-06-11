@@ -29,6 +29,13 @@ from ProductIngredients
 where ProductIngredients.productId = 1;
 
 
+select rawMatBatchId, rmb.rawMatId, wib.userId, rawMatName, tara, netto, supplier from ProductBatches as pb
+inner join WeighedIngredientsBatches as wib on wib.prodBatchId = pb.prodBatchId
+inner join RawMatBatches as rmb on wib.rawMatBatchId = rmb.rmbId
+inner join RawMats Mat on rmb.rawMatId = Mat.rawMatId
+where pb.prodBatchId = 1
+
+
 SELECT *
 FROM Users;
 SELECT *

@@ -48,7 +48,7 @@ public class UserResource {
 
         Connection conn = SQLTools.createConnection();
         try {
-            return Response.ok(pdao.getObject(conn, 1)).build();
+            return Response.ok(pdao.loadAll(conn)).build();
         } catch (Exception e) {
             e.printStackTrace();
         }

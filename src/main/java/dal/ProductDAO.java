@@ -114,10 +114,10 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
-            stmt.setDouble(3, product.getNomNetto());
-            stmt.setDouble(4, product.getTolerance());
+            stmt.setDouble(2, product.getNomNetto());
+            stmt.setDouble(3, product.getTolerance());
 
-            stmt.setInt(5, product.getProductId());
+            stmt.setInt(4, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
             ensureIngredients(conn, product);
@@ -337,31 +337,8 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
                 product.setNomNetto(result.getDouble("nomNetto"));
                 product.setTolerance(result.getDouble("tolerance"));
 
-                String sql =
-                        "select RM.rawMatId, RM.rawMatName, amount\n" +
-                        "from ProductIngredients\n" +
-                        "  inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID\n" +
-                        "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
-                        "where ProductIngredients.productId = ?;";
-
-                List<IProduct.IRawMatAmount> inglist = new ArrayList<>();
-
-                PreparedStatement ingredients = null;
-                ingredients = conn.prepareStatement(sql);
-                ingredients.setInt(1, result.getInt("productId"));
-                ResultSet ingres = ingredients.executeQuery();
-
-                while (ingres.next()){
-                    Product.RawMatAmount temping = new Product.RawMatAmount();
-                    temping.setAmount(ingres.getDouble("amount"));
-                    temping.setName(ingres.getString("rawMatName"));
-                    temping.setRawMatId(ingres.getInt("rawMatId"));
-
-                    inglist.add(temping);
-                }
-
-                product.setIngredients(inglist);
-                } else {
+                retrieveIngredients(conn, product, result.getInt("productId"));
+            } else {
                 //System.out.println("Product Object Not Found!");
                 throw new NotFoundException("Product Object Not Found!");
             }
@@ -371,6 +348,33 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             if (stmt != null)
                 stmt.close();
         }
+    }
+
+    private void retrieveIngredients(Connection conn, Product product, int productId) throws SQLException {
+        String sql =
+                "select RM.rawMatId, RM.rawMatName, amount\n" +
+                "from ProductIngredients\n" +
+                "  inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID\n" +
+                "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
+                "where ProductIngredients.productId = ?;";
+
+        List<IProduct.IRawMatAmount> inglist = new ArrayList<>();
+
+        PreparedStatement ingredients = null;
+        ingredients = conn.prepareStatement(sql);
+        ingredients.setInt(1, productId);
+        ResultSet ingres = ingredients.executeQuery();
+
+        while (ingres.next()){
+            Product.RawMatAmount temping = new Product.RawMatAmount();
+            temping.setAmount(ingres.getDouble("amount"));
+            temping.setName(ingres.getString("rawMatName"));
+            temping.setRawMatId(ingres.getInt("rawMatId"));
+
+            inglist.add(temping);
+        }
+
+        product.setIngredients(inglist);
     }
 
 
@@ -397,6 +401,9 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
                 temp.setProductName(result.getString("productName"));
                 temp.setNomNetto(result.getDouble("nomNetto"));
                 temp.setTolerance(result.getDouble("tolerance"));
+
+                retrieveIngredients(conn, temp, result.getInt("productId"));
+
 
                 searchResults.add(temp);
             }

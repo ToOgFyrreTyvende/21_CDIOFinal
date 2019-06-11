@@ -330,9 +330,9 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
      *
      * @param conn         This method requires working database connection.
      * @param stmt         This parameter contains the SQL statement to be excuted.
-     * @param ProductBatch Class-instance where resulting data will be stored.
+     * @param productBatch Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, IProductBatch ProductBatch)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IProductBatch productBatch)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -342,10 +342,10 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
             if (result.next()) {
 
-                ProductBatch.setProdBatchId(result.getInt("prodBatchId"));
-                ProductBatch.setProdId(result.getInt("prodId"));
-                ProductBatch.setStatus(result.getInt("status"));
-
+                productBatch.setProdBatchId(result.getInt("prodBatchId"));
+                productBatch.setProdId(result.getInt("prodId"));
+                productBatch.setStatus(result.getInt("status"));
+                retrieveWeighings(conn, productBatch, result.getInt("prodBatchId"));
             } else {
                 // System.out.println("ProductBatch Object Not Found!");
                 throw new NotFoundException("ProductBatch Object Not Found!");
@@ -356,6 +356,34 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             if (stmt != null)
                 stmt.close();
         }
+    }
+    private void retrieveWeighings(Connection conn, IProductBatch product, int pbId) throws SQLException {
+        String sql = "select rawMatBatchId, rmb.rawMatId, wib.userId, rawMatName, tara, netto, supplier from ProductBatches as pb\n" +
+                "inner join WeighedIngredientsBatches as wib on wib.prodBatchId = pb.prodBatchId\n" +
+                "inner join RawMatBatches as rmb on wib.rawMatBatchId = rmb.rmbId\n" +
+                "inner join RawMats Mat on rmb.rawMatId = Mat.rawMatId\n" +
+                "where pb.prodBatchId = ?";
+
+        List<IProductBatch.IWeighings> rmblist = new ArrayList<>();
+
+        PreparedStatement rmb = conn.prepareStatement(sql);
+        rmb.setInt(1, pbId);
+        ResultSet rmbres = rmb.executeQuery();
+
+        while (rmbres.next()){
+            IProductBatch.IWeighings temprmb = new ProductBatch.Weighings();
+            temprmb.setRmbId(rmbres.getInt("rawMatBatchId"));
+            temprmb.setRawMatId(rmbres.getInt("rawMatId"));
+            temprmb.setUserId(rmbres.getInt("userId"));
+            temprmb.setName(rmbres.getString("rawMatName"));
+            temprmb.setTara(rmbres.getDouble("tara"));
+            temprmb.setNetto(rmbres.getDouble("netto"));
+            temprmb.setSupplier(rmbres.getString("supplier"));
+
+            rmblist.add(temprmb);
+        }
+
+        product.setWeighings(rmblist);
     }
 
     /**
@@ -379,6 +407,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
                 temp.setProdBatchId(result.getInt("prodBatchId"));
                 temp.setProdId(result.getInt("prodId"));
                 temp.setStatus(result.getInt("status"));
+                retrieveWeighings(conn, temp, result.getInt("prodBatchId"));
 
                 searchResults.add(temp);
             }
