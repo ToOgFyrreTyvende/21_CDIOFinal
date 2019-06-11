@@ -1,77 +1,94 @@
+-- ------------------------- --
+-- CDIO Final database stuff --
+-- ------------------------- --
+
 DROP DATABASE IF EXISTS cdiofinal;
 CREATE DATABASE cdiofinal;
 
 USE cdiofinal;
 
-DROP TABLE IF EXISTS Products;
-CREATE TABLE Products (
-productId int NOT NULL,
-productName varchar(255),
-rawMatId int,
-nomNetto double,
-tolerance double,
-PRIMARY KEY(productId),
-INDEX Products_productId_INDEX (productId));
-
+# Table: "Users" ("Laborant i opg. besk.)
 DROP TABLE IF EXISTS Users;
-CREATE TABLE Users (
-userId int NOT NULL,
-userName VARCHAR(20) NOT NULL COMMENT 'User navn' CHECK ( 2 <= CHAR_LENGTH(userName) <= 20 ),
-ini      VARCHAR(4)  NOT NULL COMMENT 'User initialer' CHECK ( 2 <= CHAR_LENGTH(ini) <= 4 ),
-cpr      VARCHAR(11) NOT NULL COMMENT 'User cpr nr' CHECK ( 10 <= CHAR_LENGTH(cpr) <= 11 ),
-role     VARCHAR(16) NOT NULL COMMENT 'User role' CHECK ( 5 <= CHAR_LENGTH(role) <= 20 ),
-PRIMARY KEY(userId),
-INDEX Users_userId_INDEX (userId));
+CREATE TABLE Users
+(
+    userId   INT AUTO_INCREMENT COMMENT 'User id',
+    userName VARCHAR(20) NOT NULL COMMENT 'User navn' CHECK ( 2 <= CHAR_LENGTH(userName) <= 20 ),
+    ini      VARCHAR(4)  NOT NULL COMMENT 'User initialer' CHECK ( 2 <= CHAR_LENGTH(ini) <= 4 ),
+    cpr      VARCHAR(11) NOT NULL COMMENT 'User cpr nr' CHECK ( 10 <= CHAR_LENGTH(cpr) <= 11 ),
+    role     VARCHAR(16) NOT NULL COMMENT 'User role' CHECK ( 5 <= CHAR_LENGTH(role) <= 20 ),
+    PRIMARY KEY (userId)
+);
 
-DROP TABLE IF EXISTS ProductBatches;
-CREATE TABLE ProductBatches (
-prodBatchId int AUTO_INCREMENT NOT NULL,
-prodId int,
-rawMatBatchId int,
-status int,
-PRIMARY KEY(prodBatchId),
-FOREIGN KEY (prodId) REFERENCES Products (productId) ON DELETE CASCADE,
-INDEX ProductBatches_prodBatchId_INDEX (prodBatchId));
-
+# Table: "RawMat"
 DROP TABLE IF EXISTS RawMats;
-CREATE TABLE RawMats (
-rawMatID int NOT NULL,
-rawMatName varchar(255) NOT NULL COMMENT 'Råvare navn' CHECK ( 2 <= CHAR_LENGTH(rawMatName) <= 20 ),
-PRIMARY KEY(rawMatID),
-INDEX RawMats_rawMatID_INDEX (rawMatID));
+CREATE TABLE RawMats
+(
+    rawMatId   INT AUTO_INCREMENT COMMENT 'Råvare id',
+    rawMatName VARCHAR(255) NOT NULL COMMENT 'Råvare navn' CHECK ( 2 <= CHAR_LENGTH(rawMatName) <= 255 ),
+    PRIMARY KEY (rawMatId)
+);
 
-
+# Table: "RawMatBatch"
 DROP TABLE IF EXISTS RawMatBatches;
-CREATE TABLE RawMatBatches (
-rmbId int NOT NULL,
-rawMatId INT NOT NULL COMMENT 'Råvare id',
-amount double,
-supplier varchar(255),
-PRIMARY KEY(rmbId),
-FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE,
-INDEX RawMatBatches_rmbId_INDEX (rmbId));
+CREATE TABLE RawMatBatches
+(
+    rmbId    INT AUTO_INCREMENT COMMENT 'Råvare batch id',
+    rawMatId INT          NOT NULL COMMENT 'Råvare id',
+    amount   DOUBLE COMMENT 'Lagerbeholdning i kilogram, med 4 decimaler',
+    supplier VARCHAR(255) NOT NULL COMMENT 'Leverandør af råvare' CHECK ( 2 <= CHAR_LENGTH(supplier) <= 255 ),
+    PRIMARY KEY (rmbId),
+    FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE
+);
 
-DROP TABLE IF EXISTS WeighedBatches;
-CREATE TABLE WeighedBatches (
-weighedBatchId int NOT NULL,
-rawMatBatchId int NOT NULL,
-productBatchId int NOT NULL,
-userId int,
-tara double,
-netto double,
-PRIMARY KEY(weighedBatchId),
-FOREIGN KEY (rawMatBatchId) REFERENCES RawMatBatches (rmbId) ON DELETE CASCADE,
-FOREIGN KEY (productBatchId) REFERENCES ProductBatches (prodBatchId) ON DELETE CASCADE,
-FOREIGN KEY (userId) REFERENCES Users (userId) ON DELETE CASCADE,
-INDEX WeighedBatches_weighedBatchId_INDEX (weighedBatchId));
+# Table: "Products" ("Recept" i opg beskrivelsen)
+DROP TABLE IF EXISTS Products;
+CREATE TABLE Products
+(
+    productId INT AUTO_INCREMENT COMMENT 'Product Id',
+    prescName VARCHAR(20) NOT NULL COMMENT 'Product navn' CHECK ( 2 <= CHAR_LENGTH(prescName) <= 20 ),
+    rawMatId  INT         NOT NULL COMMENT 'Råvare id',
+    nonNetto  DOUBLE      NOT NULL COMMENT 'Mængden i kilogram, med 4 decimaler' CHECK ( 0.05 <= CHAR_LENGTH(nonNetto) <= 20.0 ),
+    tolerance DOUBLE      NOT NULL COMMENT 'Tolerancen i procent på nominel mængde' CHECK ( 0.1 <= CHAR_LENGTH(tolerance) <= 10.0 ),
+    PRIMARY KEY (productId),
+    FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE
+);
 
-
+# Table: "ProductIngredients"
 DROP TABLE IF EXISTS ProductIngredients;
-CREATE TABLE ProductIngredients (
-ingredientId int NOT NULL,
-rawMatId int,
-productId int,
-PRIMARY KEY(ingredientId),
-FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE,
-FOREIGN KEY (productId) REFERENCES Products (productId) ON DELETE CASCADE,
-INDEX ProductIngredients_ingredientId_INDEX (ingredientId));
+CREATE TABLE ProductIngredients
+(
+    productIngredientId INT AUTO_INCREMENT COMMENT 'Ingredientens ID',
+    rawMatId            INT    NOT NULL COMMENT 'Råvare batch id',
+    productId           INT    NOT NULL COMMENT 'Product Id',
+    amount              DOUBLE NOT NULL COMMENT 'mængde',
+    PRIMARY KEY (productIngredientId),
+    FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES Products (productId) ON DELETE CASCADE
+);
+
+# Table: "ProductBatch"
+DROP TABLE IF EXISTS ProductBatches;
+CREATE TABLE ProductBatches
+(
+    prodBatchId INT AUTO_INCREMENT COMMENT 'Produkt Batch id',
+    productId   INT NOT NULL COMMENT 'Product id',
+    status      INT NOT NULL Default 0 COMMENT 'Ikke påbegyndt = 0 / Under produktion = 1 / Afsluttet = 2' CHECK ( 0 <= status <= 2 ),
+    PRIMARY KEY (prodBatchId),
+    FOREIGN KEY (productId) REFERENCES Products (productId) ON DELETE CASCADE
+);
+
+# Table: "WeighedIngredientBatches"
+DROP TABLE IF EXISTS WeighedIngredientsBatches;
+CREATE TABLE WeighedIngredientsBatches
+(
+    weighedIngredientId INT AUTO_INCREMENT COMMENT 'Ingredientens ID',
+    rawMatBatchId       INT    NOT NULL COMMENT 'Råvare batch id',
+    prodBatchId         INT    NOT NULL COMMENT 'Product batch Id',
+    userId              INT    NOT NULL COMMENT 'User id',
+    tara                DOUBLE NOT NULL COMMENT 'Tara i kg med 4 decimaler',
+    netto               DOUBLE NOT NULL COMMENT 'Netto i kg med 4 decimaler',
+    PRIMARY KEY (weighedIngredientId),
+    FOREIGN KEY (rawMatBatchId) REFERENCES RawMatBatches (rmbId) ON DELETE CASCADE,
+    FOREIGN KEY (prodBatchId) REFERENCES ProductBatches (prodBatchId) ON DELETE CASCADE,
+    FOREIGN KEY (userId) REFERENCES Users (userId) ON DELETE CASCADE
+);
