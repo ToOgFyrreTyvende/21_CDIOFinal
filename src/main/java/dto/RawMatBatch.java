@@ -8,7 +8,7 @@ import java.math.*;
 public class RawMatBatch implements Cloneable, Serializable {
 
     private int rmbId;
-    private String rawMatId;
+    private int rawMatId;
     private double amount;
     private String supplier;
 
@@ -27,11 +27,11 @@ public class RawMatBatch implements Cloneable, Serializable {
         this.rmbId = rmbIdIn;
     }
 
-    public String getRawMatId() {
+    public int getRawMatId() {
         return this.rawMatId;
     }
 
-    public void setRawMatId(String rawMatIdIn) {
+    public void setRawMatId(int rawMatIdIn) {
         this.rawMatId = rawMatIdIn;
     }
 
@@ -51,7 +51,7 @@ public class RawMatBatch implements Cloneable, Serializable {
         this.supplier = supplierIn;
     }
 
-    public void setAll(int rmbIdIn, String rawMatIdIn, double amountIn, String supplierIn) {
+    public void setAll(int rmbIdIn, int rawMatIdIn, double amountIn, String supplierIn) {
         this.rmbId = rmbIdIn;
         this.rawMatId = rawMatIdIn;
         this.amount = amountIn;
@@ -63,10 +63,7 @@ public class RawMatBatch implements Cloneable, Serializable {
         if (valueObject.getRmbId() != this.rmbId) {
             return (false);
         }
-        if (this.rawMatId == null) {
-            if (valueObject.getRawMatId() != null)
-                return (false);
-        } else if (!this.rawMatId.equals(valueObject.getRawMatId())) {
+        if (valueObject.getRawMatId() != this.rawMatId) {
             return (false);
         }
         if (valueObject.getAmount() != this.amount) {
@@ -96,8 +93,7 @@ public class RawMatBatch implements Cloneable, Serializable {
         RawMatBatch cloned = new RawMatBatch();
 
         cloned.setRmbId(this.rmbId);
-        if (this.rawMatId != null)
-            cloned.setRawMatId(new String(this.rawMatId));
+        cloned.setRawMatId(this.rawMatId);
         cloned.setAmount(this.amount);
         if (this.supplier != null)
             cloned.setSupplier(new String(this.supplier));
