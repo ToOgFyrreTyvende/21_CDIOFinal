@@ -2,8 +2,6 @@ package web;
 
 import dal.UserDAO;
 import dal.interfaces.IUserDAO;
-import dto.User;
-import functionality.*;
 import utils.SQLTools;
 
 import javax.ws.rs.*;
@@ -43,7 +41,7 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        UserDAO dao = new UserDAO();
+        IUserDAO dao = new UserDAO();
         Connection conn = SQLTools.createConnection();
         try {
             return Response.ok(dao.loadAll(conn)).build();

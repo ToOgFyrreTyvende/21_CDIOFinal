@@ -7,12 +7,14 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class UserDAO {
+public class UserDAO implements dal.interfaces.IUserDAO {
 
+    @Override
     public User createUser() {
         return new User();
     }
 
+    @Override
     public User getObject(Connection conn, int userId) throws NotFoundException, SQLException {
 
         User User = createUser();
@@ -21,6 +23,7 @@ public class UserDAO {
         return User;
     }
 
+    @Override
     public void load(Connection conn, User User) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM Users WHERE (userId = ? ) ";
@@ -44,6 +47,7 @@ public class UserDAO {
      * 
      * @param conn This method requires working database connection.
      */
+    @Override
     public List loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM Users ORDER BY userId ASC ";
@@ -61,6 +65,7 @@ public class UserDAO {
      *             automatic surrogate-keys are not used the Primary-key field must
      *             be set for this to work properly.
      */
+    @Override
     public synchronized void create(Connection conn, User user) throws SQLException {
 
         String sql = "";
@@ -97,6 +102,7 @@ public class UserDAO {
      * @param user This parameter contains the class instance to be saved.
      *             Primary-key field must be set for this to work properly.
      */
+    @Override
     public void save(Connection conn, User user) throws NotFoundException, SQLException {
 
         String sql = "UPDATE Users SET userName = ?, ini = ?, cpr = ?, " + "role = ? WHERE (userId = ? ) ";
@@ -135,6 +141,7 @@ public class UserDAO {
      * @param user This parameter contains the class instance to be deleted.
      *             Primary-key field must be set for this to work properly.
      */
+    @Override
     public void delete(Connection conn, User user) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM Users WHERE (userId = ? ) ";
@@ -166,6 +173,7 @@ public class UserDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public void deleteAll(Connection conn) throws SQLException {
 
         String sql = "DELETE FROM Users";
@@ -186,6 +194,7 @@ public class UserDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public int countAll(Connection conn) throws SQLException {
 
         String sql = "SELECT count(*) FROM Users";
@@ -216,6 +225,7 @@ public class UserDAO {
      * @param user This parameter contains the class instance where search will be
      *             based. Primary-key field should not be set.
      */
+    @Override
     public List searchMatching(Connection conn, User user) throws SQLException {
 
         List searchResults;

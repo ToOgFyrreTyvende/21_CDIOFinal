@@ -1,34 +1,30 @@
 package dal.interfaces;
 
+import dal.exceptions.NotFoundException;
+import dto.User;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
-import dto.*;
-
 public interface IUserDAO {
+    User createUser();
 
-    IUserDTO getUser(int userId) throws DALException;
-    List<IUserDTO> getUserList() throws DALException;
-    List<IUserRolesDTO> getRoles() throws DALException;
+    User getObject(Connection conn, int userId) throws NotFoundException, SQLException;
 
-    void createUser(IUserDTO user) throws DALException;
-    void updateUser(IUserDTO user) throws DALException;
-    void deleteUser(int userId) throws DALException;
+    void load(Connection conn, User User) throws NotFoundException, SQLException;
 
-    class DALException extends Exception {
+    List loadAll(Connection conn) throws SQLException;
 
-        /**
-         *
-         */
-        private static final long serialVersionUID = 7355418246336739229L;
+    void create(Connection conn, User user) throws SQLException;
 
-        public DALException(String msg, Throwable e){
-            super(msg, e);
-        }
+    void save(Connection conn, User user) throws NotFoundException, SQLException;
 
-        public DALException(String msg){
-            super(msg);
-        }
+    void delete(Connection conn, User user) throws NotFoundException, SQLException;
 
-    }
+    void deleteAll(Connection conn) throws SQLException;
 
+    int countAll(Connection conn) throws SQLException;
+
+    List searchMatching(Connection conn, User user) throws SQLException;
 }

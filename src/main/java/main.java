@@ -1,5 +1,3 @@
-import dal.interfaces.IUserDAO;
-
 import java.io.IOException;
 
 public class main {
