@@ -1,36 +1,36 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
-import dto.RawMat;
+import dto.User;
 
 import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatDAO {
+public class UserDAO {
 
-    public RawMat createRawMat() {
-        return new RawMat();
+    public User createUser() {
+        return new User();
     }
 
-    public RawMat getObject(Connection conn, int rawMatID) throws NotFoundException, SQLException {
+    public User getObject(Connection conn, int userId) throws NotFoundException, SQLException {
 
-        RawMat RawMat = createRawMat();
-        rawMat.setRawMatID(rawMatID);
-        load(conn, RawMat);
-        return RawMat;
+        User User = createUser();
+        User.setUserId(userId);
+        load(conn, User);
+        return User;
     }
 
-    public void load(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
+    public void load(Connection conn, User User) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM RawMats WHERE (rawMatID = ? ) ";
+        String sql = "SELECT * FROM Users WHERE (userId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, rawMat.getRawMatID());
+            stmt.setInt(1, User.getUserId());
 
-            singleQuery(conn, stmt, rawMat);
+            singleQuery(conn, stmt, User);
 
         } finally {
             if (stmt != null)
@@ -40,13 +40,13 @@ public class RawMatDAO {
 
     /**
      * LoadAll-method. This will read all contents from database table and build a
-     * List containing RawMats.
-     *
+     * List containing Users.
+     * 
      * @param conn This method requires working database connection.
      */
     public List loadAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT * FROM RawMats ORDER BY rawMatID ASC ";
+        String sql = "SELECT * FROM Users ORDER BY userId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
         return searchResults;
@@ -54,20 +54,28 @@ public class RawMatDAO {
 
     /**
      * create-method. This will create new row in database according to supplied
-     * RawMat contents.
+     * User contents.
+     * 
+     * @param conn This method requires working database connection.
+     * @param user This parameter contains the class instance to be created. If
+     *             automatic surrogate-keys are not used the Primary-key field must
+     *             be set for this to work properly.
      */
-    public synchronized void create(Connection conn, RawMat rawMat) throws SQLException {
+    public synchronized void create(Connection conn, User user) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO RawMats ( rawMatID, rawMatName) VALUES (?, ?) ";
+            sql = "INSERT INTO Users ( userId, userName, ini, " + "cpr, role) VALUES (?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, rawMat.getRawMatID());
-            stmt.setString(2, rawMat.getRawMatName());
+            stmt.setInt(1, user.getUserId());
+            stmt.setString(2, user.getUserName());
+            stmt.setString(3, user.getIni());
+            stmt.setString(4, user.getCpr());
+            stmt.setString(5, user.getRole());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
@@ -79,25 +87,29 @@ public class RawMatDAO {
             if (stmt != null)
                 stmt.close();
         }
+
     }
 
     /**
-     * save-method. This method will save the current state of RawMat to database.
+     * save-method. This method will save the current state of User to database.
      *
-     * @param conn   This method requires working database connection.
-     * @param RawMat This parameter contains the class instance to be saved.
-     *               Primary-key field must be set for this to work properly.
+     * @param conn This method requires working database connection.
+     * @param user This parameter contains the class instance to be saved.
+     *             Primary-key field must be set for this to work properly.
      */
-    public void save(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
+    public void save(Connection conn, User user) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE RawMats SET rawMatName = ? WHERE (rawMatID = ? ) ";
+        String sql = "UPDATE Users SET userName = ?, ini = ?, cpr = ?, " + "role = ? WHERE (userId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, rawMat.getRawMatName());
+            stmt.setString(1, user.getUserName());
+            stmt.setString(2, user.getIni());
+            stmt.setString(3, user.getCpr());
+            stmt.setString(4, user.getRole());
 
-            stmt.setInt(2, rawMat.getRawMatID());
+            stmt.setInt(5, user.getUserId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -117,20 +129,20 @@ public class RawMatDAO {
 
     /**
      * delete-method. This method will remove the information from database as
-     * identified by by primary-key in supplied rawMat.
-     *
-     * @param conn   This method requires working database connection.
-     * @param RawMat This parameter contains the class instance to be deleted.
-     *               Primary-key field must be set for this to work properly.
+     * identified by by primary-key in supplied User.
+     * 
+     * @param conn This method requires working database connection.
+     * @param user This parameter contains the class instance to be deleted.
+     *             Primary-key field must be set for this to work properly.
      */
-    public void delete(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
+    public void delete(Connection conn, User user) throws NotFoundException, SQLException {
 
-        String sql = "DELETE FROM RawMats WHERE (rawMatID = ? ) ";
+        String sql = "DELETE FROM Users WHERE (userId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, rawMat.getRawMatID());
+            stmt.setInt(1, user.getUserId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -150,13 +162,13 @@ public class RawMatDAO {
 
     /**
      * deleteAll-method. This method will remove all information from the table that
-     * matches this Dao and RawMat couple.
+     * matches this Dao and User couple.
      *
      * @param conn This method requires working database connection.
      */
     public void deleteAll(Connection conn) throws SQLException {
 
-        String sql = "DELETE FROM RawMats";
+        String sql = "DELETE FROM Users";
         PreparedStatement stmt = null;
 
         try {
@@ -170,13 +182,13 @@ public class RawMatDAO {
 
     /**
      * coutAll-method. This method will return the number of all rows from table
-     * that matches this Dao.
+     * that matches this Dao
      *
      * @param conn This method requires working database connection.
      */
     public int countAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT count(*) FROM RawMats";
+        String sql = "SELECT count(*) FROM Users";
         PreparedStatement stmt = null;
         ResultSet result = null;
         int allRows = 0;
@@ -198,34 +210,55 @@ public class RawMatDAO {
 
     /**
      * searchMatching-Method. This method provides searching capability to get
-     * matching RawMats from database.
+     * matching Users from database.
      *
-     * @param conn   This method requires working database connection.
-     * @param rawMat This parameter contains the class instance where search will be
-     *               based. Primary-key field should not be set.
+     * @param conn This method requires working database connection.
+     * @param user This parameter contains the class instance where search will be
+     *             based. Primary-key field should not be set.
      */
-    public List searchMatching(Connection conn, RawMat rawMat) throws SQLException {
+    public List searchMatching(Connection conn, User user) throws SQLException {
 
         List searchResults;
 
         boolean first = true;
-        StringBuffer sql = new StringBuffer("SELECT * FROM RawMats WHERE 1=1 ");
+        StringBuffer sql = new StringBuffer("SELECT * FROM Users WHERE 1=1 ");
 
-        if (rawMat.getRawMatID() != 0) {
+        if (user.getUserId() != 0) {
             if (first) {
                 first = false;
             }
-            sql.append("AND rawMatID = ").append(rawMat.getRawMatID()).append(" ");
+            sql.append("AND userId = ").append(user.getUserId()).append(" ");
         }
 
-        if (rawMat.getRawMatName() != null) {
+        if (user.getUserName() != null) {
             if (first) {
                 first = false;
             }
-            sql.append("AND rawMatName LIKE '").append(rawMat.getRawMatName()).append("%' ");
+            sql.append("AND userName LIKE '").append(user.getUserName()).append("%' ");
         }
 
-        sql.append("ORDER BY rawMatID ASC ");
+        if (user.getIni() != null) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND ini LIKE '").append(user.getIni()).append("%' ");
+        }
+
+        if (user.getCpr() != null) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND cpr LIKE '").append(user.getCpr()).append("%' ");
+        }
+
+        if (user.getRole() != null) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND role LIKE '").append(user.getRole()).append("%' ");
+        }
+
+        sql.append("ORDER BY userId ASC ");
 
         // Prevent accidential full table results.
         // Use loadAll if all rows must be returned.
@@ -239,7 +272,7 @@ public class RawMatDAO {
 
     /**
      * databaseUpdate-method. This method is a helper method for internal use.
-     *
+     * 
      * @param conn This method requires working database connection.
      * @param stmt This parameter contains the SQL statement to be excuted.
      */
@@ -252,12 +285,12 @@ public class RawMatDAO {
 
     /**
      * databaseQuery-method. This method is a helper method for internal use.
-     *
-     * @param conn   This method requires working database connection.
-     * @param stmt   This parameter contains the SQL statement to be excuted.
-     * @param rawMat Class-instance where resulting data will be stored.
+     * 
+     * @param conn This method requires working database connection.
+     * @param stmt This parameter contains the SQL statement to be excuted.
+     * @param user Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, RawMat rawMat)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, User user)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -267,12 +300,15 @@ public class RawMatDAO {
 
             if (result.next()) {
 
-                rawMat.setRawMatID(result.getInt("rawMatID"));
-                rawMat.setRawMatName(result.getString("rawMatName"));
+                user.setUserId(result.getInt("userId"));
+                user.setUserName(result.getString("userName"));
+                user.setIni(result.getString("ini"));
+                user.setCpr(result.getString("cpr"));
+                user.setRole(result.getString("role"));
 
             } else {
-                // System.out.println("RawMat Object Not Found!");
-                throw new NotFoundException("RawMat Object Not Found!");
+                // System.out.println("User Object Not Found!");
+                throw new NotFoundException("User Object Not Found!");
             }
         } finally {
             if (result != null)
@@ -283,8 +319,11 @@ public class RawMatDAO {
     }
 
     /**
-     * databaseQuery-method. This method is a helper method for internal use.
-     * 
+     * databaseQuery-method. This method is a helper method for internal use. It
+     * will execute all database queries that will return multiple rows. The
+     * resultset will be converted to the List of Users. If no rows were found, an
+     * empty List will be returned.
+     *
      * @param conn This method requires working database connection.
      * @param stmt This parameter contains the SQL statement to be excuted.
      */
@@ -297,10 +336,13 @@ public class RawMatDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                RawMat temp = createRawMat();
+                User temp = createUser();
 
-                temp.setRawMatID(result.getInt("rawMatID"));
-                temp.setRawMatName(result.getString("rawMatName"));
+                temp.setUserId(result.getInt("userId"));
+                temp.setUserName(result.getString("userName"));
+                temp.setIni(result.getString("ini"));
+                temp.setCpr(result.getString("cpr"));
+                temp.setRole(result.getString("role"));
 
                 searchResults.add(temp);
             }
