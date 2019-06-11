@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class WeighedBatch implements Cloneable, Serializable {
+public class WeighedBatch implements Cloneable, Serializable, dto.interfaces.IWeighedBatch {
 
     private int weighedBatchId;
     private int rawMatBatchId;
@@ -22,46 +22,57 @@ public class WeighedBatch implements Cloneable, Serializable {
 
     }
 
+    @java.lang.Override
     public int getWeighedBatchId() {
         return this.weighedBatchId;
     }
 
+    @java.lang.Override
     public void setWeighedBatchId(int weighedBatchIdIn) {
         this.weighedBatchId = weighedBatchIdIn;
     }
 
+    @java.lang.Override
     public int getRawMatBatchId() {
         return this.rawMatBatchId;
     }
 
+    @java.lang.Override
     public void setRawMatBatchId(int rawMatBatchIdIn) {
         this.rawMatBatchId = rawMatBatchIdIn;
     }
 
+    @java.lang.Override
     public int getUserId() {
         return this.userId;
     }
 
+    @java.lang.Override
     public void setUserId(int userIdIn) {
         this.userId = userIdIn;
     }
 
+    @java.lang.Override
     public double getTara() {
         return this.tara;
     }
 
+    @java.lang.Override
     public void setTara(double taraIn) {
         this.tara = taraIn;
     }
 
+    @java.lang.Override
     public double getNetto() {
         return this.netto;
     }
 
+    @java.lang.Override
     public void setNetto(double nettoIn) {
         this.netto = nettoIn;
     }
 
+    @java.lang.Override
     public void setAll(int weighedBatchIdIn, int rawMatBatchIdIn, int userIdIn, double taraIn, double nettoIn) {
         this.weighedBatchId = weighedBatchIdIn;
         this.rawMatBatchId = rawMatBatchIdIn;
@@ -70,6 +81,7 @@ public class WeighedBatch implements Cloneable, Serializable {
         this.netto = nettoIn;
     }
 
+    @java.lang.Override
     public boolean hasEqualMapping(WeighedBatch valueObject) {
 
         if (valueObject.getWeighedBatchId() != this.weighedBatchId) {
