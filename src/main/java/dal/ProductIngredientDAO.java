@@ -67,12 +67,13 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO ProductIngredients ( productIngredientId, rawMatId, productId) VALUES (?, ?, ?) ";
+            sql = "INSERT INTO ProductIngredients ( productIngredientId, rawMatId, productId, amount) VALUES (?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, productIngredient.getProductIngredientId());
             stmt.setInt(2, productIngredient.getRawMatId());
             stmt.setInt(3, productIngredient.getProductId());
+            stmt.setInt(4, productIngredient.getAmount());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
@@ -97,15 +98,16 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public void save(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ? WHERE (productIngredientId = ? ) ";
+        String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ?, amount = ? WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, productIngredient.getRawMatId());
             stmt.setInt(2, productIngredient.getProductId());
+            stmt.setInt(3, productIngredient.getAmount());
 
-            stmt.setInt(3, productIngredient.getProductIngredientId());
+            stmt.setInt(4, productIngredient.getProductIngredientId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
