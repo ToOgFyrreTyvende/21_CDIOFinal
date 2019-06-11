@@ -7,12 +7,14 @@ import java.sql.*;
 import java.util.*;
 
 
-public class ProductDAO {
+public class ProductDAO implements dal.interfaces.IProductDAO {
 
+    @Override
     public Product createproduct() {
         return new Product();
     }
 
+    @Override
     public Product getObject(Connection conn, int productId) throws NotFoundException, SQLException {
 
         Product product = createproduct();
@@ -21,6 +23,7 @@ public class ProductDAO {
         return product;
     }
 
+    @Override
     public void load(Connection conn, Product product) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM Products WHERE (productId = ? ) ";
@@ -43,6 +46,7 @@ public class ProductDAO {
      *
      * @param conn         This method requires working database connection.
      */
+    @Override
     public List loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM Products ORDER BY productId ASC ";
@@ -60,6 +64,7 @@ public class ProductDAO {
      *                     If automatic surrogate-keys are not used the Primary-key
      *                     field must be set for this to work properly.
      */
+    @Override
     public synchronized void create(Connection conn, Product product) throws SQLException {
 
         String sql = "";
@@ -96,6 +101,7 @@ public class ProductDAO {
      * @param product  This parameter contains the class instance to be saved.
      *                     Primary-key field must be set for this to work properly.
      */
+    @Override
     public void save(Connection conn, Product product)
             throws NotFoundException, SQLException {
 
@@ -136,6 +142,7 @@ public class ProductDAO {
      * @param product  This parameter contains the class instance to be deleted.
      *                     Primary-key field must be set for this to work properly.
      */
+    @Override
     public void delete(Connection conn, Product product)
             throws NotFoundException, SQLException {
 
@@ -168,6 +175,7 @@ public class ProductDAO {
      *
      * @param conn         This method requires working database connection.
      */
+    @Override
     public void deleteAll(Connection conn) throws SQLException {
 
         String sql = "DELETE FROM Products";
@@ -189,6 +197,7 @@ public class ProductDAO {
      *
      * @param conn         This method requires working database connection.
      */
+    @Override
     public int countAll(Connection conn) throws SQLException {
 
         String sql = "SELECT count(*) FROM Products";
@@ -221,6 +230,7 @@ public class ProductDAO {
      * @param product  This parameter contains the class instance where search will be based.
      *                     Primary-key field should not be set.
      */
+    @Override
     public List searchMatching(Connection conn, Product product) throws SQLException {
 
         List searchResults;

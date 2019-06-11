@@ -7,11 +7,13 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatBatchDAO {
+public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
+    @Override
     public RawMatBatch createrawMatBatch() {
         return new RawMatBatch();
     }
 
+    @Override
     public RawMatBatch getObject(Connection conn, int rmbId) throws NotFoundException, SQLException {
 
         RawMatBatch rawMatBatch = createrawMatBatch();
@@ -20,6 +22,7 @@ public class RawMatBatchDAO {
         return rawMatBatch;
     }
 
+    @Override
     public void load(Connection conn, RawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM RawMatBatches WHERE (rmbId = ? ) ";
@@ -43,6 +46,7 @@ public class RawMatBatchDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public List loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM RawMatBatches ORDER BY rmbId ASC ";
@@ -58,6 +62,7 @@ public class RawMatBatchDAO {
      * @param conn        This method requires working database connection.
      * @param rawMatBatch
      */
+    @Override
     public synchronized void create(Connection conn, RawMatBatch rawMatBatch) throws SQLException {
 
         String sql = "";
@@ -93,6 +98,7 @@ public class RawMatBatchDAO {
      * @param conn        This method requires working database connection.
      * @param rawMatBatch
      */
+    @Override
     public void save(Connection conn, RawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
         String sql = "UPDATE RawMatBatches SET rawMatId = ?, amount = ?, supplier = ? WHERE (rmbId = ? ) ";
@@ -129,6 +135,7 @@ public class RawMatBatchDAO {
      * @param conn        This method requires working database connection.
      * @param rawMatBatch
      */
+    @Override
     public void delete(Connection conn, RawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM RawMatBatches WHERE (rmbId = ? ) ";
@@ -160,6 +167,7 @@ public class RawMatBatchDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public void deleteAll(Connection conn) throws SQLException {
 
         String sql = "DELETE FROM RawMatBatches";
@@ -180,6 +188,7 @@ public class RawMatBatchDAO {
      *
      * @param conn This method requires working database connection.
      */
+    @Override
     public int countAll(Connection conn) throws SQLException {
 
         String sql = "SELECT count(*) FROM RawMatBatches";
@@ -210,6 +219,7 @@ public class RawMatBatchDAO {
      * @param rawMatBatch This parameter contains the class instance where search
      *                    will be based. Primary-key field should not be set.
      */
+    @Override
     public List searchMatching(Connection conn, RawMatBatch rawMatBatch) throws SQLException {
 
         List searchResults;
@@ -261,6 +271,7 @@ public class RawMatBatchDAO {
      * getDaogenVersion will return information about generator which created these
      * sources.
      */
+    @Override
     public String getDaogenVersion() {
         return "DaoGen version 2.4.1";
     }
