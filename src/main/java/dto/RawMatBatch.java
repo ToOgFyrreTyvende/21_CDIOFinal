@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatBatch implements Cloneable, Serializable {
+public class RawMatBatch implements dto.interfaces.IRawMatBatch {
 
     private int rmbId;
     private int rawMatId;
@@ -19,38 +19,47 @@ public class RawMatBatch implements Cloneable, Serializable {
         this.rmbId = rmbIdIn;
     }
 
+    @Override
     public int getRmbId() {
         return this.rmbId;
     }
 
+    @Override
     public void setRmbId(int rmbIdIn) {
         this.rmbId = rmbIdIn;
     }
 
+    @Override
     public int getRawMatId() {
         return this.rawMatId;
     }
 
+    @Override
     public void setRawMatId(int rawMatIdIn) {
         this.rawMatId = rawMatIdIn;
     }
 
+    @Override
     public double getAmount() {
         return this.amount;
     }
 
+    @Override
     public void setAmount(double amountIn) {
         this.amount = amountIn;
     }
 
+    @Override
     public String getSupplier() {
         return this.supplier;
     }
 
+    @Override
     public void setSupplier(String supplierIn) {
         this.supplier = supplierIn;
     }
 
+    @Override
     public void setAll(int rmbIdIn, int rawMatIdIn, double amountIn, String supplierIn) {
         this.rmbId = rmbIdIn;
         this.rawMatId = rawMatIdIn;
@@ -58,6 +67,7 @@ public class RawMatBatch implements Cloneable, Serializable {
         this.supplier = supplierIn;
     }
 
+    @Override
     public boolean hasEqualMapping(RawMatBatch valueObject) {
 
         if (valueObject.getRmbId() != this.rmbId) {
