@@ -78,7 +78,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
             stmt.setInt(1, product.getProductId());
             stmt.setString(2, product.getProductName());
-            stmt.setInt(3, product.getRawMatId());
             stmt.setDouble(4, product.getNomNetto());
             stmt.setDouble(5, product.getTolerance());
 
@@ -112,7 +111,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
-            stmt.setInt(2, product.getRawMatId());
             stmt.setDouble(3, product.getNomNetto());
             stmt.setDouble(4, product.getTolerance());
 
@@ -248,11 +246,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             sql.append("AND productName LIKE '").append(product.getProductName()).append("%' ");
         }
 
-        if (product.getRawMatId() != 0) {
-            if (first) { first = false; }
-            sql.append("AND rawMatId = ").append(product.getRawMatId()).append(" ");
-        }
-
         if (product.getNomNetto() != 0) {
             if (first) { first = false; }
             sql.append("AND nomNetto = ").append(product.getNomNetto()).append(" ");
@@ -316,7 +309,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
                 product.setProductId(result.getInt("productId"));
                 product.setProductName(result.getString("productName"));
-                product.setRawMatId(result.getInt("rawMatId"));
                 product.setNomNetto(result.getDouble("nomNetto"));
                 product.setTolerance(result.getDouble("tolerance"));
 
@@ -354,7 +346,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
                 temp.setProductId(result.getInt("productId"));
                 temp.setProductName(result.getString("productName"));
-                temp.setRawMatId(result.getInt("rawMatId"));
                 temp.setNomNetto(result.getDouble("nomNetto"));
                 temp.setTolerance(result.getDouble("tolerance"));
 

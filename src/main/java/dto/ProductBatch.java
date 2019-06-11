@@ -9,7 +9,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
 
     private int prodBatchId;
     private int prodId;
-    private int rawMatBatchId;
     private int status;
 
     public ProductBatch() {
@@ -42,16 +41,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
     }
 
     @Override
-    public int getRawMatBatchId() {
-        return this.rawMatBatchId;
-    }
-
-    @Override
-    public void setRawMatBatchId(int rawMatBatchIdIn) {
-        this.rawMatBatchId = rawMatBatchIdIn;
-    }
-
-    @Override
     public int getStatus() {
         return this.status;
     }
@@ -65,7 +54,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
     public void setAll(int prodBatchIdIn, int prodIdIn, int rawMatBatchIdIn, int statusIn) {
         this.prodBatchId = prodBatchIdIn;
         this.prodId = prodIdIn;
-        this.rawMatBatchId = rawMatBatchIdIn;
         this.status = statusIn;
     }
 
@@ -76,9 +64,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
             return (false);
         }
         if (valueObject.getProdId() != this.prodId) {
-            return (false);
-        }
-        if (valueObject.getRawMatBatchId() != this.rawMatBatchId) {
             return (false);
         }
         if (valueObject.getStatus() != this.status) {
@@ -95,7 +80,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
         out.append("Persistent attributes: \n");
         out.append("prodBatchId = " + this.prodBatchId + "\n");
         out.append("prodId = " + this.prodId + "\n");
-        out.append("rawMatBatchId = " + this.rawMatBatchId + "\n");
         out.append("status = " + this.status + "\n");
         return out.toString();
     }
@@ -106,7 +90,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
 
         cloned.setProdBatchId(this.prodBatchId);
         cloned.setProdId(this.prodId);
-        cloned.setRawMatBatchId(this.rawMatBatchId);
         cloned.setStatus(this.status);
         return cloned;
     }

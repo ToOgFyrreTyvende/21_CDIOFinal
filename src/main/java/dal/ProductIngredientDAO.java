@@ -235,6 +235,13 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             sql.append("AND rawMatId = ").append(productIngredient.getRawMatId()).append(" ");
         }
 
+        if (productIngredient.getAmount() > 0) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND amount = ").append(productIngredient.getAmount()).append(" ");
+        }
+
         if (productIngredient.getProductId() != 0) {
             if (first) {
                 first = false;

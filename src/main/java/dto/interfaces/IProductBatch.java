@@ -13,10 +13,6 @@ public interface IProductBatch extends Cloneable, Serializable {
 
     void setProdId(int prodIdIn);
 
-    int getRawMatBatchId();
-
-    void setRawMatBatchId(int rawMatBatchIdIn);
-
     int getStatus();
 
     void setStatus(int statusIn);
