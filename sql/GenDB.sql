@@ -15,7 +15,7 @@ CREATE TABLE Users
     userName VARCHAR(20) NOT NULL COMMENT 'User navn' CHECK ( 2 <= CHAR_LENGTH(userName) <= 20 ),
     ini      VARCHAR(4)  NOT NULL COMMENT 'User initialer' CHECK ( 2 <= CHAR_LENGTH(ini) <= 4 ),
     cpr      VARCHAR(11) NOT NULL COMMENT 'User cpr nr' CHECK ( 10 <= CHAR_LENGTH(cpr) <= 11 ),
-    role     VARCHAR(16) NOT NULL COMMENT 'User role' CHECK ( 5 <= CHAR_LENGTH(role) <= 20 ),
+    role     INT         NOT NULL COMMENT 'User role, 0=admin, 1=laborant, 2=produktionsleder, 3=farmaceut' CHECK ( 0 <= role <= 3 ),
     PRIMARY KEY (userId)
 );
 
@@ -44,13 +44,11 @@ CREATE TABLE RawMatBatches
 DROP TABLE IF EXISTS Products;
 CREATE TABLE Products
 (
-    productId INT AUTO_INCREMENT COMMENT 'Product Id',
-    prescName VARCHAR(20) NOT NULL COMMENT 'Product navn' CHECK ( 2 <= CHAR_LENGTH(prescName) <= 20 ),
-    rawMatId  INT         NOT NULL COMMENT 'Råvare id',
-    nonNetto  DOUBLE      NOT NULL COMMENT 'Mængden i kilogram, med 4 decimaler' CHECK ( 0.05 <= CHAR_LENGTH(nonNetto) <= 20.0 ),
-    tolerance DOUBLE      NOT NULL COMMENT 'Tolerancen i procent på nominel mængde' CHECK ( 0.1 <= CHAR_LENGTH(tolerance) <= 10.0 ),
-    PRIMARY KEY (productId),
-    FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE
+    productId   INT AUTO_INCREMENT COMMENT 'Product Id',
+    productName VARCHAR(20) NOT NULL COMMENT 'Product navn' CHECK ( 2 <= CHAR_LENGTH(productName) <= 20 ),
+    nomNetto    DOUBLE      NOT NULL COMMENT 'Mængden i kilogram, med 4 decimaler' CHECK ( 0.05 <= CHAR_LENGTH(nomNetto) <= 20.0 ),
+    tolerance   DOUBLE      NOT NULL COMMENT 'Tolerancen i procent på nominel mængde' CHECK ( 0.1 <= CHAR_LENGTH(tolerance) <= 10.0 ),
+    PRIMARY KEY (productId)
 );
 
 # Table: "ProductIngredients"
