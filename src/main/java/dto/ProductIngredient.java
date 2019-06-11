@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class ProductIngredient implements Cloneable, Serializable {
+public class ProductIngredient implements dto.interfaces.IProductIngredient {
 
     private int ingredientId;
     private int rawMatId;
@@ -18,28 +18,35 @@ public class ProductIngredient implements Cloneable, Serializable {
         this.ingredientId = ingredientIdIn;
     }
 
+    @Override
     public int getIngredientId() {
         return this.ingredientId;
     }
+    @Override
     public void setIngredientId(int ingredientIdIn) {
         this.ingredientId = ingredientIdIn;
     }
 
+    @Override
     public int getRawMatId() {
         return this.rawMatId;
     }
+    @Override
     public void setRawMatId(int rawMatIdIn) {
         this.rawMatId = rawMatIdIn;
     }
 
+    @Override
     public int getProductId() {
         return this.productId;
     }
+    @Override
     public void setProductId(int productIdIn) {
         this.productId = productIdIn;
     }
 
 
+    @Override
     public void setAll(int ingredientIdIn,
                        int rawMatIdIn,
                        int productIdIn) {
@@ -49,6 +56,7 @@ public class ProductIngredient implements Cloneable, Serializable {
     }
 
 
+    @Override
     public boolean hasEqualMapping(ProductIngredient valueObject) {
 
         if (valueObject.getIngredientId() != this.ingredientId) {
