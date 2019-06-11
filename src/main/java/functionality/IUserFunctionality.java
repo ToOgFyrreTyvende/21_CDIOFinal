@@ -1,6 +1,6 @@
 package functionality;
 
-import dal.IUserDAO.*;
+import dal.interfaces.IUserDAO.*;
 import dto.*;
 
 import java.util.List;

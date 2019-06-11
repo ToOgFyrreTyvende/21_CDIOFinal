@@ -1,5 +1,6 @@
 package dal;
 
+import dal.interfaces.IUserDAO;
 import dto.*;
 import utils.SQLTools;
 

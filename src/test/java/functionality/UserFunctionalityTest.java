@@ -2,7 +2,7 @@ package functionality;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import dal.IUserDAO;
+import dal.interfaces.IUserDAO;
 import dal.UserDAOMySQL;
 import dto.UserDTO;
 import org.junit.jupiter.api.*;

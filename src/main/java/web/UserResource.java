@@ -1,8 +1,7 @@
 package web;
 
-import dal.IUserDAO;
+import dal.interfaces.IUserDAO;
 import dal.UserDAOMySQL;
-import dto.IUserDTO;
 import dto.UserDTO;
 import functionality.IUserFunctionality;
 import functionality.UserFunctionality;

@@ -1,3 +1,4 @@
+import dal.interfaces.IUserDAO;
 import functionality.IUserFunctionality;
 import functionality.IWeightFunctionality;
 import functionality.UserFunctionality;
