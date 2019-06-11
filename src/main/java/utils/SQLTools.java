@@ -11,7 +11,7 @@ public class SQLTools {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             return DriverManager.getConnection(
-                    "jdbc:mysql://" + System.getenv("DB_URL") + "/" + System.getenv("DB_USER"),
+                    "jdbc:mysql://" + System.getenv("DB_URL") + "/" + System.getenv("DB"),
                     System.getenv("DB_USER"), System.getenv("DB_PASS"));
         } catch (Exception e){
             System.out.println(e);

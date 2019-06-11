@@ -1,11 +1,8 @@
 package functionality;
 
-import dal.IUserDAO;
 import dto.*;
 
 import java.util.List;
-
-import dal.IUserDAO.*;
 
 
 public class UserFunctionality implements IUserFunctionality {
