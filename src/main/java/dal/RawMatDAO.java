@@ -15,10 +15,10 @@ public class RawMatDAO {
 
     public RawMat getObject(Connection conn, int rawMatID) throws NotFoundException, SQLException {
 
-        RawMat RawMat = createRawMat();
+        RawMat rawMat = createRawMat();
         rawMat.setRawMatID(rawMatID);
-        load(conn, RawMat);
-        return RawMat;
+        load(conn, rawMat);
+        return rawMat;
     }
 
     public void load(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {

@@ -69,7 +69,7 @@ public class RawMatBatchDAO {
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, rawMatBatch.getRmbId());
-            stmt.setString(2, rawMatBatch.getRawMatId());
+            stmt.setInt(2, rawMatBatch.getRawMatId());
             stmt.setDouble(3, rawMatBatch.getAmount());
             stmt.setString(4, rawMatBatch.getSupplier());
 
@@ -100,7 +100,7 @@ public class RawMatBatchDAO {
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, rawMatBatch.getRawMatId());
+            stmt.setInt(1, rawMatBatch.getRawMatId());
             stmt.setDouble(2, rawMatBatch.getAmount());
             stmt.setString(3, rawMatBatch.getSupplier());
 
@@ -224,7 +224,7 @@ public class RawMatBatchDAO {
             sql.append("AND rmbId = ").append(rawMatBatch.getRmbId()).append(" ");
         }
 
-        if (rawMatBatch.getRawMatId() != null) {
+        if (rawMatBatch.getRawMatId() != 0) {
             if (first) {
                 first = false;
             }
@@ -296,7 +296,7 @@ public class RawMatBatchDAO {
             if (result.next()) {
 
                 rawMatBatch.setRmbId(result.getInt("rmbId"));
-                rawMatBatch.setRawMatId(result.getString("rawMatId"));
+                rawMatBatch.setRawMatId(result.getInt("rawMatId"));
                 rawMatBatch.setAmount(result.getDouble("amount"));
                 rawMatBatch.setSupplier(result.getString("supplier"));
 
@@ -330,7 +330,7 @@ public class RawMatBatchDAO {
                 RawMatBatch temp = createrawMatBatch();
 
                 temp.setRmbId(result.getInt("rmbId"));
-                temp.setRawMatId(result.getString("rawMatId"));
+                temp.setRawMatId(result.getInt("rawMatId"));
                 temp.setAmount(result.getDouble("amount"));
                 temp.setSupplier(result.getString("supplier"));
 

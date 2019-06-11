@@ -6,6 +6,7 @@ import dto.Product;
 import java.sql.*;
 import java.util.*;
 
+
 public class ProductDAO {
 
     public Product createproduct() {
@@ -37,10 +38,10 @@ public class ProductDAO {
     }
 
     /**
-     * LoadAll-method. This will read all contents from database table and build a
-     * List containing products.
+     * LoadAll-method. This will read all contents from database table and
+     * build a List containing products.
      *
-     * @param conn This method requires working database connection.
+     * @param conn         This method requires working database connection.
      */
     public List loadAll(Connection conn) throws SQLException {
 
@@ -54,10 +55,10 @@ public class ProductDAO {
      * create-method. This will create new row in database according to supplied
      * products contents.
      *
-     * @param conn    This method requires working database connection.
-     * @param product This parameter contains the class instance to be created. If
-     *                automatic surrogate-keys are not used the Primary-key field
-     *                must be set for this to work properly.
+     * @param conn         This method requires working database connection.
+     * @param product  This parameter contains the class instance to be created.
+     *                     If automatic surrogate-keys are not used the Primary-key
+     *                     field must be set for this to work properly.
      */
     public synchronized void create(Connection conn, Product product) throws SQLException {
 
@@ -78,7 +79,7 @@ public class ProductDAO {
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
-                // System.out.println("PrimaryKey Error when updating DB!");
+                //System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");
             }
         } finally {
@@ -87,14 +88,16 @@ public class ProductDAO {
         }
     }
 
+
     /**
      * save-method. This method will save the current state of products to database.
      *
-     * @param conn    This method requires working database connection.
-     * @param product This parameter contains the class instance to be saved.
-     *                Primary-key field must be set for this to work properly.
+     * @param conn         This method requires working database connection.
+     * @param product  This parameter contains the class instance to be saved.
+     *                     Primary-key field must be set for this to work properly.
      */
-    public void save(Connection conn, Product product) throws NotFoundException, SQLException {
+    public void save(Connection conn, Product product)
+            throws NotFoundException, SQLException {
 
         String sql = "UPDATE Products SET productName = ?, rawMatId = ?, nomNetto = ?, "
                 + "tolerance = ? WHERE (productId = ? ) ";
@@ -111,12 +114,11 @@ public class ProductDAO {
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
-                // System.out.println("Object could not be saved! (PrimaryKey not found)");
+                //System.out.println("Object could not be saved! (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be saved! (PrimaryKey not found)");
             }
             if (rowcount > 1) {
-                // System.out.println("PrimaryKey Error when updating DB! (Many objects were
-                // affected!)");
+                //System.out.println("PrimaryKey Error when updating DB! (Many objects were affected!)");
                 throw new SQLException("PrimaryKey Error when updating DB! (Many objects were affected!)");
             }
         } finally {
@@ -125,15 +127,17 @@ public class ProductDAO {
         }
     }
 
+
     /**
-     * delete-method. This method will remove the information from database as
-     * identified by by primary-key in supplied product.
+     * delete-method. This method will remove the information from database as identified by
+     * by primary-key in supplied product.
      *
-     * @param conn    This method requires working database connection.
-     * @param product This parameter contains the class instance to be deleted.
-     *                Primary-key field must be set for this to work properly.
+     * @param conn         This method requires working database connection.
+     * @param product  This parameter contains the class instance to be deleted.
+     *                     Primary-key field must be set for this to work properly.
      */
-    public void delete(Connection conn, Product product) throws NotFoundException, SQLException {
+    public void delete(Connection conn, Product product)
+            throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM Products WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
@@ -144,12 +148,11 @@ public class ProductDAO {
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
-                // System.out.println("Object could not be deleted (PrimaryKey not found)");
+                //System.out.println("Object could not be deleted (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be deleted! (PrimaryKey not found)");
             }
             if (rowcount > 1) {
-                // System.out.println("PrimaryKey Error when updating DB! (Many objects were
-                // deleted!)");
+                //System.out.println("PrimaryKey Error when updating DB! (Many objects were deleted!)");
                 throw new SQLException("PrimaryKey Error when updating DB! (Many objects were deleted!)");
             }
         } finally {
@@ -158,11 +161,12 @@ public class ProductDAO {
         }
     }
 
+
     /**
-     * deleteAll-method. This method will remove all information from the table that
-     * matches this Dao and products couple.
+     * deleteAll-method. This method will remove all information from the table that matches
+     * this Dao and products couple.
      *
-     * @param conn This method requires working database connection.
+     * @param conn         This method requires working database connection.
      */
     public void deleteAll(Connection conn) throws SQLException {
 
@@ -178,11 +182,12 @@ public class ProductDAO {
         }
     }
 
+
     /**
-     * coutAll-method. This method will return the number of all rows from table
-     * that matches this Dao.
+     * coutAll-method. This method will return the number of all rows from table that matches
+     * this Dao.
      *
-     * @param conn This method requires working database connection.
+     * @param conn         This method requires working database connection.
      */
     public int countAll(Connection conn) throws SQLException {
 
@@ -206,14 +211,15 @@ public class ProductDAO {
         return allRows;
     }
 
+
     /**
-     * searchMatching-Method. This method provides searching capability to get
-     * matching products from database. It works by searching all objects that match
-     * permanent instance variables of given object.
+     * searchMatching-Method. This method provides searching capability to
+     * get matching products from database. It works by searching all
+     * objects that match permanent instance variables of given object.
      *
-     * @param conn    This method requires working database connection.
-     * @param product This parameter contains the class instance where search will
-     *                be based. Primary-key field should not be set.
+     * @param conn         This method requires working database connection.
+     * @param product  This parameter contains the class instance where search will be based.
+     *                     Primary-key field should not be set.
      */
     public List searchMatching(Connection conn, Product product) throws SQLException {
 
@@ -223,39 +229,30 @@ public class ProductDAO {
         StringBuffer sql = new StringBuffer("SELECT * FROM Product WHERE 1=1 ");
 
         if (product.getProductId() != 0) {
-            if (first) {
-                first = false;
-            }
+            if (first) { first = false; }
             sql.append("AND productId = ").append(product.getProductId()).append(" ");
         }
 
         if (product.getProductName() != null) {
-            if (first) {
-                first = false;
-            }
+            if (first) { first = false; }
             sql.append("AND productName LIKE '").append(product.getProductName()).append("%' ");
         }
 
         if (product.getRawMatId() != 0) {
-            if (first) {
-                first = false;
-            }
+            if (first) { first = false; }
             sql.append("AND rawMatId = ").append(product.getRawMatId()).append(" ");
         }
 
         if (product.getNomNetto() != 0) {
-            if (first) {
-                first = false;
-            }
+            if (first) { first = false; }
             sql.append("AND nomNetto = ").append(product.getNomNetto()).append(" ");
         }
 
         if (product.getTolerance() != 0) {
-            if (first) {
-                first = false;
-            }
+            if (first) { first = false; }
             sql.append("AND tolerance = ").append(product.getTolerance()).append(" ");
         }
+
 
         sql.append("ORDER BY productId ASC ");
 
@@ -269,11 +266,15 @@ public class ProductDAO {
         return searchResults;
     }
 
+
     /**
-     * databaseUpdate-method. This method is a helper method for internal use.
+     * databaseUpdate-method. This method is a helper method for internal use. It will execute
+     * all database handling that will change the information in tables. SELECT queries will
+     * not be executed here however. The return value indicates how many rows were affected.
+     * This method will also make sure that if cache is used, it will reset when data changes.
      *
-     * @param conn This method requires working database connection.
-     * @param stmt This parameter contains the SQL statement to be excuted.
+     * @param conn         This method requires working database connection.
+     * @param stmt         This parameter contains the SQL statement to be excuted.
      */
     protected int databaseUpdate(Connection conn, PreparedStatement stmt) throws SQLException {
 
@@ -282,12 +283,16 @@ public class ProductDAO {
         return result;
     }
 
+
+
     /**
-     * databaseQuery-method. This method is a helper method for internal use.
+     * databaseQuery-method. This method is a helper method for internal use. It will execute
+     * all database queries that will return only one row. The resultset will be converted
+     * to product. If no rows were found, NotFoundException will be thrown.
      *
-     * @param conn    This method requires working database connection.
-     * @param stmt    This parameter contains the SQL statement to be excuted.
-     * @param product Class-instance where resulting data will be stored.
+     * @param conn         This method requires working database connection.
+     * @param stmt         This parameter contains the SQL statement to be excuted.
+     * @param product  Class-instance where resulting data will be stored.
      */
     protected void singleQuery(Connection conn, PreparedStatement stmt, Product product)
             throws NotFoundException, SQLException {
@@ -306,7 +311,7 @@ public class ProductDAO {
                 product.setTolerance(result.getDouble("tolerance"));
 
             } else {
-                // System.out.println("Product Object Not Found!");
+                //System.out.println("Product Object Not Found!");
                 throw new NotFoundException("Product Object Not Found!");
             }
         } finally {
@@ -317,11 +322,14 @@ public class ProductDAO {
         }
     }
 
+
     /**
-     * databaseQuery-method. This method is a helper method for internal use.
-     * 
-     * @param conn This method requires working database connection.
-     * @param stmt This parameter contains the SQL statement to be excuted.
+     * databaseQuery-method. This method is a helper method for internal use. It will execute
+     * all database queries that will return multiple rows. The resultset will be converted
+     * to the List of products. If no rows were found, an empty List will be returned.
+     *
+     * @param conn         This method requires working database connection.
+     * @param stmt         This parameter contains the SQL statement to be excuted.
      */
     protected List listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
 
@@ -350,7 +358,7 @@ public class ProductDAO {
                 stmt.close();
         }
 
-        return (List) searchResults;
+        return (List)searchResults;
     }
 
 }

@@ -1,12 +1,12 @@
-package functionality;
-
-import static org.junit.jupiter.api.Assertions.*;
+/*package functionality;
 
 import dal.interfaces.IUserDAO;
-import dal.UserDAOMySQL;
-import dto.UserDTO;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import utils.CreateDB;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class UserFunctionalityTest {
     // Vars
@@ -77,4 +77,4 @@ class UserFunctionalityTest {
 
         assertTrue(createThrown.getMessage().contains("Fejl"));
     }
-}
+}*/
