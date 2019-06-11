@@ -3,6 +3,7 @@ package dal;
 import dal.exceptions.NotFoundException;
 import dto.Product;
 import dto.interfaces.IProduct;
+import dto.interfaces.IProductBatch;
 
 import java.sql.*;
 import java.util.*;
@@ -73,7 +74,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO Products ( productId, productName, rawMatId, "
+            sql = "INSERT INTO Products ( productId, productName, "
                     + "nomNetto, tolerance) VALUES (?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
@@ -83,6 +84,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             stmt.setDouble(5, product.getTolerance());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureIngredients(conn, product);
             if (rowcount != 1) {
                 //System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");
@@ -105,7 +107,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     public void save(Connection conn, Product product)
             throws NotFoundException, SQLException {
 
-        String sql = "UPDATE Products SET productName = ?, rawMatId = ?, nomNetto = ?, "
+        String sql = "UPDATE Products SET productName = ?, nomNetto = ?, "
                 + "tolerance = ? WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
 
@@ -118,6 +120,8 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             stmt.setInt(5, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureIngredients(conn, product);
+
             if (rowcount == 0) {
                 //System.out.println("Object could not be saved! (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be saved! (PrimaryKey not found)");
@@ -129,6 +133,27 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         } finally {
             if (stmt != null)
                 stmt.close();
+        }
+    }
+
+    private void ensureIngredients(Connection conn, IProduct product) throws SQLException {
+        if(product.getIngredients().size() > 0){
+            String sql = "DELETE FROM ProductIngredients WHERE productId = ?";
+            PreparedStatement stmt =  conn.prepareStatement(sql);
+            stmt.setInt(1, product.getProductId());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+
+        String sql = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
+        PreparedStatement stmt =  conn.prepareStatement(sql);
+        int prodid = product.getProductId();
+
+        for (IProduct.IRawMatAmount rawmat : product.getIngredients()){
+            stmt.setInt(1, rawmat.getRawMatId());
+            stmt.setInt(2, prodid);
+            stmt.setDouble(3, rawmat.getAmount());
+            stmt.execute();
         }
     }
 
