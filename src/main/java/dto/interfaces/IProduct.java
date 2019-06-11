@@ -11,10 +11,6 @@ public interface IProduct {
 
     void setProductName(String productNameIn);
 
-    int getRawMatId();
-
-    void setRawMatId(int rawMatIdIn);
-
     double getNomNetto();
 
     void setNomNetto(double nomNettoIn);

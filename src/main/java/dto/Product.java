@@ -8,7 +8,6 @@ public class Product implements IProduct {
 
     private int productId;
     private String productName;
-    private int rawMatId;
     private double nomNetto;
     private double tolerance;
 
@@ -41,15 +40,6 @@ public class Product implements IProduct {
     }
 
     @Override
-    public int getRawMatId() {
-        return this.rawMatId;
-    }
-    @Override
-    public void setRawMatId(int rawMatIdIn) {
-        this.rawMatId = rawMatIdIn;
-    }
-
-    @Override
     public double getNomNetto() {
         return this.nomNetto;
     }
@@ -75,7 +65,6 @@ public class Product implements IProduct {
                        double toleranceIn) {
         this.productId = productIdIn;
         this.productName = productNameIn;
-        this.rawMatId = rawMatIdIn;
         this.nomNetto = nomNettoIn;
         this.tolerance = toleranceIn;
     }
@@ -90,9 +79,6 @@ public class Product implements IProduct {
             if (valueObject.getProductName() != null)
                 return(false);
         } else if (!this.productName.equals(valueObject.getProductName())) {
-            return(false);
-        }
-        if (valueObject.getRawMatId() != this.rawMatId) {
             return(false);
         }
         if (valueObject.getNomNetto() != this.nomNetto) {
@@ -112,7 +98,6 @@ public class Product implements IProduct {
         out.append("Persistent attributes: \n");
         out.append("productId = " + this.productId + "\n");
         out.append("productName = " + this.productName + "\n");
-        out.append("rawMatId = " + this.rawMatId + "\n");
         out.append("nomNetto = " + this.nomNetto + "\n");
         out.append("tolerance = " + this.tolerance + "\n");
         return out.toString();
@@ -125,7 +110,6 @@ public class Product implements IProduct {
         cloned.setProductId(this.productId);
         if (this.productName != null)
             cloned.setProductName(new String(this.productName));
-        cloned.setRawMatId(this.rawMatId);
         cloned.setNomNetto(this.nomNetto);
         cloned.setTolerance(this.tolerance);
         return cloned;

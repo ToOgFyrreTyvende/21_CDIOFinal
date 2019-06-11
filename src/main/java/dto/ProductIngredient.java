@@ -1,30 +1,26 @@
 package dto;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
-import java.math.*;
-
 public class ProductIngredient implements dto.interfaces.IProductIngredient {
 
-    private int ingredientId;
+    private int productIngredientId;
     private int rawMatId;
     private int productId;
+    private int amount;
 
 
     public ProductIngredient () {}
 
     public ProductIngredient (int ingredientIdIn) {
-        this.ingredientId = ingredientIdIn;
+        this.productIngredientId = ingredientIdIn;
     }
 
     @Override
-    public int getIngredientId() {
-        return this.ingredientId;
+    public int getProductIngredientId() {
+        return this.productIngredientId;
     }
     @Override
-    public void setIngredientId(int ingredientIdIn) {
-        this.ingredientId = ingredientIdIn;
+    public void setProductIngredientId(int ingredientIdIn) {
+        this.productIngredientId = ingredientIdIn;
     }
 
     @Override
@@ -45,12 +41,20 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
         this.productId = productIdIn;
     }
 
+    @Override
+    public int getAmount() {
+        return amount;
+    }
+    @Override
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     @Override
     public void setAll(int ingredientIdIn,
                        int rawMatIdIn,
                        int productIdIn) {
-        this.ingredientId = ingredientIdIn;
+        this.productIngredientId = ingredientIdIn;
         this.rawMatId = rawMatIdIn;
         this.productId = productIdIn;
     }
@@ -59,7 +63,7 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
     @Override
     public boolean hasEqualMapping(ProductIngredient valueObject) {
 
-        if (valueObject.getIngredientId() != this.ingredientId) {
+        if (valueObject.getProductIngredientId() != this.productIngredientId) {
             return(false);
         }
         if (valueObject.getRawMatId() != this.rawMatId) {
@@ -76,7 +80,7 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
         StringBuffer out = new StringBuffer();
         out.append("\nclass ProductIngredient, mapping to table ProductIngredients\n");
         out.append("Persistent attributes: \n");
-        out.append("ingredientId = " + this.ingredientId + "\n");
+        out.append("productIngredientId = " + this.productIngredientId + "\n");
         out.append("rawMatId = " + this.rawMatId + "\n");
         out.append("productId = " + this.productId + "\n");
         return out.toString();
@@ -85,7 +89,7 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
     public Object clone() {
         ProductIngredient cloned = new ProductIngredient();
 
-        cloned.setIngredientId(this.ingredientId);
+        cloned.setProductIngredientId(this.productIngredientId);
         cloned.setRawMatId(this.rawMatId);
         cloned.setProductId(this.productId);
         return cloned;

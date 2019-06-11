@@ -7,7 +7,7 @@ CREATE DATABASE cdiofinal;
 
 USE cdiofinal;
 
-# Table: "Users" ("Laborant i opg. besk.)
+/* Table: "Users" ("Laborant i opg. besk.)*/
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users
 (
@@ -19,7 +19,7 @@ CREATE TABLE Users
     PRIMARY KEY (userId)
 );
 
-# Table: "RawMat"
+/* Table: "RawMat"*/
 DROP TABLE IF EXISTS RawMats;
 CREATE TABLE RawMats
 (
@@ -28,7 +28,7 @@ CREATE TABLE RawMats
     PRIMARY KEY (rawMatId)
 );
 
-# Table: "RawMatBatch"
+/* Table: "RawMatBatch"*/
 DROP TABLE IF EXISTS RawMatBatches;
 CREATE TABLE RawMatBatches
 (
@@ -40,7 +40,7 @@ CREATE TABLE RawMatBatches
     FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE
 );
 
-# Table: "Products" ("Recept" i opg beskrivelsen)
+/* Table: "Products" ("Recept" i opg beskrivelsen)*/
 DROP TABLE IF EXISTS Products;
 CREATE TABLE Products
 (
@@ -51,7 +51,7 @@ CREATE TABLE Products
     PRIMARY KEY (productId)
 );
 
-# Table: "ProductIngredients"
+/* Table: "ProductIngredients"*/
 DROP TABLE IF EXISTS ProductIngredients;
 CREATE TABLE ProductIngredients
 (
@@ -64,7 +64,7 @@ CREATE TABLE ProductIngredients
     FOREIGN KEY (productId) REFERENCES Products (productId) ON DELETE CASCADE
 );
 
-# Table: "ProductBatch"
+/* Table: "ProductBatch" */
 DROP TABLE IF EXISTS ProductBatches;
 CREATE TABLE ProductBatches
 (
@@ -75,7 +75,7 @@ CREATE TABLE ProductBatches
     FOREIGN KEY (productId) REFERENCES Products (productId) ON DELETE CASCADE
 );
 
-# Table: "WeighedIngredientBatches"
+/* Table: "WeighedIngredientBatches"*/
 DROP TABLE IF EXISTS WeighedIngredientsBatches;
 CREATE TABLE WeighedIngredientsBatches
 (
