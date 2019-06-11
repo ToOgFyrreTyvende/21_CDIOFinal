@@ -101,11 +101,8 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
           } else if (!this.cpr.equals(valueObject.getCpr())) {
                     return(false);
           }
-          if (this.role == null) {
-                    if (valueObject.getRole() != null)
-                           return(false);
-          } else if (!this.role.equals(valueObject.getRole())) {
-                    return(false);
+          if (this.role == 0) {
+              return(false);
           }
 
           return true;
@@ -133,8 +130,8 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
              cloned.setIni(new String(this.ini)); 
         if (this.cpr != null)
              cloned.setCpr(new String(this.cpr)); 
-        if (this.role != null)
-             cloned.setRole(new String(this.role)); 
+        if (this.role != 0)
+             cloned.setRole(this.role);
         return cloned;
     }
 }

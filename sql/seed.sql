@@ -22,7 +22,7 @@ values (1, 1, 1, 25),
        (3, 3, 1, 3);
 
 
-select productIngredientId, rawMatName, amount
+select RM.rawMatId, RM.rawMatName, amount
 from ProductIngredients
          inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID
          inner join Products pr on ProductIngredients.productId = pr.productId

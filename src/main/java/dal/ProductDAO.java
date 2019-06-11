@@ -2,6 +2,7 @@ package dal;
 
 import dal.exceptions.NotFoundException;
 import dto.Product;
+import dto.interfaces.IProduct;
 
 import java.sql.*;
 import java.util.*;
@@ -312,7 +313,31 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
                 product.setNomNetto(result.getDouble("nomNetto"));
                 product.setTolerance(result.getDouble("tolerance"));
 
-            } else {
+                String sql =
+                        "select RM.rawMatId, RM.rawMatName, amount\n" +
+                        "from ProductIngredients\n" +
+                        "  inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID\n" +
+                        "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
+                        "where ProductIngredients.productId = ?;";
+
+                List<IProduct.IRawMatAmount> inglist = new ArrayList<>();
+
+                PreparedStatement ingredients = null;
+                ingredients = conn.prepareStatement(sql);
+                ingredients.setInt(1, result.getInt("productId"));
+                ResultSet ingres = ingredients.executeQuery();
+
+                while (ingres.next()){
+                    Product.RawMatAmount temping = new Product.RawMatAmount();
+                    temping.setAmount(ingres.getDouble("amount"));
+                    temping.setName(ingres.getString("rawMatName"));
+                    temping.setRawMatId(ingres.getInt("rawMatId"));
+
+                    inglist.add(temping);
+                }
+
+                product.setIngredients(inglist);
+                } else {
                 //System.out.println("Product Object Not Found!");
                 throw new NotFoundException("Product Object Not Found!");
             }

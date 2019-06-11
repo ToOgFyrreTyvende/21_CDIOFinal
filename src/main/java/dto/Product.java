@@ -1,8 +1,11 @@
 package dto;
 
 import dto.interfaces.IProduct;
+import dto.interfaces.IProductIngredient;
+import dto.interfaces.IRawMat;
 
 import java.io.*;
+import java.util.List;
 
 public class Product implements IProduct {
 
@@ -10,6 +13,8 @@ public class Product implements IProduct {
     private String productName;
     private double nomNetto;
     private double tolerance;
+
+    private List<IProduct.IRawMatAmount> ingredients;
 
     public Product() {
 
@@ -55,6 +60,15 @@ public class Product implements IProduct {
     @Override
     public void setTolerance(double toleranceIn) {
         this.tolerance = toleranceIn;
+    }
+
+    @Override
+    public List<IProduct.IRawMatAmount> getIngredients() {
+        return ingredients;
+    }
+    @Override
+    public void setIngredients(List<IProduct.IRawMatAmount> ingredients) {
+        this.ingredients = ingredients;
     }
 
     @Override
@@ -115,4 +129,34 @@ public class Product implements IProduct {
         return cloned;
     }
 
+    public static class RawMatAmount implements IProduct.IRawMatAmount{
+        private int rawMatId;
+        private String name;
+        private double amount;
+
+        @Override
+        public int getRawMatId() {
+            return rawMatId;
+        }
+        @Override
+        public void setRawMatId(int rawMatId) {
+            this.rawMatId = rawMatId;
+        }
+        @Override
+        public String getName() {
+            return name;
+        }
+        @Override
+        public void setName(String name) {
+            this.name = name;
+        }
+        @Override
+        public double getAmount() {
+            return amount;
+        }
+        @Override
+        public void setAmount(double amount) {
+            this.amount = amount;
+        }
+    }
 }
