@@ -7,31 +7,30 @@ import java.sql.*;
 import java.util.*;
 
 
-public class ProductsDao {
+public class ProductDao {
 
-    public Product createValueObject() {
+    public Product createproduct() {
         return new Product();
     }
 
     public Product getObject(Connection conn, int productId) throws NotFoundException, SQLException {
 
-        Product valueObject = createValueObject();
-        valueObject.setProductId(productId);
-        load(conn, valueObject);
-        return valueObject;
+        Product product = createproduct();
+        product.setProductId(productId);
+        load(conn, product);
+        return product;
     }
 
-    public void load(Connection conn, Product valueObject) throws NotFoundException, SQLException {
+    public void load(Connection conn, Product product) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM Products WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, valueObject.getProductId());
+            stmt.setInt(1, product.getProductId());
 
-            singleQuery(conn, stmt, valueObject);
-
+            singleQuery(conn, stmt, product);
         } finally {
             if (stmt != null)
                 stmt.close();
@@ -57,11 +56,11 @@ public class ProductsDao {
      * products contents.
      *
      * @param conn         This method requires working database connection.
-     * @param valueObject  This parameter contains the class instance to be created.
+     * @param product  This parameter contains the class instance to be created.
      *                     If automatic surrogate-keys are not used the Primary-key
      *                     field must be set for this to work properly.
      */
-    public synchronized void create(Connection conn, Product valueObject) throws SQLException {
+    public synchronized void create(Connection conn, Product product) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -72,24 +71,21 @@ public class ProductsDao {
                     + "nomNetto, tolerance) VALUES (?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, valueObject.getProductId());
-            stmt.setString(2, valueObject.getProductName());
-            stmt.setInt(3, valueObject.getRawMatId());
-            stmt.setDouble(4, valueObject.getNomNetto());
-            stmt.setDouble(5, valueObject.getTolerance());
+            stmt.setInt(1, product.getProductId());
+            stmt.setString(2, product.getProductName());
+            stmt.setInt(3, product.getRawMatId());
+            stmt.setDouble(4, product.getNomNetto());
+            stmt.setDouble(5, product.getTolerance());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
                 //System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");
             }
-
         } finally {
             if (stmt != null)
                 stmt.close();
         }
-
-
     }
 
 
@@ -97,10 +93,10 @@ public class ProductsDao {
      * save-method. This method will save the current state of products to database.
      *
      * @param conn         This method requires working database connection.
-     * @param valueObject  This parameter contains the class instance to be saved.
+     * @param product  This parameter contains the class instance to be saved.
      *                     Primary-key field must be set for this to work properly.
      */
-    public void save(Connection conn, Product valueObject)
+    public void save(Connection conn, Product product)
             throws NotFoundException, SQLException {
 
         String sql = "UPDATE Products SET productName = ?, rawMatId = ?, nomNetto = ?, "
@@ -109,12 +105,12 @@ public class ProductsDao {
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, valueObject.getProductName());
-            stmt.setInt(2, valueObject.getRawMatId());
-            stmt.setDouble(3, valueObject.getNomNetto());
-            stmt.setDouble(4, valueObject.getTolerance());
+            stmt.setString(1, product.getProductName());
+            stmt.setInt(2, product.getRawMatId());
+            stmt.setDouble(3, product.getNomNetto());
+            stmt.setDouble(4, product.getTolerance());
 
-            stmt.setInt(5, valueObject.getProductId());
+            stmt.setInt(5, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -137,10 +133,10 @@ public class ProductsDao {
      * by primary-key in supplied product.
      *
      * @param conn         This method requires working database connection.
-     * @param valueObject  This parameter contains the class instance to be deleted.
+     * @param product  This parameter contains the class instance to be deleted.
      *                     Primary-key field must be set for this to work properly.
      */
-    public void delete(Connection conn, Product valueObject)
+    public void delete(Connection conn, Product product)
             throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM Products WHERE (productId = ? ) ";
@@ -148,7 +144,7 @@ public class ProductsDao {
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, valueObject.getProductId());
+            stmt.setInt(1, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -218,43 +214,43 @@ public class ProductsDao {
 
     /**
      * searchMatching-Method. This method provides searching capability to
-     * get matching valueObjects from database. It works by searching all
+     * get matching products from database. It works by searching all
      * objects that match permanent instance variables of given object.
      *
      * @param conn         This method requires working database connection.
-     * @param valueObject  This parameter contains the class instance where search will be based.
+     * @param product  This parameter contains the class instance where search will be based.
      *                     Primary-key field should not be set.
      */
-    public List searchMatching(Connection conn, Product valueObject) throws SQLException {
+    public List searchMatching(Connection conn, Product product) throws SQLException {
 
         List searchResults;
 
         boolean first = true;
         StringBuffer sql = new StringBuffer("SELECT * FROM Product WHERE 1=1 ");
 
-        if (valueObject.getProductId() != 0) {
+        if (product.getProductId() != 0) {
             if (first) { first = false; }
-            sql.append("AND productId = ").append(valueObject.getProductId()).append(" ");
+            sql.append("AND productId = ").append(product.getProductId()).append(" ");
         }
 
-        if (valueObject.getProductName() != null) {
+        if (product.getProductName() != null) {
             if (first) { first = false; }
-            sql.append("AND productName LIKE '").append(valueObject.getProductName()).append("%' ");
+            sql.append("AND productName LIKE '").append(product.getProductName()).append("%' ");
         }
 
-        if (valueObject.getRawMatId() != 0) {
+        if (product.getRawMatId() != 0) {
             if (first) { first = false; }
-            sql.append("AND rawMatId = ").append(valueObject.getRawMatId()).append(" ");
+            sql.append("AND rawMatId = ").append(product.getRawMatId()).append(" ");
         }
 
-        if (valueObject.getNomNetto() != 0) {
+        if (product.getNomNetto() != 0) {
             if (first) { first = false; }
-            sql.append("AND nomNetto = ").append(valueObject.getNomNetto()).append(" ");
+            sql.append("AND nomNetto = ").append(product.getNomNetto()).append(" ");
         }
 
-        if (valueObject.getTolerance() != 0) {
+        if (product.getTolerance() != 0) {
             if (first) { first = false; }
-            sql.append("AND tolerance = ").append(valueObject.getTolerance()).append(" ");
+            sql.append("AND tolerance = ").append(product.getTolerance()).append(" ");
         }
 
 
@@ -296,9 +292,9 @@ public class ProductsDao {
      *
      * @param conn         This method requires working database connection.
      * @param stmt         This parameter contains the SQL statement to be excuted.
-     * @param valueObject  Class-instance where resulting data will be stored.
+     * @param product  Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, Product valueObject)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, Product product)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -308,11 +304,11 @@ public class ProductsDao {
 
             if (result.next()) {
 
-                valueObject.setProductId(result.getInt("productId"));
-                valueObject.setProductName(result.getString("productName"));
-                valueObject.setRawMatId(result.getInt("rawMatId"));
-                valueObject.setNomNetto(result.getDouble("nomNetto"));
-                valueObject.setTolerance(result.getDouble("tolerance"));
+                product.setProductId(result.getInt("productId"));
+                product.setProductName(result.getString("productName"));
+                product.setRawMatId(result.getInt("rawMatId"));
+                product.setNomNetto(result.getDouble("nomNetto"));
+                product.setTolerance(result.getDouble("tolerance"));
 
             } else {
                 //System.out.println("Product Object Not Found!");
@@ -344,7 +340,7 @@ public class ProductsDao {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                Product temp = createValueObject();
+                Product temp = createproduct();
 
                 temp.setProductId(result.getInt("productId"));
                 temp.setProductName(result.getString("productName"));
