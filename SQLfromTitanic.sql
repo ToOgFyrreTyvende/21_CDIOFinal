@@ -24,6 +24,10 @@ CREATE TABLE ProductBatches (
 PRIMARY KEY(prodBatchId),
 INDEX ProductBatches_prodBatchId_INDEX (prodBatchId));
 
-
+CREATE TABLE RawMats (
+    rawMatID bigint NOT NULL,
+    rawMatName varchar(255),
+PRIMARY KEY(rawMatID),
+INDEX RawMats_rawMatID_INDEX (rawMatID));
 
 

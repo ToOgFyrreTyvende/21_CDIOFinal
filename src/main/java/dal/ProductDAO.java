@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 
-public class ProductDao {
+public class ProductDAO {
 
     public Product createproduct() {
         return new Product();
