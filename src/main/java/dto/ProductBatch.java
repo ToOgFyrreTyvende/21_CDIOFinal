@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class ProductBatch implements Cloneable, Serializable {
+public class ProductBatch implements dto.interfaces.IProductBatch {
 
     private int prodBatchId;
     private int prodId;
@@ -21,38 +21,47 @@ public class ProductBatch implements Cloneable, Serializable {
 
     }
 
+    @Override
     public int getProdBatchId() {
         return this.prodBatchId;
     }
 
+    @Override
     public void setProdBatchId(int prodBatchIdIn) {
         this.prodBatchId = prodBatchIdIn;
     }
 
+    @Override
     public int getProdId() {
         return this.prodId;
     }
 
+    @Override
     public void setProdId(int prodIdIn) {
         this.prodId = prodIdIn;
     }
 
+    @Override
     public int getRawMatBatchId() {
         return this.rawMatBatchId;
     }
 
+    @Override
     public void setRawMatBatchId(int rawMatBatchIdIn) {
         this.rawMatBatchId = rawMatBatchIdIn;
     }
 
+    @Override
     public int getStatus() {
         return this.status;
     }
 
+    @Override
     public void setStatus(int statusIn) {
         this.status = statusIn;
     }
 
+    @Override
     public void setAll(int prodBatchIdIn, int prodIdIn, int rawMatBatchIdIn, int statusIn) {
         this.prodBatchId = prodBatchIdIn;
         this.prodId = prodIdIn;
@@ -60,6 +69,7 @@ public class ProductBatch implements Cloneable, Serializable {
         this.status = statusIn;
     }
 
+    @Override
     public boolean hasEqualMapping(ProductBatch valueObject) {
 
         if (valueObject.getProdBatchId() != this.prodBatchId) {
@@ -78,6 +88,7 @@ public class ProductBatch implements Cloneable, Serializable {
         return true;
     }
 
+    @Override
     public String toString() {
         StringBuffer out = new StringBuffer();
         out.append("\nclass ProductBatchDAO, mapping to table ProductBatches\n");
@@ -89,6 +100,7 @@ public class ProductBatch implements Cloneable, Serializable {
         return out.toString();
     }
 
+    @Override
     public Object clone() {
         ProductBatch cloned = new ProductBatch();
 
