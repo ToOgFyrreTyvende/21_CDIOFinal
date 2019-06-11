@@ -12,14 +12,14 @@ public class ProductBatch implements Cloneable, Serializable {
     private int rawMatBatchId;
     private int status;
 
-    public ProductBatch() {}
+    public ProductBatch() {
+    }
 
     public ProductBatch(int prodBatchIdIn) {
 
         this.prodBatchId = prodBatchIdIn;
 
     }
-
 
     public int getProdBatchId() {
         return this.prodBatchId;
@@ -88,7 +88,6 @@ public class ProductBatch implements Cloneable, Serializable {
         out.append("status = " + this.status + "\n");
         return out.toString();
     }
-
 
     public Object clone() {
         ProductBatch cloned = new ProductBatch();

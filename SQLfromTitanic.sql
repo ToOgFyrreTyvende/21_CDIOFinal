@@ -31,3 +31,20 @@ PRIMARY KEY(rawMatID),
 INDEX RawMats_rawMatID_INDEX (rawMatID));
 
 
+CREATE TABLE RawMatBatches (
+    rmbId bigint NOT NULL,
+    rawMatId varchar(255),
+    amount double,
+    supplier varchar(255),
+PRIMARY KEY(rmbId),
+INDEX RawMatBatches_rmbId_INDEX (rmbId));
+
+CREATE TABLE WeighedBatches (
+    weighedBatchId bigint NOT NULL,
+    rawMatBatchId bigint,
+    userId bigint,
+    tara double,
+    netto double,
+PRIMARY KEY(weighedBatchId),
+INDEX WeighedBatches_weighedBatchId_INDEX (weighedBatchId));
+
