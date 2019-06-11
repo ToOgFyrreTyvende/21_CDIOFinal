@@ -79,6 +79,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             stmt.setInt(3, ProductBatch.getStatus());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureRawMatBatches(conn, ProductBatch);
             if (rowcount != 1) {
                 // System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");
@@ -127,18 +128,18 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
     @Override
     public void save(Connection conn, IProductBatch ProductBatch) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE ProductBatches SET prodId = ?, rawMatBatchId = ?, status = ? WHERE (prodBatchId = ? ) ";
+        String sql = "UPDATE ProductBatches SET productId = ?, status = ? WHERE (prodBatchId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, ProductBatch.getProdBatchId());
-            stmt.setInt(2, ProductBatch.getProdId());
-            stmt.setInt(3, ProductBatch.getStatus());
+            stmt.setInt(1, ProductBatch.getProdId());
+            stmt.setInt(2, ProductBatch.getStatus());
 
-            stmt.setInt(4, ProductBatch.getProdBatchId());
+            stmt.setInt(3, ProductBatch.getProdBatchId());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureRawMatBatches(conn, ProductBatch);
             if (rowcount == 0) {
                 // System.out.println("Object could not be saved! (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be saved! (PrimaryKey not found)");
@@ -151,6 +152,30 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
         } finally {
             if (stmt != null)
                 stmt.close();
+        }
+    }
+
+    private void ensureRawMatBatches(Connection conn, IProductBatch product) throws SQLException {
+        if(product.getWeighings().size() > 0){
+            String sql = "DELETE FROM WeighedIngredientsBatches WHERE prodBatchId = ?";
+            PreparedStatement stmt =  conn.prepareStatement(sql);
+            stmt.setInt(1, product.getProdBatchId());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+
+        String sql = "INSERT INTO WeighedIngredientsBatches (rawMatBatchId, prodBatchId, userId, tara, netto) " +
+                     "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement stmt =  conn.prepareStatement(sql);
+        int prodBatchId = product.getProdBatchId();
+
+        for (IProductBatch.IWeighings weighing : product.getWeighings()){
+            stmt.setInt(1, weighing.getRawMatId());
+            stmt.setInt(2, prodBatchId);
+            stmt.setInt(3, weighing.getUserId());
+            stmt.setDouble(4, weighing.getTara());
+            stmt.setDouble(5, weighing.getNetto());
+            stmt.execute();
         }
     }
 

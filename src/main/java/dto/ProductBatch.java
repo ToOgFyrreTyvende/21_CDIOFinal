@@ -1,23 +1,20 @@
 package dto;
 
-import java.io.*;
-import java.sql.*;
+import dto.interfaces.IProductBatch;
 import java.util.*;
-import java.math.*;
 
 public class ProductBatch implements dto.interfaces.IProductBatch {
 
     private int prodBatchId;
     private int prodId;
     private int status;
+    private List<IWeighings> weighings;
 
     public ProductBatch() {
     }
 
     public ProductBatch(int prodBatchIdIn) {
-
         this.prodBatchId = prodBatchIdIn;
-
     }
 
     @Override
@@ -56,6 +53,14 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
         this.prodId = prodIdIn;
         this.status = statusIn;
     }
+    @Override
+    public List<IWeighings> getWeighings() {
+        return weighings;
+    }
+    @Override
+    public void setWeighings(List<IWeighings> weighings) {
+        this.weighings = weighings;
+    }
 
     @Override
     public boolean hasEqualMapping(ProductBatch valueObject) {
@@ -92,5 +97,73 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
         cloned.setProdId(this.prodId);
         cloned.setStatus(this.status);
         return cloned;
+    }
+
+    public static class Weighings implements IProductBatch.IWeighings {
+        private int rmbId;
+        private int rawMatId;
+        private int userId;
+        private String name;
+        private double tara;
+        private double netto;
+        private String supplier;
+
+        @Override
+        public int getRmbId() {
+            return rmbId;
+        }
+        @Override
+        public void setRmbId(int rmbId) {
+            this.rmbId = rmbId;
+        }
+        @Override
+        public int getUserId() {
+            return userId;
+        }
+        @Override
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        @Override
+        public int getRawMatId() {
+            return rawMatId;
+        }
+        @Override
+        public void setRawMatId(int rawMatId) {
+            this.rawMatId = rawMatId;
+        }
+        @Override
+        public String getName() {
+            return name;
+        }
+        @Override
+        public void setName(String name) {
+            this.name = name;
+        }
+        @Override
+        public double getTara() {
+            return tara;
+        }
+        @Override
+        public void setTara(double tara) {
+            this.tara = tara;
+        }
+        @Override
+        public double getNetto() {
+            return netto;
+        }
+        @Override
+        public void setNetto(double netto) {
+            this.netto = netto;
+        }
+        @Override
+        public String getSupplier() {
+            return supplier;
+        }
+        @Override
+        public void setSupplier(String supplier) {
+            this.supplier = supplier;
+        }
     }
 }

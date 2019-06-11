@@ -313,7 +313,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     }
 
 
-
     /**
      * databaseQuery-method. This method is a helper method for internal use. It will execute
      * all database queries that will return only one row. The resultset will be converted
