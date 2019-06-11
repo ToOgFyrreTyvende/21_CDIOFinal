@@ -6,7 +6,7 @@ import java.util.*;
 import java.math.*;
 import dal.exceptions.NotFoundException;
 
-public class RawMat implements Cloneable, Serializable {
+public class RawMat implements dto.interfaces.IRawMat {
 
       private int rawMatID;
       private String rawMatName;
@@ -20,27 +20,33 @@ public class RawMat implements Cloneable, Serializable {
 
       }
 
+      @Override
       public int getRawMatID() {
             return this.rawMatID;
       }
 
+      @Override
       public void setRawMatID(int rawMatIDIn) {
             this.rawMatID = rawMatIDIn;
       }
 
+      @Override
       public String getRawMatName() {
             return this.rawMatName;
       }
 
+      @Override
       public void setRawMatName(String rawMatNameIn) {
             this.rawMatName = rawMatNameIn;
       }
 
+      @Override
       public void setAll(int rawMatIDIn, String rawMatNameIn) {
             this.rawMatID = rawMatIDIn;
             this.rawMatName = rawMatNameIn;
       }
 
+      @Override
       public boolean hasEqualMapping(RawMat valueObject) {
 
             if (valueObject.getRawMatID() != this.rawMatID) {
