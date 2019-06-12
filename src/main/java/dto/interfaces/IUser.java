@@ -19,15 +19,15 @@ public interface IUser {
 
     void setCpr(String cprIn);
 
-    String getRole();
+    int getRole();
 
-    void setRole(String roleIn);
+    void setRole(int roleIn);
 
     void setAll(int userIdIn,
                 String userNameIn,
                 String iniIn,
                 String cprIn,
-                String roleIn);
+                int roleIn);
 
     boolean hasEqualMapping(User valueObject);
 }

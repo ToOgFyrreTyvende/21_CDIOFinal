@@ -1,6 +1,8 @@
 package web;
 
+import dal.ProductDAO;
 import dal.UserDAO;
+import dal.interfaces.IProductDAO;
 import dal.interfaces.IUserDAO;
 import utils.SQLTools;
 
@@ -42,9 +44,11 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         IUserDAO dao = new UserDAO();
+        IProductDAO pdao = new ProductDAO();
+
         Connection conn = SQLTools.createConnection();
         try {
-            return Response.ok(dao.loadAll(conn)).build();
+            return Response.ok(pdao.loadAll(conn)).build();
         } catch (Exception e) {
             e.printStackTrace();
         }

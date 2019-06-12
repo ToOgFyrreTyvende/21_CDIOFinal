@@ -1,24 +1,20 @@
 package dto;
 
-import java.io.*;
-import java.sql.*;
+import dto.interfaces.IProductBatch;
 import java.util.*;
-import java.math.*;
 
 public class ProductBatch implements dto.interfaces.IProductBatch {
 
     private int prodBatchId;
     private int prodId;
-    private int rawMatBatchId;
     private int status;
+    private List<IWeighings> weighings;
 
     public ProductBatch() {
     }
 
     public ProductBatch(int prodBatchIdIn) {
-
         this.prodBatchId = prodBatchIdIn;
-
     }
 
     @Override
@@ -42,16 +38,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
     }
 
     @Override
-    public int getRawMatBatchId() {
-        return this.rawMatBatchId;
-    }
-
-    @Override
-    public void setRawMatBatchId(int rawMatBatchIdIn) {
-        this.rawMatBatchId = rawMatBatchIdIn;
-    }
-
-    @Override
     public int getStatus() {
         return this.status;
     }
@@ -65,8 +51,15 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
     public void setAll(int prodBatchIdIn, int prodIdIn, int rawMatBatchIdIn, int statusIn) {
         this.prodBatchId = prodBatchIdIn;
         this.prodId = prodIdIn;
-        this.rawMatBatchId = rawMatBatchIdIn;
         this.status = statusIn;
+    }
+    @Override
+    public List<IWeighings> getWeighings() {
+        return weighings;
+    }
+    @Override
+    public void setWeighings(List<IWeighings> weighings) {
+        this.weighings = weighings;
     }
 
     @Override
@@ -76,9 +69,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
             return (false);
         }
         if (valueObject.getProdId() != this.prodId) {
-            return (false);
-        }
-        if (valueObject.getRawMatBatchId() != this.rawMatBatchId) {
             return (false);
         }
         if (valueObject.getStatus() != this.status) {
@@ -95,7 +85,6 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
         out.append("Persistent attributes: \n");
         out.append("prodBatchId = " + this.prodBatchId + "\n");
         out.append("prodId = " + this.prodId + "\n");
-        out.append("rawMatBatchId = " + this.rawMatBatchId + "\n");
         out.append("status = " + this.status + "\n");
         return out.toString();
     }
@@ -106,8 +95,75 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
 
         cloned.setProdBatchId(this.prodBatchId);
         cloned.setProdId(this.prodId);
-        cloned.setRawMatBatchId(this.rawMatBatchId);
         cloned.setStatus(this.status);
         return cloned;
+    }
+
+    public static class Weighings implements IProductBatch.IWeighings {
+        private int rmbId;
+        private int rawMatId;
+        private int userId;
+        private String name;
+        private double tara;
+        private double netto;
+        private String supplier;
+
+        @Override
+        public int getRmbId() {
+            return rmbId;
+        }
+        @Override
+        public void setRmbId(int rmbId) {
+            this.rmbId = rmbId;
+        }
+        @Override
+        public int getUserId() {
+            return userId;
+        }
+        @Override
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        @Override
+        public int getRawMatId() {
+            return rawMatId;
+        }
+        @Override
+        public void setRawMatId(int rawMatId) {
+            this.rawMatId = rawMatId;
+        }
+        @Override
+        public String getName() {
+            return name;
+        }
+        @Override
+        public void setName(String name) {
+            this.name = name;
+        }
+        @Override
+        public double getTara() {
+            return tara;
+        }
+        @Override
+        public void setTara(double tara) {
+            this.tara = tara;
+        }
+        @Override
+        public double getNetto() {
+            return netto;
+        }
+        @Override
+        public void setNetto(double netto) {
+            this.netto = netto;
+        }
+        @Override
+        public String getSupplier() {
+            return supplier;
+        }
+        @Override
+        public void setSupplier(String supplier) {
+            this.supplier = supplier;
+        }
     }
 }

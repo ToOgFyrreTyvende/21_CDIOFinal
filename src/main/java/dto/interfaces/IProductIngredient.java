@@ -5,9 +5,9 @@ import dto.ProductIngredient;
 import java.io.Serializable;
 
 public interface IProductIngredient extends Cloneable, Serializable {
-    int getIngredientId();
+    int getProductIngredientId();
 
-    void setIngredientId(int ingredientIdIn);
+    void setProductIngredientId(int ingredientIdIn);
 
     int getRawMatId();
 
@@ -16,6 +16,10 @@ public interface IProductIngredient extends Cloneable, Serializable {
     int getProductId();
 
     void setProductId(int productIdIn);
+
+    int getAmount();
+
+    void setAmount(int amount);
 
     void setAll(int ingredientIdIn,
                 int rawMatIdIn,

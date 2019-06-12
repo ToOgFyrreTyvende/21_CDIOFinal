@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class main {
-    public static void main(String[] args) throws IOException, IUserDAO.DALException{
+    public static void main(String[] args) {
 
         /*IUserDAO daoMySQL = new UserDAOMySQL();
         IUserFunctionality userFunc = new UserFunctionality(daoMySQL);

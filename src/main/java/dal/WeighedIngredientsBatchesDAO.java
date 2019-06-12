@@ -1,37 +1,37 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
-import dto.WeighedBatch;
+import dal.interfaces.IWeighedIngredientsBatchesDAO;
+import dto.WeighedIngredientsBatches;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
-public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
+public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
 
     @Override
-    public WeighedBatch createweighedBatch() {
-        return new WeighedBatch();
+    public WeighedIngredientsBatches createweighedBatch() {
+        return new WeighedIngredientsBatches();
     }
 
     @Override
-    public WeighedBatch getObject(Connection conn, int weighedBatchId) throws NotFoundException, SQLException {
+    public WeighedIngredientsBatches getObject(Connection conn, int weighedIngredientId) throws NotFoundException, SQLException {
 
-        WeighedBatch weighedBatch = createweighedBatch();
-        weighedBatch.setWeighedBatchId(weighedBatchId);
+        WeighedIngredientsBatches weighedBatch = createweighedBatch();
+        weighedBatch.setWeighedIngredientId(weighedIngredientId);
         load(conn, weighedBatch);
         return weighedBatch;
     }
 
     @Override
-    public void load(Connection conn, WeighedBatch weighedBatch) throws NotFoundException, SQLException {
+    public void load(Connection conn, WeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM WeighedBatches WHERE (weighedBatchId = ? ) ";
+        String sql = "SELECT * FROM WeighedBatches WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, weighedBatch.getWeighedBatchId());
+            stmt.setInt(1, weighedBatch.getWeighedIngredientId());
 
             singleQuery(conn, stmt, weighedBatch);
 
@@ -44,7 +44,7 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
     @Override
     public List loadAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT * FROM WeighedBatches ORDER BY weighedBatchId ASC ";
+        String sql = "SELECT * FROM WeighedBatches ORDER BY weighedIngredientId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
         return searchResults;
@@ -58,22 +58,23 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
      * @param weighedBatch
      */
     @Override
-    public synchronized void create(Connection conn, WeighedBatch weighedBatch) throws SQLException {
+    public synchronized void create(Connection conn, WeighedIngredientsBatches weighedBatch) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO WeighedBatches ( weighedBatchId, rawMatBatchId, userId, "
-                    + "tara, netto) VALUES (?, ?, ?, ?, ?) ";
+            sql = "INSERT INTO WeighedBatches ( weighedIngredientId, prodBatchId, rawMatBatchId, userId, "
+                    + "tara, netto) VALUES (?, ?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, weighedBatch.getWeighedBatchId());
-            stmt.setInt(2, weighedBatch.getRawMatBatchId());
-            stmt.setInt(3, weighedBatch.getUserId());
-            stmt.setDouble(4, weighedBatch.getTara());
-            stmt.setDouble(5, weighedBatch.getNetto());
+            stmt.setInt(1, weighedBatch.getWeighedIngredientId());
+            stmt.setInt(2, weighedBatch.getProdBatchId());
+            stmt.setInt(3, weighedBatch.getRawMatBatchId());
+            stmt.setInt(4, weighedBatch.getUserId());
+            stmt.setDouble(5, weighedBatch.getTara());
+            stmt.setDouble(6, weighedBatch.getNetto());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
@@ -97,10 +98,10 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
      *                     Primary-key field must be set for this to work properly.
      */
     @Override
-    public void save(Connection conn, WeighedBatch weighedBatch) throws NotFoundException, SQLException {
+    public void save(Connection conn, WeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
         String sql = "UPDATE WeighedBatches SET rawMatBatchId = ?, userId = ?, tara = ?, "
-                + "netto = ? WHERE (weighedBatchId = ? ) ";
+                + "netto = ?, prodBatchId = ? WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
@@ -110,7 +111,8 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
             stmt.setDouble(3, weighedBatch.getTara());
             stmt.setDouble(4, weighedBatch.getNetto());
 
-            stmt.setInt(5, weighedBatch.getWeighedBatchId());
+            stmt.setInt(5, weighedBatch.getProdBatchId());
+            stmt.setInt(6, weighedBatch.getWeighedIngredientId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -137,14 +139,14 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
      *                     Primary-key field must be set for this to work properly.
      */
     @Override
-    public void delete(Connection conn, WeighedBatch weighedBatch) throws NotFoundException, SQLException {
+    public void delete(Connection conn, WeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
-        String sql = "DELETE FROM WeighedBatches WHERE (weighedBatchId = ? ) ";
+        String sql = "DELETE FROM WeighedBatches WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, weighedBatch.getWeighedBatchId());
+            stmt.setInt(1, weighedBatch.getWeighedIngredientId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -221,18 +223,18 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
      *                     will be based. Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, WeighedBatch weighedBatch) throws SQLException {
+    public List searchMatching(Connection conn, WeighedIngredientsBatches weighedBatch) throws SQLException {
 
         List searchResults;
 
         boolean first = true;
         StringBuffer sql = new StringBuffer("SELECT * FROM WeighedBatches WHERE 1=1 ");
 
-        if (weighedBatch.getWeighedBatchId() != 0) {
+        if (weighedBatch.getWeighedIngredientId() != 0) {
             if (first) {
                 first = false;
             }
-            sql.append("AND weighedBatchId = ").append(weighedBatch.getWeighedBatchId()).append(" ");
+            sql.append("AND weighedIngredientId = ").append(weighedBatch.getWeighedIngredientId()).append(" ");
         }
 
         if (weighedBatch.getRawMatBatchId() != 0) {
@@ -240,6 +242,13 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
                 first = false;
             }
             sql.append("AND rawMatBatchId = ").append(weighedBatch.getRawMatBatchId()).append(" ");
+        }
+
+        if (weighedBatch.getProdBatchId() != 0) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND prodBatchId = ").append(weighedBatch.getProdBatchId()).append(" ");
         }
 
         if (weighedBatch.getUserId() != 0) {
@@ -263,7 +272,7 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
             sql.append("AND netto = ").append(weighedBatch.getNetto()).append(" ");
         }
 
-        sql.append("ORDER BY weighedBatchId ASC ");
+        sql.append("ORDER BY weighedIngredientId ASC ");
 
         // Prevent accidential full table results.
         // Use loadAll if all rows must be returned.
@@ -295,7 +304,7 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
      * @param stmt         This parameter contains the SQL statement to be excuted.
      * @param weighedBatch Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, WeighedBatch weighedBatch)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, WeighedIngredientsBatches weighedBatch)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -305,15 +314,15 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
 
             if (result.next()) {
 
-                weighedBatch.setWeighedBatchId(result.getInt("weighedBatchId"));
+                weighedBatch.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 weighedBatch.setRawMatBatchId(result.getInt("rawMatBatchId"));
                 weighedBatch.setUserId(result.getInt("userId"));
                 weighedBatch.setTara(result.getDouble("tara"));
                 weighedBatch.setNetto(result.getDouble("netto"));
 
             } else {
-                // System.out.println("WeighedBatch Object Not Found!");
-                throw new NotFoundException("WeighedBatch Object Not Found!");
+                // System.out.println("WeighedIngredientsBatches Object Not Found!");
+                throw new NotFoundException("WeighedIngredientsBatches Object Not Found!");
             }
         } finally {
             if (result != null)
@@ -338,9 +347,9 @@ public class WeighedBatchDAO implements dal.interfaces.IWeighedBatchDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                WeighedBatch temp = createweighedBatch();
+                WeighedIngredientsBatches temp = createweighedBatch();
 
-                temp.setWeighedBatchId(result.getInt("weighedBatchId"));
+                temp.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 temp.setRawMatBatchId(result.getInt("rawMatBatchId"));
                 temp.setUserId(result.getInt("userId"));
                 temp.setTara(result.getDouble("tara"));

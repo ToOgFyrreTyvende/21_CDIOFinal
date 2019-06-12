@@ -1,90 +1,99 @@
 package dto;
 
+import dto.interfaces.IWeighedIngredientsBatches;
+
 import java.io.*;
-import java.sql.*;
-import java.util.*;
-import java.math.*;
 
-public class WeighedBatch implements Cloneable, Serializable, dto.interfaces.IWeighedBatch {
+public class WeighedIngredientsBatches implements Cloneable, Serializable, IWeighedIngredientsBatches {
 
-    private int weighedBatchId;
+    private int weighedIngredientId;
     private int rawMatBatchId;
+    private int prodBatchId;
     private int userId;
     private double tara;
     private double netto;
 
-    public WeighedBatch() {
+    public WeighedIngredientsBatches() {
     }
 
-    public WeighedBatch(int weighedBatchIdIn) {
+    public WeighedIngredientsBatches(int weighedBatchIdIn) {
 
-        this.weighedBatchId = weighedBatchIdIn;
+        this.weighedIngredientId = weighedBatchIdIn;
 
     }
 
-    @java.lang.Override
-    public int getWeighedBatchId() {
-        return this.weighedBatchId;
+    @Override
+    public int getWeighedIngredientId() {
+        return this.weighedIngredientId;
     }
 
-    @java.lang.Override
-    public void setWeighedBatchId(int weighedBatchIdIn) {
-        this.weighedBatchId = weighedBatchIdIn;
+    @Override
+    public void setWeighedIngredientId(int weighedBatchIdIn) {
+        this.weighedIngredientId = weighedBatchIdIn;
     }
 
-    @java.lang.Override
+    @Override
     public int getRawMatBatchId() {
         return this.rawMatBatchId;
     }
 
-    @java.lang.Override
+    @Override
     public void setRawMatBatchId(int rawMatBatchIdIn) {
         this.rawMatBatchId = rawMatBatchIdIn;
     }
 
-    @java.lang.Override
+    @Override
     public int getUserId() {
         return this.userId;
     }
 
-    @java.lang.Override
+    @Override
     public void setUserId(int userIdIn) {
         this.userId = userIdIn;
     }
 
-    @java.lang.Override
+    @Override
     public double getTara() {
         return this.tara;
     }
 
-    @java.lang.Override
+    @Override
     public void setTara(double taraIn) {
         this.tara = taraIn;
     }
 
-    @java.lang.Override
+    @Override
     public double getNetto() {
         return this.netto;
     }
 
-    @java.lang.Override
+    @Override
     public void setNetto(double nettoIn) {
         this.netto = nettoIn;
     }
 
-    @java.lang.Override
+    @Override
+    public int getProdBatchId() {
+        return prodBatchId;
+    }
+    @Override
+    public void setProdBatchId(int prodBatchId) {
+        this.prodBatchId = prodBatchId;
+    }
+
+    @Override
     public void setAll(int weighedBatchIdIn, int rawMatBatchIdIn, int userIdIn, double taraIn, double nettoIn) {
-        this.weighedBatchId = weighedBatchIdIn;
+        this.weighedIngredientId = weighedBatchIdIn;
         this.rawMatBatchId = rawMatBatchIdIn;
         this.userId = userIdIn;
         this.tara = taraIn;
         this.netto = nettoIn;
     }
 
-    @java.lang.Override
-    public boolean hasEqualMapping(WeighedBatch valueObject) {
+    @Override
+    public boolean hasEqualMapping(WeighedIngredientsBatches valueObject) {
 
-        if (valueObject.getWeighedBatchId() != this.weighedBatchId) {
+        if (valueObject.getWeighedIngredientId() != this.weighedIngredientId) {
             return (false);
         }
         if (valueObject.getRawMatBatchId() != this.rawMatBatchId) {
@@ -105,9 +114,9 @@ public class WeighedBatch implements Cloneable, Serializable, dto.interfaces.IWe
 
     public String toString() {
         StringBuffer out = new StringBuffer();
-        out.append("\nclass WeighedBatch, mapping to table WeighedBatches\n");
+        out.append("\nclass WeighedIngredientsBatches, mapping to table WeighedBatches\n");
         out.append("Persistent attributes: \n");
-        out.append("weighedBatchId = " + this.weighedBatchId + "\n");
+        out.append("weighedIngredientId = " + this.weighedIngredientId + "\n");
         out.append("rawMatBatchId = " + this.rawMatBatchId + "\n");
         out.append("userId = " + this.userId + "\n");
         out.append("tara = " + this.tara + "\n");
@@ -116,9 +125,9 @@ public class WeighedBatch implements Cloneable, Serializable, dto.interfaces.IWe
     }
 
     public Object clone() {
-        WeighedBatch cloned = new WeighedBatch();
+        WeighedIngredientsBatches cloned = new WeighedIngredientsBatches();
 
-        cloned.setWeighedBatchId(this.weighedBatchId);
+        cloned.setWeighedIngredientId(this.weighedIngredientId);
         cloned.setRawMatBatchId(this.rawMatBatchId);
         cloned.setUserId(this.userId);
         cloned.setTara(this.tara);

@@ -1,11 +1,11 @@
 package dto.interfaces;
 
-import dto.WeighedBatch;
+import dto.WeighedIngredientsBatches;
 
-public interface IWeighedBatch {
-    int getWeighedBatchId();
+public interface IWeighedIngredientsBatches {
+    int getWeighedIngredientId();
 
-    void setWeighedBatchId(int weighedBatchIdIn);
+    void setWeighedIngredientId(int weighedBatchIdIn);
 
     int getRawMatBatchId();
 
@@ -23,7 +23,11 @@ public interface IWeighedBatch {
 
     void setNetto(double nettoIn);
 
+    int getProdBatchId();
+
+    void setProdBatchId(int prodBatchId);
+
     void setAll(int weighedBatchIdIn, int rawMatBatchIdIn, int userIdIn, double taraIn, double nettoIn);
 
-    boolean hasEqualMapping(WeighedBatch valueObject);
+    boolean hasEqualMapping(WeighedIngredientsBatches valueObject);
 }

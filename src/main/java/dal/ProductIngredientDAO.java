@@ -5,7 +5,6 @@ import dto.ProductIngredient;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
 public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
 
@@ -18,7 +17,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     public ProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException {
 
         ProductIngredient productIngredient = createproductIngredient();
-        productIngredient.setIngredientId(ingredientId);
+        productIngredient.setProductIngredientId(ingredientId);
         load(conn, productIngredient);
         return productIngredient;
     }
@@ -31,7 +30,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, productIngredient.getIngredientId());
+            stmt.setInt(1, productIngredient.getProductIngredientId());
 
             singleQuery(conn, stmt, productIngredient);
 
@@ -44,7 +43,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public List loadAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT * FROM ProductIngredients ORDER BY ingredientId ASC ";
+        String sql = "SELECT * FROM ProductIngredients ORDER BY productIngredientId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
         return searchResults;
@@ -68,12 +67,13 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO ProductIngredients ( ingredientId, rawMatId, productId) VALUES (?, ?, ?) ";
+            sql = "INSERT INTO ProductIngredients ( productIngredientId, rawMatId, productId, amount) VALUES (?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, productIngredient.getIngredientId());
+            stmt.setInt(1, productIngredient.getProductIngredientId());
             stmt.setInt(2, productIngredient.getRawMatId());
             stmt.setInt(3, productIngredient.getProductId());
+            stmt.setInt(4, productIngredient.getAmount());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
@@ -98,15 +98,16 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public void save(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ? WHERE (ingredientId = ? ) ";
+        String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ?, amount = ? WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, productIngredient.getRawMatId());
             stmt.setInt(2, productIngredient.getProductId());
+            stmt.setInt(3, productIngredient.getAmount());
 
-            stmt.setInt(3, productIngredient.getIngredientId());
+            stmt.setInt(4, productIngredient.getProductIngredientId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -134,12 +135,12 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public void delete(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
 
-        String sql = "DELETE FROM ProductIngredients WHERE (ingredientId = ? ) ";
+        String sql = "DELETE FROM ProductIngredients WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, productIngredient.getIngredientId());
+            stmt.setInt(1, productIngredient.getProductIngredientId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -222,11 +223,11 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
         boolean first = true;
         StringBuffer sql = new StringBuffer("SELECT * FROM ProductIngredients WHERE 1=1 ");
 
-        if (productIngredient.getIngredientId() != 0) {
+        if (productIngredient.getProductIngredientId() != 0) {
             if (first) {
                 first = false;
             }
-            sql.append("AND ingredientId = ").append(productIngredient.getIngredientId()).append(" ");
+            sql.append("AND productIngredientId = ").append(productIngredient.getProductIngredientId()).append(" ");
         }
 
         if (productIngredient.getRawMatId() != 0) {
@@ -236,6 +237,13 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             sql.append("AND rawMatId = ").append(productIngredient.getRawMatId()).append(" ");
         }
 
+        if (productIngredient.getAmount() > 0) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND amount = ").append(productIngredient.getAmount()).append(" ");
+        }
+
         if (productIngredient.getProductId() != 0) {
             if (first) {
                 first = false;
@@ -243,7 +251,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             sql.append("AND productId = ").append(productIngredient.getProductId()).append(" ");
         }
 
-        sql.append("ORDER BY ingredientId ASC ");
+        sql.append("ORDER BY productIngredientId ASC ");
 
         // Prevent accidential full table results.
         // Use loadAll if all rows must be returned.
@@ -286,9 +294,10 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
 
             if (result.next()) {
 
-                productIngredient.setIngredientId(result.getInt("ingredientId"));
+                productIngredient.setProductIngredientId(result.getInt("productIngredientId"));
                 productIngredient.setRawMatId(result.getInt("rawMatId"));
                 productIngredient.setProductId(result.getInt("productId"));
+                productIngredient.setAmount(result.getInt("amount"));
 
             } else {
                 // System.out.println("ProductIngredient Object Not Found!");
@@ -319,9 +328,10 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             while (result.next()) {
                 ProductIngredient temp = createproductIngredient();
 
-                temp.setIngredientId(result.getInt("ingredientId"));
+                temp.setProductIngredientId(result.getInt("productIngredientId"));
                 temp.setRawMatId(result.getInt("rawMatId"));
                 temp.setProductId(result.getInt("productId"));
+                temp.setAmount(result.getInt("amount"));
 
                 searchResults.add(temp);
             }

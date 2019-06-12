@@ -11,7 +11,7 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
     private String userName;
     private String ini;
     private String cpr;
-    private String role;
+    private int role;
 
     public User () {}
 
@@ -19,57 +19,57 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
           this.userId = userIdIn;
     }
 
-    @java.lang.Override
+    @Override
     public int getUserId() {
           return this.userId;
     }
-    @java.lang.Override
+    @Override
     public void setUserId(int userIdIn) {
           this.userId = userIdIn;
     }
 
-    @java.lang.Override
+    @Override
     public String getUserName() {
           return this.userName;
     }
-    @java.lang.Override
+    @Override
     public void setUserName(String userNameIn) {
           this.userName = userNameIn;
     }
 
-    @java.lang.Override
+    @Override
     public String getIni() {
           return this.ini;
     }
-    @java.lang.Override
+    @Override
     public void setIni(String iniIn) {
           this.ini = iniIn;
     }
 
-    @java.lang.Override
+    @Override
     public String getCpr() {
           return this.cpr;
     }
-    @java.lang.Override
+    @Override
     public void setCpr(String cprIn) {
           this.cpr = cprIn;
     }
 
-    @java.lang.Override
-    public String getRole() {
+    @Override
+    public int getRole() {
           return this.role;
     }
-    @java.lang.Override
-    public void setRole(String roleIn) {
+    @Override
+    public void setRole(int roleIn) {
           this.role = roleIn;
     }
 
-    @java.lang.Override
+    @Override
     public void setAll(int userIdIn,
                        String userNameIn,
                        String iniIn,
                        String cprIn,
-                       String roleIn) {
+                       int roleIn) {
           this.userId = userIdIn;
           this.userName = userNameIn;
           this.ini = iniIn;
@@ -77,7 +77,7 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
           this.role = roleIn;
     }
 
-    @java.lang.Override
+    @Override
     public boolean hasEqualMapping(User valueObject) {
 
           if (valueObject.getUserId() != this.userId) {
@@ -101,11 +101,8 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
           } else if (!this.cpr.equals(valueObject.getCpr())) {
                     return(false);
           }
-          if (this.role == null) {
-                    if (valueObject.getRole() != null)
-                           return(false);
-          } else if (!this.role.equals(valueObject.getRole())) {
-                    return(false);
+          if (this.role == 0) {
+              return(false);
           }
 
           return true;
@@ -133,8 +130,8 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
              cloned.setIni(new String(this.ini)); 
         if (this.cpr != null)
              cloned.setCpr(new String(this.cpr)); 
-        if (this.role != null)
-             cloned.setRole(new String(this.role)); 
+        if (this.role != 0)
+             cloned.setRole(this.role);
         return cloned;
     }
 }

@@ -2,6 +2,8 @@ package dal;
 
 import dal.exceptions.NotFoundException;
 import dto.Product;
+import dto.interfaces.IProduct;
+import dto.interfaces.IProductBatch;
 
 import java.sql.*;
 import java.util.*;
@@ -72,17 +74,17 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO Products ( productId, productName, rawMatId, "
+            sql = "INSERT INTO Products ( productId, productName, "
                     + "nomNetto, tolerance) VALUES (?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, product.getProductId());
             stmt.setString(2, product.getProductName());
-            stmt.setInt(3, product.getRawMatId());
             stmt.setDouble(4, product.getNomNetto());
             stmt.setDouble(5, product.getTolerance());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureIngredients(conn, product);
             if (rowcount != 1) {
                 //System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");
@@ -105,20 +107,21 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     public void save(Connection conn, Product product)
             throws NotFoundException, SQLException {
 
-        String sql = "UPDATE Products SET productName = ?, rawMatId = ?, nomNetto = ?, "
+        String sql = "UPDATE Products SET productName = ?, nomNetto = ?, "
                 + "tolerance = ? WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
-            stmt.setInt(2, product.getRawMatId());
-            stmt.setDouble(3, product.getNomNetto());
-            stmt.setDouble(4, product.getTolerance());
+            stmt.setDouble(2, product.getNomNetto());
+            stmt.setDouble(3, product.getTolerance());
 
-            stmt.setInt(5, product.getProductId());
+            stmt.setInt(4, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureIngredients(conn, product);
+
             if (rowcount == 0) {
                 //System.out.println("Object could not be saved! (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be saved! (PrimaryKey not found)");
@@ -130,6 +133,27 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         } finally {
             if (stmt != null)
                 stmt.close();
+        }
+    }
+
+    private void ensureIngredients(Connection conn, IProduct product) throws SQLException {
+        if(product.getIngredients().size() > 0){
+            String sql = "DELETE FROM ProductIngredients WHERE productId = ?";
+            PreparedStatement stmt =  conn.prepareStatement(sql);
+            stmt.setInt(1, product.getProductId());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+
+        String sql = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
+        PreparedStatement stmt =  conn.prepareStatement(sql);
+        int prodid = product.getProductId();
+
+        for (IProduct.IRawMatAmount rawmat : product.getIngredients()){
+            stmt.setInt(1, rawmat.getRawMatId());
+            stmt.setInt(2, prodid);
+            stmt.setDouble(3, rawmat.getAmount());
+            stmt.execute();
         }
     }
 
@@ -248,11 +272,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             sql.append("AND productName LIKE '").append(product.getProductName()).append("%' ");
         }
 
-        if (product.getRawMatId() != 0) {
-            if (first) { first = false; }
-            sql.append("AND rawMatId = ").append(product.getRawMatId()).append(" ");
-        }
-
         if (product.getNomNetto() != 0) {
             if (first) { first = false; }
             sql.append("AND nomNetto = ").append(product.getNomNetto()).append(" ");
@@ -294,7 +313,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     }
 
 
-
     /**
      * databaseQuery-method. This method is a helper method for internal use. It will execute
      * all database queries that will return only one row. The resultset will be converted
@@ -316,10 +334,10 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
                 product.setProductId(result.getInt("productId"));
                 product.setProductName(result.getString("productName"));
-                product.setRawMatId(result.getInt("rawMatId"));
                 product.setNomNetto(result.getDouble("nomNetto"));
                 product.setTolerance(result.getDouble("tolerance"));
 
+                retrieveIngredients(conn, product, result.getInt("productId"));
             } else {
                 //System.out.println("Product Object Not Found!");
                 throw new NotFoundException("Product Object Not Found!");
@@ -330,6 +348,33 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             if (stmt != null)
                 stmt.close();
         }
+    }
+
+    private void retrieveIngredients(Connection conn, Product product, int productId) throws SQLException {
+        String sql =
+                "select RM.rawMatId, RM.rawMatName, amount\n" +
+                "from ProductIngredients\n" +
+                "  inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID\n" +
+                "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
+                "where ProductIngredients.productId = ?;";
+
+        List<IProduct.IRawMatAmount> inglist = new ArrayList<>();
+
+        PreparedStatement ingredients = null;
+        ingredients = conn.prepareStatement(sql);
+        ingredients.setInt(1, productId);
+        ResultSet ingres = ingredients.executeQuery();
+
+        while (ingres.next()){
+            Product.RawMatAmount temping = new Product.RawMatAmount();
+            temping.setAmount(ingres.getDouble("amount"));
+            temping.setName(ingres.getString("rawMatName"));
+            temping.setRawMatId(ingres.getInt("rawMatId"));
+
+            inglist.add(temping);
+        }
+
+        product.setIngredients(inglist);
     }
 
 
@@ -354,9 +399,11 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
                 temp.setProductId(result.getInt("productId"));
                 temp.setProductName(result.getString("productName"));
-                temp.setRawMatId(result.getInt("rawMatId"));
                 temp.setNomNetto(result.getDouble("nomNetto"));
                 temp.setTolerance(result.getDouble("tolerance"));
+
+                retrieveIngredients(conn, temp, result.getInt("productId"));
+
 
                 searchResults.add(temp);
             }

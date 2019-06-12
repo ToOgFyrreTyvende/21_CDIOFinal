@@ -5,6 +5,7 @@ import java.util.*;
 import java.math.*;
 import dal.exceptions.NotFoundException;
 import dto.ProductBatch;
+import dto.interfaces.IProductBatch;
 
 public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
@@ -23,7 +24,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
     }
 
     @Override
-    public void load(Connection conn, ProductBatch ProductBatch) throws NotFoundException, SQLException {
+    public void load(Connection conn, IProductBatch ProductBatch) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM ProductBatches WHERE (prodBatchId = ? ) ";
         PreparedStatement stmt = null;
@@ -42,9 +43,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
     /**
      * LoadAll-method. This will read all contents from database table and build a
-     * List containing ProductBatch. Please note, that this method will consume huge
-     * amounts of resources if table has lot's of rows. This should only be used
-     * when target tables have only small amounts of data.
+     * List containing ProductBatch.
      *
      * @param conn This method requires working database connection.
      */
@@ -59,33 +58,28 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
     /**
      * create-method. This will create new row in database according to supplied
-     * ProductBatch contents. Make sure that values for all NOT NULL columns are
-     * correctly specified. Also, if this table does not use automatic
-     * surrogate-keys the primary-key must be specified. After INSERT command this
-     * method will read the generated primary-key back to ProductBatch if automatic
-     * surrogate-keys were used.
+     * ProductBatch contents.
      *
      * @param conn         This method requires working database connection.
-     * @param ProductBatch This parameter contains the class instance to be created.
-     *                     If automatic surrogate-keys are not used the Primary-key
-     *                     field must be set for this to work properly.
+     * @param ProductBatch
      */
     @Override
-    public synchronized void create(Connection conn, ProductBatch ProductBatch) throws SQLException {
+    public synchronized void create(Connection conn, IProductBatch ProductBatch) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO ProductBatches ( prodId, rawMatBatchId, status) VALUES (?, ?, ?) ";
+            sql = "INSERT INTO ProductBatches ( prodBatchId, productId, status) VALUES (?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
-            stmt.setInt(1, ProductBatch.getProdId());
-            stmt.setInt(2, ProductBatch.getRawMatBatchId());
+            stmt.setInt(1, ProductBatch.getProdBatchId());
+            stmt.setInt(2, ProductBatch.getProdId());
             stmt.setInt(3, ProductBatch.getStatus());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureRawMatBatches(conn, ProductBatch);
             if (rowcount != 1) {
                 // System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");
@@ -126,30 +120,26 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
     /**
      * save-method. This method will save the current state of ProductBatch to
-     * database. Save can not be used to create new instances in database, so upper
-     * layer must make sure that the primary-key is correctly specified. Primary-key
-     * will indicate which instance is going to be updated in database. If save can
-     * not find matching row, NotFoundException will be thrown.
+     * database.
      *
      * @param conn         This method requires working database connection.
-     * @param ProductBatch This parameter contains the class instance to be saved.
-     *                     Primary-key field must be set for this to work properly.
+     * @param ProductBatch
      */
     @Override
-    public void save(Connection conn, ProductBatch ProductBatch) throws NotFoundException, SQLException {
+    public void save(Connection conn, IProductBatch ProductBatch) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE ProductBatches SET prodId = ?, rawMatBatchId = ?, status = ? WHERE (prodBatchId = ? ) ";
+        String sql = "UPDATE ProductBatches SET productId = ?, status = ? WHERE (prodBatchId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, ProductBatch.getProdId());
-            stmt.setInt(2, ProductBatch.getRawMatBatchId());
-            stmt.setInt(3, ProductBatch.getStatus());
+            stmt.setInt(2, ProductBatch.getStatus());
 
-            stmt.setInt(4, ProductBatch.getProdBatchId());
+            stmt.setInt(3, ProductBatch.getProdBatchId());
 
             int rowcount = databaseUpdate(conn, stmt);
+            ensureRawMatBatches(conn, ProductBatch);
             if (rowcount == 0) {
                 // System.out.println("Object could not be saved! (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be saved! (PrimaryKey not found)");
@@ -165,21 +155,39 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
         }
     }
 
+    private void ensureRawMatBatches(Connection conn, IProductBatch product) throws SQLException {
+        if(product.getWeighings().size() > 0){
+            String sql = "DELETE FROM WeighedIngredientsBatches WHERE prodBatchId = ?";
+            PreparedStatement stmt =  conn.prepareStatement(sql);
+            stmt.setInt(1, product.getProdBatchId());
+            stmt.executeUpdate();
+            stmt.close();
+        }
+
+        String sql = "INSERT INTO WeighedIngredientsBatches (rawMatBatchId, prodBatchId, userId, tara, netto) " +
+                     "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement stmt =  conn.prepareStatement(sql);
+        int prodBatchId = product.getProdBatchId();
+
+        for (IProductBatch.IWeighings weighing : product.getWeighings()){
+            stmt.setInt(1, weighing.getRawMatId());
+            stmt.setInt(2, prodBatchId);
+            stmt.setInt(3, weighing.getUserId());
+            stmt.setDouble(4, weighing.getTara());
+            stmt.setDouble(5, weighing.getNetto());
+            stmt.execute();
+        }
+    }
+
     /**
      * delete-method. This method will remove the information from database as
-     * identified by by primary-key in supplied ProductBatch. Once ProductBatch has
-     * been deleted it can not be restored by calling save. Restoring can only be
-     * done using create method but if database is using automatic surrogate-keys,
-     * the resulting object will have different primary-key than what it was in the
-     * deleted object. If delete can not find matching row, NotFoundException will
-     * be thrown.
+     * identified by by primary-key in supplied ProductBatch.
      *
      * @param conn         This method requires working database connection.
-     * @param ProductBatch This parameter contains the class instance to be deleted.
-     *                     Primary-key field must be set for this to work properly.
+     * @param ProductBatch
      */
     @Override
-    public void delete(Connection conn, ProductBatch ProductBatch) throws NotFoundException, SQLException {
+    public void delete(Connection conn, IProductBatch ProductBatch) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM ProductBatches WHERE (prodBatchId = ? ) ";
         PreparedStatement stmt = null;
@@ -206,13 +214,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
     /**
      * deleteAll-method. This method will remove all information from the table that
-     * matches this Dao and ProductBatch couple. This should be the most efficient
-     * way to clear table. Once deleteAll has been called, no ProductBatch that has
-     * been created before can be restored by calling save. Restoring can only be
-     * done using create method but if database is using automatic surrogate-keys,
-     * the resulting object will have different primary-key than what it was in the
-     * deleted object. (Note, the implementation of this method should be different
-     * with different DB backends.)
+     * matches this Dao and ProductBatch couple.
      *
      * @param conn This method requires working database connection.
      */
@@ -269,7 +271,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
      *                     will be based. Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, ProductBatch ProductBatch) throws SQLException {
+    public List searchMatching(Connection conn, IProductBatch ProductBatch) throws SQLException {
 
         List searchResults;
 
@@ -287,14 +289,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             if (first) {
                 first = false;
             }
-            sql.append("AND prodId = ").append(ProductBatch.getProdId()).append(" ");
-        }
-
-        if (ProductBatch.getRawMatBatchId() != 0) {
-            if (first) {
-                first = false;
-            }
-            sql.append("AND rawMatBatchId = ").append(ProductBatch.getRawMatBatchId()).append(" ");
+            sql.append("AND productId = ").append(ProductBatch.getProdId()).append(" ");
         }
 
         if (ProductBatch.getStatus() != 0) {
@@ -335,9 +330,9 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
      *
      * @param conn         This method requires working database connection.
      * @param stmt         This parameter contains the SQL statement to be excuted.
-     * @param ProductBatch Class-instance where resulting data will be stored.
+     * @param productBatch Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, ProductBatch ProductBatch)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IProductBatch productBatch)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -347,11 +342,10 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
             if (result.next()) {
 
-                ProductBatch.setProdBatchId(result.getInt("prodBatchId"));
-                ProductBatch.setProdId(result.getInt("prodId"));
-                ProductBatch.setRawMatBatchId(result.getInt("rawMatBatchId"));
-                ProductBatch.setStatus(result.getInt("status"));
-
+                productBatch.setProdBatchId(result.getInt("prodBatchId"));
+                productBatch.setProdId(result.getInt("prodId"));
+                productBatch.setStatus(result.getInt("status"));
+                retrieveWeighings(conn, productBatch, result.getInt("prodBatchId"));
             } else {
                 // System.out.println("ProductBatch Object Not Found!");
                 throw new NotFoundException("ProductBatch Object Not Found!");
@@ -362,6 +356,34 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             if (stmt != null)
                 stmt.close();
         }
+    }
+    private void retrieveWeighings(Connection conn, IProductBatch product, int pbId) throws SQLException {
+        String sql = "select rawMatBatchId, rmb.rawMatId, wib.userId, rawMatName, tara, netto, supplier from ProductBatches as pb\n" +
+                "inner join WeighedIngredientsBatches as wib on wib.prodBatchId = pb.prodBatchId\n" +
+                "inner join RawMatBatches as rmb on wib.rawMatBatchId = rmb.rmbId\n" +
+                "inner join RawMats Mat on rmb.rawMatId = Mat.rawMatId\n" +
+                "where pb.prodBatchId = ?";
+
+        List<IProductBatch.IWeighings> rmblist = new ArrayList<>();
+
+        PreparedStatement rmb = conn.prepareStatement(sql);
+        rmb.setInt(1, pbId);
+        ResultSet rmbres = rmb.executeQuery();
+
+        while (rmbres.next()){
+            IProductBatch.IWeighings temprmb = new ProductBatch.Weighings();
+            temprmb.setRmbId(rmbres.getInt("rawMatBatchId"));
+            temprmb.setRawMatId(rmbres.getInt("rawMatId"));
+            temprmb.setUserId(rmbres.getInt("userId"));
+            temprmb.setName(rmbres.getString("rawMatName"));
+            temprmb.setTara(rmbres.getDouble("tara"));
+            temprmb.setNetto(rmbres.getDouble("netto"));
+            temprmb.setSupplier(rmbres.getString("supplier"));
+
+            rmblist.add(temprmb);
+        }
+
+        product.setWeighings(rmblist);
     }
 
     /**
@@ -384,8 +406,8 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
                 temp.setProdBatchId(result.getInt("prodBatchId"));
                 temp.setProdId(result.getInt("prodId"));
-                temp.setRawMatBatchId(result.getInt("rawMatBatchId"));
                 temp.setStatus(result.getInt("status"));
+                retrieveWeighings(conn, temp, result.getInt("prodBatchId"));
 
                 searchResults.add(temp);
             }

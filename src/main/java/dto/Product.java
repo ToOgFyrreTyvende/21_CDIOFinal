@@ -1,16 +1,20 @@
 package dto;
 
 import dto.interfaces.IProduct;
+import dto.interfaces.IProductIngredient;
+import dto.interfaces.IRawMat;
 
 import java.io.*;
+import java.util.List;
 
 public class Product implements IProduct {
 
     private int productId;
     private String productName;
-    private int rawMatId;
     private double nomNetto;
     private double tolerance;
+
+    private List<IProduct.IRawMatAmount> ingredients;
 
     public Product() {
 
@@ -41,15 +45,6 @@ public class Product implements IProduct {
     }
 
     @Override
-    public int getRawMatId() {
-        return this.rawMatId;
-    }
-    @Override
-    public void setRawMatId(int rawMatIdIn) {
-        this.rawMatId = rawMatIdIn;
-    }
-
-    @Override
     public double getNomNetto() {
         return this.nomNetto;
     }
@@ -68,6 +63,15 @@ public class Product implements IProduct {
     }
 
     @Override
+    public List<IProduct.IRawMatAmount> getIngredients() {
+        return ingredients;
+    }
+    @Override
+    public void setIngredients(List<IProduct.IRawMatAmount> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    @Override
     public void setAll(int productIdIn,
                        String productNameIn,
                        int rawMatIdIn,
@@ -75,7 +79,6 @@ public class Product implements IProduct {
                        double toleranceIn) {
         this.productId = productIdIn;
         this.productName = productNameIn;
-        this.rawMatId = rawMatIdIn;
         this.nomNetto = nomNettoIn;
         this.tolerance = toleranceIn;
     }
@@ -90,9 +93,6 @@ public class Product implements IProduct {
             if (valueObject.getProductName() != null)
                 return(false);
         } else if (!this.productName.equals(valueObject.getProductName())) {
-            return(false);
-        }
-        if (valueObject.getRawMatId() != this.rawMatId) {
             return(false);
         }
         if (valueObject.getNomNetto() != this.nomNetto) {
@@ -112,7 +112,6 @@ public class Product implements IProduct {
         out.append("Persistent attributes: \n");
         out.append("productId = " + this.productId + "\n");
         out.append("productName = " + this.productName + "\n");
-        out.append("rawMatId = " + this.rawMatId + "\n");
         out.append("nomNetto = " + this.nomNetto + "\n");
         out.append("tolerance = " + this.tolerance + "\n");
         return out.toString();
@@ -125,10 +124,39 @@ public class Product implements IProduct {
         cloned.setProductId(this.productId);
         if (this.productName != null)
             cloned.setProductName(new String(this.productName));
-        cloned.setRawMatId(this.rawMatId);
         cloned.setNomNetto(this.nomNetto);
         cloned.setTolerance(this.tolerance);
         return cloned;
     }
 
+    public static class RawMatAmount implements IProduct.IRawMatAmount{
+        private int rawMatId;
+        private String name;
+        private double amount;
+
+        @Override
+        public int getRawMatId() {
+            return rawMatId;
+        }
+        @Override
+        public void setRawMatId(int rawMatId) {
+            this.rawMatId = rawMatId;
+        }
+        @Override
+        public String getName() {
+            return name;
+        }
+        @Override
+        public void setName(String name) {
+            this.name = name;
+        }
+        @Override
+        public double getAmount() {
+            return amount;
+        }
+        @Override
+        public void setAmount(double amount) {
+            this.amount = amount;
+        }
+    }
 }

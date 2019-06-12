@@ -73,14 +73,14 @@ public class UserDAO implements dal.interfaces.IUserDAO {
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO Users ( userId, userName, ini, " + "cpr, role) VALUES (?, ?, ?, ?, ?) ";
+            sql = "INSERT INTO Users ( userId, userName, ini, cpr, role) VALUES (?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, user.getUserId());
             stmt.setString(2, user.getUserName());
             stmt.setString(3, user.getIni());
             stmt.setString(4, user.getCpr());
-            stmt.setString(5, user.getRole());
+            stmt.setInt(5, user.getRole());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
@@ -113,7 +113,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
             stmt.setString(1, user.getUserName());
             stmt.setString(2, user.getIni());
             stmt.setString(3, user.getCpr());
-            stmt.setString(4, user.getRole());
+            stmt.setInt(4, user.getRole());
 
             stmt.setInt(5, user.getUserId());
 
@@ -261,7 +261,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
             sql.append("AND cpr LIKE '").append(user.getCpr()).append("%' ");
         }
 
-        if (user.getRole() != null) {
+        if (user.getRole() != 0) {
             if (first) {
                 first = false;
             }
@@ -314,7 +314,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
                 user.setUserName(result.getString("userName"));
                 user.setIni(result.getString("ini"));
                 user.setCpr(result.getString("cpr"));
-                user.setRole(result.getString("role"));
+                user.setRole(result.getInt("role"));
 
             } else {
                 // System.out.println("User Object Not Found!");
@@ -352,7 +352,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
                 temp.setUserName(result.getString("userName"));
                 temp.setIni(result.getString("ini"));
                 temp.setCpr(result.getString("cpr"));
-                temp.setRole(result.getString("role"));
+                temp.setRole(result.getInt("role"));
 
                 searchResults.add(temp);
             }
