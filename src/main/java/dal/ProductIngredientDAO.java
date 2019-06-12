@@ -2,6 +2,7 @@ package dal;
 
 import dal.exceptions.NotFoundException;
 import dto.ProductIngredient;
+import dto.interfaces.*;
 
 import java.sql.*;
 import java.util.*;
@@ -9,21 +10,21 @@ import java.util.*;
 public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
 
     @Override
-    public ProductIngredient createproductIngredient() {
+    public IProductIngredient createproductIngredient() {
         return new ProductIngredient();
     }
 
     @Override
-    public ProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException {
+    public IProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException {
 
-        ProductIngredient productIngredient = createproductIngredient();
+        IProductIngredient productIngredient = createproductIngredient();
         productIngredient.setProductIngredientId(ingredientId);
         load(conn, productIngredient);
         return productIngredient;
     }
 
     @Override
-    public void load(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
+    public void load(Connection conn, IProductIngredient productIngredient) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM ProductIngredients WHERE (ingredientId = ? ) ";
         PreparedStatement stmt = null;
@@ -41,7 +42,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     }
 
     @Override
-    public List loadAll(Connection conn) throws SQLException {
+    public List<IProductIngredient> loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM ProductIngredients ORDER BY productIngredientId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
@@ -60,7 +61,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
      *                          properly.
      */
     @Override
-    public synchronized void create(Connection conn, ProductIngredient productIngredient) throws SQLException {
+    public synchronized void create(Connection conn, IProductIngredient productIngredient) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -96,7 +97,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
      * @param productIngredient
      */
     @Override
-    public void save(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
+    public void save(Connection conn, IProductIngredient productIngredient) throws NotFoundException, SQLException {
 
         String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ?, amount = ? WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
@@ -133,7 +134,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
      * @param productIngredient
      */
     @Override
-    public void delete(Connection conn, ProductIngredient productIngredient) throws NotFoundException, SQLException {
+    public void delete(Connection conn, IProductIngredient productIngredient) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM ProductIngredients WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
@@ -216,7 +217,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
      * @param productIngredient
      */
     @Override
-    public List searchMatching(Connection conn, ProductIngredient productIngredient) throws SQLException {
+    public List<IProductIngredient> searchMatching(Connection conn, IProductIngredient productIngredient) throws SQLException {
 
         List searchResults;
 
@@ -284,7 +285,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
      *                          excuted.
      * @param productIngredient Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, ProductIngredient productIngredient)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IProductIngredient productIngredient)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -326,7 +327,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             result = stmt.executeQuery();
 
             while (result.next()) {
-                ProductIngredient temp = createproductIngredient();
+                IProductIngredient temp = createproductIngredient();
 
                 temp.setProductIngredientId(result.getInt("productIngredientId"));
                 temp.setRawMatId(result.getInt("rawMatId"));
