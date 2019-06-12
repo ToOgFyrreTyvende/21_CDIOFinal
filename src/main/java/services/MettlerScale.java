@@ -66,7 +66,7 @@ public class MettlerScale implements IMettlerScale {
 
     @Override
     public void displayText(String text) {
-        scaleRequest(String.format("RM20 8 \"%s\" \"\" \"&3\"", text));
+        out.println(String.format("RM20 8 \"%s\" \"\" \"&3\"", text));
     }
 
 }
