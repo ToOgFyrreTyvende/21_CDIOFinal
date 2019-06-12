@@ -2,6 +2,7 @@ package dal;
 
 import dal.exceptions.NotFoundException;
 import dto.RawMatBatch;
+import dto.interfaces.IRawMatBatch;
 
 import java.sql.*;
 import java.util.*;
@@ -9,21 +10,21 @@ import java.math.*;
 
 public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
     @Override
-    public RawMatBatch createrawMatBatch() {
+    public IRawMatBatch createrawMatBatch() {
         return new RawMatBatch();
     }
 
     @Override
-    public RawMatBatch getObject(Connection conn, int rmbId) throws NotFoundException, SQLException {
+    public IRawMatBatch getObject(Connection conn, int rmbId) throws NotFoundException, SQLException {
 
-        RawMatBatch rawMatBatch = createrawMatBatch();
+        IRawMatBatch rawMatBatch = createrawMatBatch();
         rawMatBatch.setRmbId(rmbId);
         load(conn, rawMatBatch);
         return rawMatBatch;
     }
 
     @Override
-    public void load(Connection conn, RawMatBatch rawMatBatch) throws NotFoundException, SQLException {
+    public void load(Connection conn, IRawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM RawMatBatches WHERE (rmbId = ? ) ";
         PreparedStatement stmt = null;
@@ -47,7 +48,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
      * @param conn This method requires working database connection.
      */
     @Override
-    public List loadAll(Connection conn) throws SQLException {
+    public List<IRawMatBatch> loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM RawMatBatches ORDER BY rmbId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
@@ -63,7 +64,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
      * @param rawMatBatch
      */
     @Override
-    public synchronized void create(Connection conn, RawMatBatch rawMatBatch) throws SQLException {
+    public synchronized void create(Connection conn, IRawMatBatch rawMatBatch) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -99,7 +100,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
      * @param rawMatBatch
      */
     @Override
-    public void save(Connection conn, RawMatBatch rawMatBatch) throws NotFoundException, SQLException {
+    public void save(Connection conn, IRawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
         String sql = "UPDATE RawMatBatches SET rawMatId = ?, amount = ?, supplier = ? WHERE (rmbId = ? ) ";
         PreparedStatement stmt = null;
@@ -136,7 +137,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
      * @param rawMatBatch
      */
     @Override
-    public void delete(Connection conn, RawMatBatch rawMatBatch) throws NotFoundException, SQLException {
+    public void delete(Connection conn, IRawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM RawMatBatches WHERE (rmbId = ? ) ";
         PreparedStatement stmt = null;
@@ -220,7 +221,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
      *                    will be based. Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, RawMatBatch rawMatBatch) throws SQLException {
+    public List<IRawMatBatch> searchMatching(Connection conn, IRawMatBatch rawMatBatch) throws SQLException {
 
         List searchResults;
 
@@ -268,15 +269,6 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
     }
 
     /**
-     * getDaogenVersion will return information about generator which created these
-     * sources.
-     */
-    @Override
-    public String getDaogenVersion() {
-        return "DaoGen version 2.4.1";
-    }
-
-    /**
      * databaseUpdate-method. This method is a helper method for internal use.
      *
      * @param conn This method requires working database connection.
@@ -296,7 +288,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
      * @param stmt        This parameter contains the SQL statement to be excuted.
      * @param rawMatBatch Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, RawMatBatch rawMatBatch)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IRawMatBatch rawMatBatch)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -338,7 +330,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                RawMatBatch temp = createrawMatBatch();
+                IRawMatBatch temp = createrawMatBatch();
 
                 temp.setRmbId(result.getInt("rmbId"));
                 temp.setRawMatId(result.getInt("rawMatId"));
