@@ -2,6 +2,7 @@ package dal;
 
 import dal.exceptions.NotFoundException;
 import dto.User;
+import dto.interfaces.IUser;
 
 import java.sql.*;
 import java.util.*;
@@ -10,21 +11,21 @@ import java.math.*;
 public class UserDAO implements dal.interfaces.IUserDAO {
 
     @Override
-    public User createUser() {
+    public IUser createUser() {
         return new User();
     }
 
     @Override
-    public User getObject(Connection conn, int userId) throws NotFoundException, SQLException {
+    public IUser getObject(Connection conn, int userId) throws NotFoundException, SQLException {
 
-        User User = createUser();
+        IUser User = createUser();
         User.setUserId(userId);
         load(conn, User);
         return User;
     }
 
     @Override
-    public void load(Connection conn, User User) throws NotFoundException, SQLException {
+    public void load(Connection conn, IUser User) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM Users WHERE (userId = ? ) ";
         PreparedStatement stmt = null;
@@ -48,7 +49,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      * @param conn This method requires working database connection.
      */
     @Override
-    public List loadAll(Connection conn) throws SQLException {
+    public List<IUser> loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM Users ORDER BY userId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
@@ -66,7 +67,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      *             be set for this to work properly.
      */
     @Override
-    public synchronized void create(Connection conn, User user) throws SQLException {
+    public synchronized void create(Connection conn, IUser user) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -103,7 +104,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      *             Primary-key field must be set for this to work properly.
      */
     @Override
-    public void save(Connection conn, User user) throws NotFoundException, SQLException {
+    public void save(Connection conn, IUser user) throws NotFoundException, SQLException {
 
         String sql = "UPDATE Users SET userName = ?, ini = ?, cpr = ?, " + "role = ? WHERE (userId = ? ) ";
         PreparedStatement stmt = null;
@@ -142,7 +143,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      *             Primary-key field must be set for this to work properly.
      */
     @Override
-    public void delete(Connection conn, User user) throws NotFoundException, SQLException {
+    public void delete(Connection conn, IUser user) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM Users WHERE (userId = ? ) ";
         PreparedStatement stmt = null;
@@ -226,7 +227,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      *             based. Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, User user) throws SQLException {
+    public List searchMatching(Connection conn, IUser user) throws SQLException {
 
         List searchResults;
 
@@ -300,7 +301,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      * @param stmt This parameter contains the SQL statement to be excuted.
      * @param user Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, User user)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IUser user)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -337,7 +338,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
      * @param conn This method requires working database connection.
      * @param stmt This parameter contains the SQL statement to be excuted.
      */
-    protected List listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
+    protected List<IUser> listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
 
         ArrayList searchResults = new ArrayList();
         ResultSet result = null;
@@ -346,7 +347,7 @@ public class UserDAO implements dal.interfaces.IUserDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                User temp = createUser();
+                IUser temp = createUser();
 
                 temp.setUserId(result.getInt("userId"));
                 temp.setUserName(result.getString("userName"));
