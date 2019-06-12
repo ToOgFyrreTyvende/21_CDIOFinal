@@ -12,21 +12,21 @@ import java.util.*;
 public class ProductDAO implements dal.interfaces.IProductDAO {
 
     @Override
-    public Product createproduct() {
+    public IProduct createproduct() {
         return new Product();
     }
 
     @Override
-    public Product getObject(Connection conn, int productId) throws NotFoundException, SQLException {
+    public IProduct getObject(Connection conn, int productId) throws NotFoundException, SQLException {
 
-        Product product = createproduct();
+        IProduct product = createproduct();
         product.setProductId(productId);
         load(conn, product);
         return product;
     }
 
     @Override
-    public void load(Connection conn, Product product) throws NotFoundException, SQLException {
+    public void load(Connection conn, IProduct product) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM Products WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
@@ -49,7 +49,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      * @param conn         This method requires working database connection.
      */
     @Override
-    public List loadAll(Connection conn) throws SQLException {
+    public List<IProduct> loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM Products ORDER BY productId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
@@ -67,7 +67,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      *                     field must be set for this to work properly.
      */
     @Override
-    public synchronized void create(Connection conn, Product product) throws SQLException {
+    public synchronized void create(Connection conn, IProduct product) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -104,7 +104,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      *                     Primary-key field must be set for this to work properly.
      */
     @Override
-    public void save(Connection conn, Product product)
+    public void save(Connection conn, IProduct product)
             throws NotFoundException, SQLException {
 
         String sql = "UPDATE Products SET productName = ?, nomNetto = ?, "
@@ -167,7 +167,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      *                     Primary-key field must be set for this to work properly.
      */
     @Override
-    public void delete(Connection conn, Product product)
+    public void delete(Connection conn, IProduct product)
             throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM Products WHERE (productId = ? ) ";
@@ -255,7 +255,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      *                     Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, Product product) throws SQLException {
+    public List searchMatching(Connection conn, IProduct product) throws SQLException {
 
         List searchResults;
 
@@ -322,7 +322,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      * @param stmt         This parameter contains the SQL statement to be excuted.
      * @param product  Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, Product product)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IProduct product)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -350,7 +350,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         }
     }
 
-    private void retrieveIngredients(Connection conn, Product product, int productId) throws SQLException {
+    private void retrieveIngredients(Connection conn, IProduct product, int productId) throws SQLException {
         String sql =
                 "select RM.rawMatId, RM.rawMatName, amount\n" +
                 "from ProductIngredients\n" +
@@ -386,7 +386,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
      * @param conn         This method requires working database connection.
      * @param stmt         This parameter contains the SQL statement to be excuted.
      */
-    protected List listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
+    protected List<IProduct> listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
 
         ArrayList searchResults = new ArrayList();
         ResultSet result = null;
@@ -395,7 +395,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                Product temp = createproduct();
+                IProduct temp = createproduct();
 
                 temp.setProductId(result.getInt("productId"));
                 temp.setProductName(result.getString("productName"));
