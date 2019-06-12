@@ -10,15 +10,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/productBatches")
+@Path("/rawMat")
 public class RawMatResource {
     private IRawMatFunctionality rawMatFunc = new RawMatFunctionality();
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
+
     @GET
     @Path("{productId}")
     @Produces(MediaType.APPLICATION_JSON)
