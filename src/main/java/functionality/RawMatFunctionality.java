@@ -54,7 +54,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
             Connection conn = dbc.getConnection();
             rawMatDAO.save(conn, rawmat);
         }catch (Exception e){
-            throw new Exception("Could not update given rawmat");
+            throw new Exception("Could not update given raw mat");
         }
     }
 
@@ -64,7 +64,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
             Connection conn = dbc.getConnection();
             rawMatDAO.delete(conn, rawmat);
         }catch (Exception e){
-            throw new Exception("Could not delete rawmat");
+            throw new Exception("Could not delete raw mat");
         }
     }
 }
