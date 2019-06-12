@@ -7,9 +7,9 @@ import java.util.List;
 public interface IUserFunctionality extends functionality.IUserFunctionality {
     void createUser(IUser user) throws Exception;
 
-    IUser getUser(int userID)throws Exception;
+    IUser getUser(int userID) throws Exception;
 
-    List<IUser> getAllUsers()throws Exception;
+    List<IUser> getAllUsers() throws Exception;
 
     void updateUser(IUser user) throws Exception;
 

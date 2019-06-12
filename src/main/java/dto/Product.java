@@ -14,13 +14,10 @@ public class Product implements IProduct {
     private List<IProduct.IRawMatAmount> ingredients;
 
     public Product() {
-
     }
 
     public Product(int productIdIn) {
-
         this.productId = productIdIn;
-
     }
 
     @Override
@@ -61,13 +58,13 @@ public class Product implements IProduct {
     public boolean hasEqualMapping(Product valueObject) {
 
         if (valueObject.getProductId() != this.productId) {
-            return(false);
+            return (false);
         }
         if (this.productName == null) {
             if (valueObject.getProductName() != null)
-                return(false);
+                return (false);
         } else if (!this.productName.equals(valueObject.getProductName())) {
-            return(false);
+            return (false);
         }
 
         return true;
@@ -93,7 +90,7 @@ public class Product implements IProduct {
         return cloned;
     }
 
-    public static class RawMatAmount implements IProduct.IRawMatAmount{
+    public static class RawMatAmount implements IProduct.IRawMatAmount {
         private int prodIngId;
         private int rawMatId;
         private String name;

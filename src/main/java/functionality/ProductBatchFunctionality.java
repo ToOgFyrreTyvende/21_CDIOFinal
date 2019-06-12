@@ -12,15 +12,15 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     private IProductBatchDAO prodBatchDAO;
     private IDatabaseConnection dbc;
 
-    public ProductBatchFunctionality(){
+    public ProductBatchFunctionality() {
         dbc = new DatabaseConnection();
         prodBatchDAO = new ProductBatchDAO();
     }
 
     @Override
-    public void createProductBatch(IProductBatch prodBatch) throws Exception{
-        try{
-            if (prodBatch.getStatus() < 0 || prodBatch.getStatus() > 2){
+    public void createProductBatch(IProductBatch prodBatch) throws Exception {
+        try {
+            if (prodBatch.getStatus() < 0 || prodBatch.getStatus() > 2) {
                 throw new Exception("Status on product batch is off; not within range 0-2 (inclusive)");
             }
             Connection conn = dbc.getConnection();
@@ -31,8 +31,8 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public IProductBatch getProdBatch(int pBatchId) throws Exception{
-        try{
+    public IProductBatch getProdBatch(int pBatchId) throws Exception {
+        try {
             Connection conn = dbc.getConnection();
             return prodBatchDAO.getObject(conn, pBatchId);
         } catch (Exception e){
@@ -41,8 +41,8 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public List<IProductBatch> getAllProdBatches() throws Exception{
-        try{
+    public List<IProductBatch> getAllProdBatches() throws Exception {
+        try {
             Connection conn = dbc.getConnection();
             return prodBatchDAO.loadAll(conn);
         } catch (Exception e){
@@ -51,8 +51,8 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public void updateProdBatch(IProductBatch prodBatch) throws Exception{
-        try{
+    public void updateProdBatch(IProductBatch prodBatch) throws Exception {
+        try {
             Connection conn = dbc.getConnection();
             prodBatchDAO.save(conn, prodBatch);
         } catch (Exception e){
@@ -61,8 +61,8 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public void deleteProdBatch(IProductBatch prodBatch)throws Exception{
-        try{
+    public void deleteProdBatch(IProductBatch prodBatch) throws Exception {
+        try {
             Connection conn = dbc.getConnection();
             prodBatchDAO.delete(conn, prodBatch);
         } catch (Exception e){

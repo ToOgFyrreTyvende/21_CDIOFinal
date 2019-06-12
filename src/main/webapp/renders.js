@@ -1,7 +1,7 @@
 const renders = {
     renderUsers: function (users) {
         let data = '';
-        
+
         if (this.users.length > 0) {
             for (i = 0; i < this.users.length; i++) {
                 data += `<tr id="user${this.users[i].userId}">`;
@@ -23,7 +23,7 @@ const renders = {
     },
     renderRoles: function (roles) {
         let data = '';
-        
+
         if (roles.length > 0) {
             for (i = 0; i < roles.length; i++) {
                 data += `<option value="${roles[i].name}">${roles[i].name}</option>`;
@@ -32,7 +32,7 @@ const renders = {
         this.roleEl.html(data);
     },
     renderInputFields: function(id){
-        user = this.users.filter((el) => el.userId === id)[0]
+        user = this.users.filter((el) => el.userId === id)[0];
         if(user){
             $("#userIdInput").val(user.userId);
             $("#userNameInput").val(user.userName);
@@ -41,7 +41,7 @@ const renders = {
             $("#passwordInput").val(user.password);
             $(`#roles option`).prop('selected', false);
             user.roles.map((x) => $(`#roles option[value='${x}']`).prop('selected', true))
-            
+
         }
     }
-}
+};

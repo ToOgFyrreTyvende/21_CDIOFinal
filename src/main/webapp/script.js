@@ -40,7 +40,7 @@ const utils = {
     closebtn: function (el) {
         let id = el.dataset.id;
         let name = el.dataset.name;
-        let resp = confirm(`Are you sure you want to delete ${name} with id ${id}?`)
+        let resp = confirm(`Are you sure you want to delete ${name} with id ${id}?`);
         if (resp) {
             this.removeWithId(id);
         }
@@ -55,7 +55,7 @@ const utils = {
             $("#userIdInput").prop('disabled', false);
         }else{
             this.createForm = false;
-            this.renderInputFields(id)
+            this.renderInputFields(id);
             $("#userIdInput").prop('disabled', true);
             $("#modalText").text(`Update ${name}, #${id}`);
             $('#createUserModal').modal();
@@ -103,7 +103,7 @@ const utils = {
 
     }
 
-}
+};
 
 const app = Object.assign(utils, renders);
 
@@ -121,7 +121,7 @@ $(document).ready(() => {
         else
             app.updateUser();
     });
-})
+});
 
 function getFormData($form){
     var unindexed_array = $form.serializeArray();

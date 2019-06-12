@@ -1,29 +1,24 @@
 package web;
 
-import dto.Product;
-import functionality.ProductFunctionality;
-import functionality.interfaces.IProductFunctionality;
+import dto.ProductBatch;
+import functionality.ProductBatchFunctionality;
+import functionality.interfaces.IProductBatchFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/products")
-public class ProductResource {
-    private IProductFunctionality prodFunc = new ProductFunctionality();
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
+@Path("/productBatches")
+public class ProductBatchResource {
+    private IProductBatchFunctionality prodFunc = new ProductBatchFunctionality();
+
     @GET
-    @Path("{rawmantId}")
+    @Path("{productBatchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("rawmantId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("productBatchId") int id) {
 
         try {
-            return Response.ok(prodFunc.getProduct(id)).build();
+            return Response.ok(prodFunc.getProdBatch(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -33,7 +28,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(prodFunc.getAllProducts()).build();
+            return Response.ok(prodFunc.getAllProdBatches()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -42,9 +37,9 @@ public class ProductResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(Product product) {
+    public Response create(ProductBatch productBatch) {
         try {
-            prodFunc.createProduct(product);
+            prodFunc.createProductBatch(productBatch);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -54,9 +49,9 @@ public class ProductResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(Product prod) {
+    public Response update(ProductBatch prod) {
         try {
-            prodFunc.updateProduct(prod);
+            prodFunc.updateProdBatch(prod);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -64,11 +59,11 @@ public class ProductResource {
     }
 
     @DELETE
-    @Path("{rawmatId}")
+    @Path("{prodBatchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("rawmatId") int id) {
+    public Response delete(@PathParam("prodBatchId") int id) {
         try {
-            prodFunc.deleteProduct(prodFunc.getProduct(id));
+            prodFunc.deleteProdBatch(prodFunc.getProdBatch(id));
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

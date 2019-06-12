@@ -14,7 +14,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
     private IRawMatBatchDAO rawMatBatchDAO;
     private IDatabaseConnection dbc;
 
-    public RawMatBatchFunctionality(){
+    public RawMatBatchFunctionality() {
         dbc = new DatabaseConnection();
         rawMatBatchDAO = new RawMatBatchDAO();
     }
@@ -24,7 +24,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
         try {
             Connection conn = dbc.getConnection();
             rawMatBatchDAO.create(conn, rawMatBatch);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not create raw mat batch");
         }
     }
@@ -34,7 +34,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
         try {
             Connection conn = dbc.getConnection();
             return rawMatBatchDAO.getObject(conn, rawmatbatchid);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not get raw mat batch with ID: " + rawmatbatchid);
         }
     }
@@ -44,7 +44,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
         try {
             Connection conn = dbc.getConnection();
             return rawMatBatchDAO.loadAll(conn);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not get all raw mat batches");
         }
     }
@@ -54,7 +54,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
         try {
             Connection conn = dbc.getConnection();
             rawMatBatchDAO.save(conn, rawMatBatch);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not update given raw mat batch");
         }
     }
@@ -64,7 +64,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
         try {
             Connection conn = dbc.getConnection();
             rawMatBatchDAO.delete(conn, rawMatBatch);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not delete raw mat batch");
         }
     }

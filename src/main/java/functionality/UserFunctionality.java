@@ -13,7 +13,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     private IUserDAO userDAO;
     private IDatabaseConnection dbc;
 
-    public UserFunctionality(){
+    public UserFunctionality() {
         dbc = new DatabaseConnection();
         userDAO = new UserDAO();
     }
@@ -38,21 +38,21 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     }
 
     @Override
-    public IUser getUser(int userID)throws Exception {
+    public IUser getUser(int userID) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return userDAO.getObject(conn, userID);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new Exception("Could not find user: " + e.getMessage());
         }
     }
 
     @Override
-    public List<IUser> getAllUsers()throws Exception {
+    public List<IUser> getAllUsers() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return userDAO.loadAll(conn);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new Exception("Could not find user: " + e.getMessage());
         }
     }
@@ -62,7 +62,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
         try {
             Connection conn = dbc.getConnection();
             userDAO.save(conn, user);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new Exception("Could not update user: " + e.getMessage());
         }
     }
@@ -72,7 +72,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
         try {
             Connection conn = dbc.getConnection();
             userDAO.delete(conn, user);
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new Exception("Could not delete user: " + e.getMessage());
         }
     }

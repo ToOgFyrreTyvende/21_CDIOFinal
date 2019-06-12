@@ -1,29 +1,26 @@
 package web;
 
-import dto.Product;
-import functionality.ProductFunctionality;
-import functionality.interfaces.IProductFunctionality;
+
+import dal.interfaces.IRawMatDAO;
+import dto.RawMat;
+import functionality.RawMatFunctionality;
+import functionality.interfaces.IRawMatFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/products")
-public class ProductResource {
-    private IProductFunctionality prodFunc = new ProductFunctionality();
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
+@Path("/rawMat")
+public class RawMatResource {
+    private IRawMatFunctionality rawMatFunc = new RawMatFunctionality();
+
     @GET
-    @Path("{rawmantId}")
+    @Path("{productId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("rawmantId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("productId") int id) {
 
         try {
-            return Response.ok(prodFunc.getProduct(id)).build();
+            return Response.ok(rawMatFunc.getRawMat(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -33,7 +30,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(prodFunc.getAllProducts()).build();
+            return Response.ok(rawMatFunc.getAllRawMats()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -42,9 +39,9 @@ public class ProductResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(Product product) {
+    public Response create(RawMat rawmat) {
         try {
-            prodFunc.createProduct(product);
+            rawMatFunc.createRawMat(rawmat);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -54,9 +51,9 @@ public class ProductResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(Product prod) {
+    public Response update(RawMat rawmat) {
         try {
-            prodFunc.updateProduct(prod);
+            rawMatFunc.updateRawMat(rawmat);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -64,11 +61,11 @@ public class ProductResource {
     }
 
     @DELETE
-    @Path("{rawmatId}")
+    @Path("{prodId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("rawmatId") int id) {
+    public Response delete(@PathParam("prodId") int id) {
         try {
-            prodFunc.deleteProduct(prodFunc.getProduct(id));
+            rawMatFunc.deleteRawMat(rawMatFunc.getRawMat(id));
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
