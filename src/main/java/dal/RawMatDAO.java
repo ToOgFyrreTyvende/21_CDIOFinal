@@ -2,6 +2,7 @@ package dal;
 
 import dal.exceptions.NotFoundException;
 import dto.RawMat;
+import dto.interfaces.IRawMat;
 
 import java.sql.*;
 import java.util.*;
@@ -10,21 +11,21 @@ import java.math.*;
 public class RawMatDAO implements dal.interfaces.IRawMatDAO {
 
     @Override
-    public RawMat createRawMat() {
+    public IRawMat createRawMat() {
         return new RawMat();
     }
 
     @Override
-    public RawMat getObject(Connection conn, int rawMatID) throws NotFoundException, SQLException {
+    public IRawMat getObject(Connection conn, int rawMatID) throws NotFoundException, SQLException {
 
-        RawMat rawMat = createRawMat();
+        IRawMat rawMat = createRawMat();
         rawMat.setRawMatID(rawMatID);
         load(conn, rawMat);
         return rawMat;
     }
 
     @Override
-    public void load(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
+    public void load(Connection conn, IRawMat rawMat) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM RawMats WHERE (rawMatID = ? ) ";
         PreparedStatement stmt = null;
@@ -48,7 +49,7 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
      * @param conn This method requires working database connection.
      */
     @Override
-    public List loadAll(Connection conn) throws SQLException {
+    public List<IRawMat> loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM RawMats ORDER BY rawMatID ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
@@ -61,7 +62,7 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
      * RawMat contents.
      */
     @Override
-    public synchronized void create(Connection conn, RawMat rawMat) throws SQLException {
+    public synchronized void create(Connection conn, IRawMat rawMat) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -90,11 +91,11 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
      * save-method. This method will save the current state of RawMat to database.
      *
      * @param conn   This method requires working database connection.
-     * @param RawMat This parameter contains the class instance to be saved.
+     * @param rawMat This parameter contains the class instance to be saved.
      *               Primary-key field must be set for this to work properly.
      */
     @Override
-    public void save(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
+    public void save(Connection conn, IRawMat rawMat) throws NotFoundException, SQLException {
 
         String sql = "UPDATE RawMats SET rawMatName = ? WHERE (rawMatID = ? ) ";
         PreparedStatement stmt = null;
@@ -126,11 +127,11 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
      * identified by by primary-key in supplied rawMat.
      *
      * @param conn   This method requires working database connection.
-     * @param RawMat This parameter contains the class instance to be deleted.
+     * @param rawMat This parameter contains the class instance to be deleted.
      *               Primary-key field must be set for this to work properly.
      */
     @Override
-    public void delete(Connection conn, RawMat rawMat) throws NotFoundException, SQLException {
+    public void delete(Connection conn, IRawMat rawMat) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM RawMats WHERE (rawMatID = ? ) ";
         PreparedStatement stmt = null;
@@ -214,7 +215,7 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
      *               based. Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, RawMat rawMat) throws SQLException {
+    public List<IRawMat> searchMatching(Connection conn, IRawMat rawMat) throws SQLException {
 
         List searchResults;
 
@@ -267,7 +268,7 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
      * @param stmt   This parameter contains the SQL statement to be excuted.
      * @param rawMat Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, RawMat rawMat)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IRawMat rawMat)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -307,7 +308,7 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                RawMat temp = createRawMat();
+                IRawMat temp = createRawMat();
 
                 temp.setRawMatID(result.getInt("rawMatID"));
                 temp.setRawMatName(result.getString("rawMatName"));
