@@ -4,6 +4,9 @@ import dal.ProductDAO;
 import dal.UserDAO;
 import dal.interfaces.IProductDAO;
 import dal.interfaces.IUserDAO;
+import dto.interfaces.IUser;
+import functionality.UserFunctionality;
+import functionality.interfaces.IUserFunctionality;
 import utils.SQLTools;
 
 import javax.ws.rs.*;
@@ -16,44 +19,35 @@ import java.sql.Connection;
  */
 @Path("/users")
 public class UserResource {
-
-    /*private UserDAO userdao = new UserDAO();
-    private IUserFunctionality userFunc = new UserFunctionality(userdao);*/
+    private IUserFunctionality userFunc = new UserFunctionality();
     /**
      * Method handling HTTP GET requests. The returned object will be sent
      * to the client as "text/plain" media type.
      *
      * @return String that will be returned as a text/plain response.
      */
-    /*@GET
+    @GET
     @Path("{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("userId") int id) {
 
         try {
-            return Response.ok((User)userFunc.getUser(id)).build();
-        } catch (IUserFunctionality.UserInputException e) {
-            e.printStackTrace();
+            return Response.ok(userFunc.getUser(id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
 
-        return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for user Id: " + id).build();
 
-    }*/
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        IUserDAO dao = new UserDAO();
-        IProductDAO pdao = new ProductDAO();
-
-        Connection conn = SQLTools.createConnection();
         try {
-            return Response.ok(pdao.loadAll(conn)).build();
+            return Response.ok(userFunc.getAllUsers()).build();
         } catch (Exception e) {
-            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error occurred").build();
     }
 
     /*@GET
@@ -62,40 +56,36 @@ public class UserResource {
     public Response getAllRoles() {
         try {
             return Response.ok(userFunc.getRolesList()).build();
-        } catch (IUserDAO.DALException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error occurred").build();
-    }
+    }*/
 
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(UserDTO user) {
+    public Response create(IUser user) {
         try {
             userFunc.createUser(user);
-            return Response.ok(userFunc.getUser(user.getUserId())).build();
-        } catch (IUserFunctionality.UserInputException e) {
-            e.printStackTrace();
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
-        return Response.status(Response.Status.NOT_FOUND).entity("Incomplete user").build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(UserDTO user) {
+    public Response update(IUser user) {
         try {
             userFunc.updateUser(user);
-            return Response.ok(userFunc.getUser(user.getUserId())).build();
-        } catch (IUserFunctionality.UserInputException e) {
-            e.printStackTrace();
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
-        return Response.status(Response.Status.NOT_FOUND).entity("Incomplete user").build();
     }
 
     @DELETE
@@ -103,12 +93,11 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("userId") int id) {
         try {
-            userFunc.deleteUser(id);
-            return Response.ok("Deleted " + id).build();
-        } catch (IUserFunctionality.UserInputException e) {
-            e.printStackTrace();
+            userFunc.deleteUser(userFunc.getUser(id));
+            return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
 
-        return Response.status(Response.Status.NOT_FOUND).entity("Incomplete user").build();
-    }*/
+    }
 }
