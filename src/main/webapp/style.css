@@ -1,17 +1,28 @@
 html, body {
     background-image: url("https://wallpapersite.com/images/wallpapers/stars-3840x2160-galaxy-4k-6362.jpg");
     margin:0;
+    padding: 0;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    padding: 0;
 }
 
-.container{
+.container2{
     padding-top:50px;
     width:80%;
     margin: 0 auto;
     z-index: 69;
+}
+
+.container3{
+    padding-top:50px;
+    width:100%;
+    margin: 0 auto;
+    z-index: 69;
+}
+
+#tableRow{
+    width: 100%;
 }
 
 table{
@@ -67,4 +78,49 @@ table{
     left: 0;
     z-index:-1;
     background-blend-mode: multiply;
+}
+
+
+/* SELECT ROLE */
+.containerSR{
+    padding-top:50px;
+    width: 10%;
+    margin: 0 auto;
+    z-index: 69;
+}
+
+#SR ul {
+    margin: 0 auto;
+    padding: 0;
+    width: 200px;
+    border: 1px solid #555;
+ }
+
+#SR li a {
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    background-color: #FF1493;
+}
+
+#SR li {
+    list-style: none;
+    text-align: center;
+    border-bottom: 1px solid #555;
+
+}
+
+#SR li:last-child {
+    border-bottom: none;
+}
+
+#SR li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#SR li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
 }

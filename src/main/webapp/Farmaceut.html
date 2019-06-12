@@ -3,12 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="/lambda.png">
-    <link rel="shortcut icon" type="image/png" href="/lambda.png">
-    <link rel="bookmark" type="image/png" href="/lambda.png">
-    <title>User List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Farmaceut</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
 
 </head>
 
@@ -18,97 +16,97 @@
 
 <div id="nav">
     <ul id="nav">
-        <li><a class="active" href="#">Home</a></li>
+        <li><a class="active" href="menu.html">Home</a></li>
         <li style="float:right"><a target="_blank" href="https://github.com/ToOgFyrreTyvende/21_del3">Github</a>
         </li>
     </ul>
 </div>
 
-<div class="container">
-    <h1 style="color:white;" > List of all users</h1>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
-        Create User
-    </button>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
-        Create Raw Material
-    </button>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
-        Create Raw Material Batch
-    </button>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createReceptModal">
-        Create Recept
-    </button>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
-        Create Product Batch
-    </button>
-    <span id="counter">0</span>
-    <table class="table table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Initials</th>
-            <th>Roles</th>
-            <th>CPR</th>
-            <th>Updatus</th>
-            <th>Deletus</th>
-        </tr>
-        <tbody id="user">
-        </tbody>
-    </table>
-</div>
 
-<!-- Modal USER-->
-<div class="modal fade" style="display:none;" id="createUserModal" tabindex="-1" role="dialog"
-     aria-labelledby="createUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="inputForm">
-                    <div id="id-group" class="form-group">
-                        <label for="userId">User ID</label>
-                        <input type="number" id="userIdInput" min="11" max="99" class="form-control" name="userId" placeholder="42">
-                    </div>
+<div class="container3">
+    <div class="row" id="tableRow">
 
-                    <div id="name-group" class="form-group">
-                        <label for="userName">Username</label>
-                        <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Harry Potter">
-                    </div>
+        <div class="col-sm">
+            <h1 style="color:white;" > List of Recepts</h1>
+        <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createReceptModal">
+            Create Recept
+        </button>
+            <table class="table table-striped">
+                <tr>
+                    <th>ReceptID</th>
+                    <th>ReceptName</th>
+                    <th>RMID</th>
+                    <th>nonNetto</th>
+                    <th>Tolerance</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tbody id="user">
+                </tbody>
+            </table>
+        </div>
 
-                    <div id="ini-group" class="form-group">
-                        <label for="ini">Initials</label>
-                        <input type="text" id="iniInput" class="form-control" name="ini" placeholder="HP">
-                    </div>
+        <div class="col-sm">
+            <h1 style="color:white;" > List of Raw Materials</h1>
+            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
+                Create Raw Material
+            </button>
+            <table class="table table-striped">
+                <tr>
+                    <th>RMID</th>
+                    <th>RM-Name</th>
+                    <th>Supplier</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tbody id="user">
+                </tbody>
+            </table>
+        </div>
 
-                    <div id="cpr-group" class="form-group">
-                        <label for="cpr">CPR</label>
-                        <input type="text" id="cprInput" class="form-control" name="cpr" placeholder="123456-1234">
-                    </div>
+        <div class="col-sm">
+            <h1 style="color:white;" > List of Raw Material Batches</h1>
+            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
+                Create Raw Material Batch
+            </button>
 
-                    <div id="password-group" class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="passwordInput" class="form-control" name="password" placeholder="/dev/ttyUSB0">
-                    </div>
+            <table class="table table-striped">
+                <tr>
+                    <th>RMBID</th>
+                    <th>RMID</th>
+                    <th>Amount</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tbody id="user">
+                </tbody>
+            </table>
+        </div>
 
-                    <div id="roles-group" class="form-group">
-                        <label for="roles">Roles</label>
-                        <select class="form-control" id="roles" name="roles" multiple="multiple">
-                        </select>
-                    </div>
-
-                    <button id="submitForm" class="btn btn-success">Submit <span
-                            class="fa fa-arrow-right"></span></button>
-
-                </form>
-            </div>
+        <div class="col-sm">
+            <h1 style="color:white;" > List of Product Batches</h1>
+            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
+                Create Product Batch
+            </button>
+            <table class="table table-striped">
+                <tr>
+                    <th>PBID</th>
+                    <th>ReceptID</th>
+                    <th>Status</th>
+                    <th>UserID</th>
+                    <th>RMBID</th>
+                    <th>Tara</th>
+                    <th>Netto</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tbody id="user">
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 
 <!-- Modal RAW MAT -->
 <div class="modal fade" style="display:none;" id="createRawMatModal" tabindex="-1" role="dialog"
