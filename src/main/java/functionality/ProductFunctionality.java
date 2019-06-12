@@ -45,7 +45,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
             Connection conn = dbc.getConnection();
             return productDAO.loadAll(conn);
         }catch (Exception e){
-            throw new Exception("Could not get all products with");
+            throw new Exception("Could not get all products");
         }
     }
 
