@@ -3,6 +3,7 @@ package dal;
 import dal.exceptions.NotFoundException;
 import dal.interfaces.IWeighedIngredientsBatchesDAO;
 import dto.WeighedIngredientsBatches;
+import dto.interfaces.IWeighedIngredientsBatches;
 
 import java.sql.*;
 import java.util.*;
@@ -10,21 +11,21 @@ import java.util.*;
 public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
 
     @Override
-    public WeighedIngredientsBatches createweighedBatch() {
+    public IWeighedIngredientsBatches createweighedBatch() {
         return new WeighedIngredientsBatches();
     }
 
     @Override
-    public WeighedIngredientsBatches getObject(Connection conn, int weighedIngredientId) throws NotFoundException, SQLException {
+    public IWeighedIngredientsBatches getObject(Connection conn, int weighedIngredientId) throws NotFoundException, SQLException {
 
-        WeighedIngredientsBatches weighedBatch = createweighedBatch();
+        IWeighedIngredientsBatches weighedBatch = createweighedBatch();
         weighedBatch.setWeighedIngredientId(weighedIngredientId);
         load(conn, weighedBatch);
         return weighedBatch;
     }
 
     @Override
-    public void load(Connection conn, WeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
+    public void load(Connection conn, IWeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
         String sql = "SELECT * FROM WeighedBatches WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
@@ -42,7 +43,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     }
 
     @Override
-    public List loadAll(Connection conn) throws SQLException {
+    public List<IWeighedIngredientsBatches> loadAll(Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM WeighedBatches ORDER BY weighedIngredientId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
@@ -58,7 +59,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
      * @param weighedBatch
      */
     @Override
-    public synchronized void create(Connection conn, WeighedIngredientsBatches weighedBatch) throws SQLException {
+    public synchronized void create(Connection conn, IWeighedIngredientsBatches weighedBatch) throws SQLException {
 
         String sql = "";
         PreparedStatement stmt = null;
@@ -98,7 +99,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
      *                     Primary-key field must be set for this to work properly.
      */
     @Override
-    public void save(Connection conn, WeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
+    public void save(Connection conn, IWeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
         String sql = "UPDATE WeighedBatches SET rawMatBatchId = ?, userId = ?, tara = ?, "
                 + "netto = ?, prodBatchId = ? WHERE (weighedIngredientId = ? ) ";
@@ -139,7 +140,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
      *                     Primary-key field must be set for this to work properly.
      */
     @Override
-    public void delete(Connection conn, WeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
+    public void delete(Connection conn, IWeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
         String sql = "DELETE FROM WeighedBatches WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
@@ -223,7 +224,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
      *                     will be based. Primary-key field should not be set.
      */
     @Override
-    public List searchMatching(Connection conn, WeighedIngredientsBatches weighedBatch) throws SQLException {
+    public List searchMatching(Connection conn, IWeighedIngredientsBatches weighedBatch) throws SQLException {
 
         List searchResults;
 
@@ -304,7 +305,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
      * @param stmt         This parameter contains the SQL statement to be excuted.
      * @param weighedBatch Class-instance where resulting data will be stored.
      */
-    protected void singleQuery(Connection conn, PreparedStatement stmt, WeighedIngredientsBatches weighedBatch)
+    protected void singleQuery(Connection conn, PreparedStatement stmt, IWeighedIngredientsBatches weighedBatch)
             throws NotFoundException, SQLException {
 
         ResultSet result = null;
@@ -338,7 +339,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
      * @param conn This method requires working database connection.
      * @param stmt This parameter contains the SQL statement to be excuted.
      */
-    protected List listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
+    protected List<IWeighedIngredientsBatches> listQuery(Connection conn, PreparedStatement stmt) throws SQLException {
 
         ArrayList searchResults = new ArrayList();
         ResultSet result = null;
@@ -347,7 +348,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
             result = stmt.executeQuery();
 
             while (result.next()) {
-                WeighedIngredientsBatches temp = createweighedBatch();
+                IWeighedIngredientsBatches temp = createweighedBatch();
 
                 temp.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 temp.setRawMatBatchId(result.getInt("rawMatBatchId"));
