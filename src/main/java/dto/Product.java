@@ -94,11 +94,20 @@ public class Product implements IProduct {
     }
 
     public static class RawMatAmount implements IProduct.IRawMatAmount{
+        private int prodIngId;
         private int rawMatId;
         private String name;
         private double amount;
         private double tolerance;
 
+        @Override
+        public int getProdIngId() {
+            return prodIngId;
+        }
+        @Override
+        public void setProdIngId(int prodIngId) {
+            this.prodIngId = prodIngId;
+        }
         @Override
         public int getRawMatId() {
             return rawMatId;

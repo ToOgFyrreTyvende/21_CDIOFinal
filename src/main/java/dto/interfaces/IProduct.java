@@ -23,6 +23,10 @@ public interface IProduct {
     boolean hasEqualMapping(Product valueObject);
 
     interface IRawMatAmount {
+        int getProdIngId();
+
+        void setProdIngId(int prodIngId);
+
         int getRawMatId();
 
         void setRawMatId(int rawMatId);

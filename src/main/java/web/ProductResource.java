@@ -1,19 +1,13 @@
 package web;
 
 import dto.Product;
-import dto.User;
 import functionality.ProductFunctionality;
-import functionality.UserFunctionality;
 import functionality.interfaces.IProductFunctionality;
-import functionality.interfaces.IUserFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- * Root resource (exposed at "myresource" path)
- */
 @Path("/products")
 public class ProductResource {
     private IProductFunctionality prodFunc = new ProductFunctionality();

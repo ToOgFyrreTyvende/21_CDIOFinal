@@ -336,7 +336,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
     private void retrieveIngredients(Connection conn, IProduct product, int productId) throws SQLException {
         String sql =
-                "select RM.rawMatId, RM.rawMatName, amount, tolerance\n" +
+                "select productIngredientId, RM.rawMatId, RM.rawMatName, amount, tolerance\n" +
                 "from ProductIngredients\n" +
                 "  inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID\n" +
                 "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
@@ -351,6 +351,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
         while (ingres.next()){
             Product.RawMatAmount temping = new Product.RawMatAmount();
+            temping.setProdIngId(ingres.getInt("productIngredientId"));
             temping.setAmount(ingres.getDouble("amount"));
             temping.setTolerance(ingres.getDouble("tolerance"));
             temping.setName(ingres.getString("rawMatName"));
