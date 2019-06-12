@@ -13,23 +13,12 @@ public interface IProduct {
 
     void setProductName(String productNameIn);
 
-    double getNomNetto();
-
-    void setNomNetto(double nomNettoIn);
-
-    double getTolerance();
-
-    void setTolerance(double toleranceIn);
-
     List<IProduct.IRawMatAmount> getIngredients();
 
     void setIngredients(List<IProduct.IRawMatAmount> ingredients);
 
     void setAll(int productIdIn,
-                String productNameIn,
-                int rawMatIdIn,
-                double nomNettoIn,
-                double toleranceIn);
+                String productNameIn);
 
     boolean hasEqualMapping(Product valueObject);
 
@@ -45,5 +34,10 @@ public interface IProduct {
         double getAmount();
 
         void setAmount(double amount);
+
+        double getTolerance();
+
+        void setTolerance(double toleranceIn);
+
     }
 }

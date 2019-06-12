@@ -68,13 +68,14 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO ProductIngredients ( productIngredientId, rawMatId, productId, amount) VALUES (?, ?, ?, ?) ";
+            sql = "INSERT INTO ProductIngredients ( productIngredientId, rawMatId, productId, amount, tolerance) VALUES (?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, productIngredient.getProductIngredientId());
             stmt.setInt(2, productIngredient.getRawMatId());
             stmt.setInt(3, productIngredient.getProductId());
-            stmt.setInt(4, productIngredient.getAmount());
+            stmt.setDouble(4, productIngredient.getAmount());
+            stmt.setDouble(5, productIngredient.getTolerance());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount != 1) {
@@ -99,16 +100,17 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public void save(Connection conn, IProductIngredient productIngredient) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ?, amount = ? WHERE (productIngredientId = ? ) ";
+        String sql = "UPDATE ProductIngredients SET rawMatId = ?, productId = ?, amount = ?, tolerance = ? WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, productIngredient.getRawMatId());
             stmt.setInt(2, productIngredient.getProductId());
-            stmt.setInt(3, productIngredient.getAmount());
+            stmt.setDouble(3, productIngredient.getAmount());
+            stmt.setDouble(4, productIngredient.getTolerance());
 
-            stmt.setInt(4, productIngredient.getProductIngredientId());
+            stmt.setInt(5, productIngredient.getProductIngredientId());
 
             int rowcount = databaseUpdate(conn, stmt);
             if (rowcount == 0) {
@@ -243,6 +245,12 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
                 first = false;
             }
             sql.append("AND amount = ").append(productIngredient.getAmount()).append(" ");
+        }
+        if (productIngredient.getTolerance() > 0) {
+            if (first) {
+                first = false;
+            }
+            sql.append("AND tolerance = ").append(productIngredient.getTolerance()).append(" ");
         }
 
         if (productIngredient.getProductId() != 0) {

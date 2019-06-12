@@ -46,8 +46,6 @@ CREATE TABLE Products
 (
     productId   INT AUTO_INCREMENT COMMENT 'Product Id',
     productName VARCHAR(20) NOT NULL COMMENT 'Product navn' CHECK ( 2 <= CHAR_LENGTH(productName) <= 20 ),
-    nomNetto    DOUBLE      NOT NULL COMMENT 'Mængden i kilogram, med 4 decimaler' CHECK ( 0.05 <= CHAR_LENGTH(nomNetto) <= 20.0 ),
-    tolerance   DOUBLE      NOT NULL COMMENT 'Tolerancen i procent på nominel mængde' CHECK ( 0.1 <= CHAR_LENGTH(tolerance) <= 10.0 ),
     PRIMARY KEY (productId)
 );
 
@@ -59,6 +57,7 @@ CREATE TABLE ProductIngredients
     rawMatId            INT    NOT NULL COMMENT 'Råvare batch id',
     productId           INT    NOT NULL COMMENT 'Product Id',
     amount              DOUBLE NOT NULL COMMENT 'mængde',
+    tolerance           DOUBLE NOT NULL COMMENT 'tolerance',
     PRIMARY KEY (productIngredientId),
     FOREIGN KEY (rawMatId) REFERENCES RawMats (rawMatId) ON DELETE CASCADE,
     FOREIGN KEY (productId) REFERENCES Products (productId) ON DELETE CASCADE

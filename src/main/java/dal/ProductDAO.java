@@ -80,8 +80,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
             stmt.setInt(1, product.getProductId());
             stmt.setString(2, product.getProductName());
-            stmt.setDouble(4, product.getNomNetto());
-            stmt.setDouble(5, product.getTolerance());
 
             int rowcount = databaseUpdate(conn, stmt);
             ensureIngredients(conn, product);
@@ -114,8 +112,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
-            stmt.setDouble(2, product.getNomNetto());
-            stmt.setDouble(3, product.getTolerance());
 
             stmt.setInt(4, product.getProductId());
 
@@ -272,16 +268,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             sql.append("AND productName LIKE '").append(product.getProductName()).append("%' ");
         }
 
-        if (product.getNomNetto() != 0) {
-            if (first) { first = false; }
-            sql.append("AND nomNetto = ").append(product.getNomNetto()).append(" ");
-        }
-
-        if (product.getTolerance() != 0) {
-            if (first) { first = false; }
-            sql.append("AND tolerance = ").append(product.getTolerance()).append(" ");
-        }
-
 
         sql.append("ORDER BY productId ASC ");
 
@@ -334,8 +320,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
                 product.setProductId(result.getInt("productId"));
                 product.setProductName(result.getString("productName"));
-                product.setNomNetto(result.getDouble("nomNetto"));
-                product.setTolerance(result.getDouble("tolerance"));
 
                 retrieveIngredients(conn, product, result.getInt("productId"));
             } else {
@@ -352,7 +336,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
     private void retrieveIngredients(Connection conn, IProduct product, int productId) throws SQLException {
         String sql =
-                "select RM.rawMatId, RM.rawMatName, amount\n" +
+                "select RM.rawMatId, RM.rawMatName, amount, tolerance\n" +
                 "from ProductIngredients\n" +
                 "  inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID\n" +
                 "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
@@ -368,6 +352,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         while (ingres.next()){
             Product.RawMatAmount temping = new Product.RawMatAmount();
             temping.setAmount(ingres.getDouble("amount"));
+            temping.setTolerance(ingres.getDouble("tolerance"));
             temping.setName(ingres.getString("rawMatName"));
             temping.setRawMatId(ingres.getInt("rawMatId"));
 
@@ -399,8 +384,6 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
 
                 temp.setProductId(result.getInt("productId"));
                 temp.setProductName(result.getString("productName"));
-                temp.setNomNetto(result.getDouble("nomNetto"));
-                temp.setTolerance(result.getDouble("tolerance"));
 
                 retrieveIngredients(conn, temp, result.getInt("productId"));
 

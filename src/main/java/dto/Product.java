@@ -11,9 +11,6 @@ public class Product implements IProduct {
 
     private int productId;
     private String productName;
-    private double nomNetto;
-    private double tolerance;
-
     private List<IProduct.IRawMatAmount> ingredients;
 
     public Product() {
@@ -45,24 +42,6 @@ public class Product implements IProduct {
     }
 
     @Override
-    public double getNomNetto() {
-        return this.nomNetto;
-    }
-    @Override
-    public void setNomNetto(double nomNettoIn) {
-        this.nomNetto = nomNettoIn;
-    }
-
-    @Override
-    public double getTolerance() {
-        return this.tolerance;
-    }
-    @Override
-    public void setTolerance(double toleranceIn) {
-        this.tolerance = toleranceIn;
-    }
-
-    @Override
     public List<IProduct.IRawMatAmount> getIngredients() {
         return ingredients;
     }
@@ -73,14 +52,9 @@ public class Product implements IProduct {
 
     @Override
     public void setAll(int productIdIn,
-                       String productNameIn,
-                       int rawMatIdIn,
-                       double nomNettoIn,
-                       double toleranceIn) {
+                       String productNameIn) {
         this.productId = productIdIn;
         this.productName = productNameIn;
-        this.nomNetto = nomNettoIn;
-        this.tolerance = toleranceIn;
     }
 
     @Override
@@ -95,12 +69,6 @@ public class Product implements IProduct {
         } else if (!this.productName.equals(valueObject.getProductName())) {
             return(false);
         }
-        if (valueObject.getNomNetto() != this.nomNetto) {
-            return(false);
-        }
-        if (valueObject.getTolerance() != this.tolerance) {
-            return(false);
-        }
 
         return true;
     }
@@ -112,8 +80,6 @@ public class Product implements IProduct {
         out.append("Persistent attributes: \n");
         out.append("productId = " + this.productId + "\n");
         out.append("productName = " + this.productName + "\n");
-        out.append("nomNetto = " + this.nomNetto + "\n");
-        out.append("tolerance = " + this.tolerance + "\n");
         return out.toString();
     }
 
@@ -124,8 +90,6 @@ public class Product implements IProduct {
         cloned.setProductId(this.productId);
         if (this.productName != null)
             cloned.setProductName(new String(this.productName));
-        cloned.setNomNetto(this.nomNetto);
-        cloned.setTolerance(this.tolerance);
         return cloned;
     }
 
@@ -133,6 +97,7 @@ public class Product implements IProduct {
         private int rawMatId;
         private String name;
         private double amount;
+        private double tolerance;
 
         @Override
         public int getRawMatId() {
@@ -157,6 +122,14 @@ public class Product implements IProduct {
         @Override
         public void setAmount(double amount) {
             this.amount = amount;
+        }
+        @Override
+        public double getTolerance() {
+            return tolerance;
+        }
+        @Override
+        public void setTolerance(double tolerance) {
+            this.tolerance = tolerance;
         }
     }
 }

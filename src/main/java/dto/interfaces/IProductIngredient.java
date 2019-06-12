@@ -17,13 +17,19 @@ public interface IProductIngredient extends Cloneable, Serializable {
 
     void setProductId(int productIdIn);
 
-    int getAmount();
+    double getAmount();
 
-    void setAmount(int amount);
+    void setAmount(double amount);
+
+    double getTolerance();
+
+    void setTolerance(double tolerance);
 
     void setAll(int ingredientIdIn,
                 int rawMatIdIn,
-                int productIdIn);
+                int productIdIn,
+                double amountin,
+                double tolerancein);
 
     boolean hasEqualMapping(ProductIngredient valueObject);
 }

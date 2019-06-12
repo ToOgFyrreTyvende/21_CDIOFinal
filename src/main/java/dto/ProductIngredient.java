@@ -5,7 +5,8 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
     private int productIngredientId;
     private int rawMatId;
     private int productId;
-    private int amount;
+    private double amount;
+    private double tolerance;
 
 
     public ProductIngredient () {}
@@ -42,21 +43,34 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
     }
 
     @Override
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
     @Override
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public double getTolerance() {
+        return tolerance;
+    }
+    @Override
+    public void setTolerance(double tolerance) {
+        this.tolerance = tolerance;
     }
 
     @Override
     public void setAll(int ingredientIdIn,
                        int rawMatIdIn,
-                       int productIdIn) {
+                       int productIdIn,
+                       double amountin,
+                       double tolerancein) {
         this.productIngredientId = ingredientIdIn;
         this.rawMatId = rawMatIdIn;
         this.productId = productIdIn;
+        this.amount = amountin;
+        this.tolerance = tolerancein;
     }
 
 
@@ -83,6 +97,8 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
         out.append("productIngredientId = " + this.productIngredientId + "\n");
         out.append("rawMatId = " + this.rawMatId + "\n");
         out.append("productId = " + this.productId + "\n");
+        out.append("amount = " + this.amount + "\n");
+        out.append("tolerance = " + this.tolerance + "\n");
         return out.toString();
     }
 
@@ -92,6 +108,8 @@ public class ProductIngredient implements dto.interfaces.IProductIngredient {
         cloned.setProductIngredientId(this.productIngredientId);
         cloned.setRawMatId(this.rawMatId);
         cloned.setProductId(this.productId);
+        cloned.setAmount(this.amount);
+        cloned.setTolerance(this.tolerance);
         return cloned;
     }
 
