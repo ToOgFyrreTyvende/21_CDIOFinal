@@ -14,9 +14,9 @@ public class RawMatBatchResource {
     private IRawMatBatchFunctionality rawMatBatchFunc = new RawMatBatchFunctionality();
 
     @GET
-    @Path("{productId}")
+    @Path("{rmbId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("productId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("rmbId") int id) {
 
         try {
             return Response.ok(rawMatBatchFunc.getRawMatBatch(id)).build();
@@ -60,9 +60,9 @@ public class RawMatBatchResource {
     }
 
     @DELETE
-    @Path("{prodId}")
+    @Path("{rmbId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("prodId") int id) {
+    public Response delete(@PathParam("rmbId") int id) {
         try {
             rawMatBatchFunc.deleteRawMatBatch(rawMatBatchFunc.getRawMatBatch(id));
             return Response.ok().build();

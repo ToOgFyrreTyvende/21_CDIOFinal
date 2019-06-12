@@ -18,9 +18,9 @@ public class ProductResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Path("{productId}")
+    @Path("{rawmantId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("productId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("rawmantId") int id) {
 
         try {
             return Response.ok(prodFunc.getProduct(id)).build();
@@ -64,9 +64,9 @@ public class ProductResource {
     }
 
     @DELETE
-    @Path("{prodId}")
+    @Path("{rawmatId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("prodId") int id) {
+    public Response delete(@PathParam("rawmatId") int id) {
         try {
             prodFunc.deleteProduct(prodFunc.getProduct(id));
             return Response.ok().build();

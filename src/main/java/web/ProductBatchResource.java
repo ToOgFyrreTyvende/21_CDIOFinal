@@ -11,16 +11,11 @@ import javax.ws.rs.core.Response;
 @Path("/productBatches")
 public class ProductBatchResource {
     private IProductBatchFunctionality prodFunc = new ProductBatchFunctionality();
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
+
     @GET
-    @Path("{productId}")
+    @Path("{productBatchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("productId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("productBatchId") int id) {
 
         try {
             return Response.ok(prodFunc.getProdBatch(id)).build();
@@ -42,9 +37,9 @@ public class ProductBatchResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(ProductBatch product) {
+    public Response create(ProductBatch productBatch) {
         try {
-            prodFunc.createProductBatch(product);
+            prodFunc.createProductBatch(productBatch);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -64,9 +59,9 @@ public class ProductBatchResource {
     }
 
     @DELETE
-    @Path("{prodId}")
+    @Path("{prodBatchId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("prodId") int id) {
+    public Response delete(@PathParam("prodBatchId") int id) {
         try {
             prodFunc.deleteProdBatch(prodFunc.getProdBatch(id));
             return Response.ok().build();
