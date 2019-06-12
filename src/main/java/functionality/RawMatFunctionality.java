@@ -13,7 +13,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
     private IRawMatDAO rawMatDAO;
     private IDatabaseConnection dbc;
 
-    public RawMatFunctionality(){
+    public RawMatFunctionality() {
         dbc = new DatabaseConnection();
         rawMatDAO = new RawMatDAO();
     }
@@ -23,7 +23,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
         try {
             Connection conn = dbc.getConnection();
             rawMatDAO.create(conn, rawmat);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not create raw mat");
         }
     }
@@ -33,7 +33,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
         try {
             Connection conn = dbc.getConnection();
             return rawMatDAO.getObject(conn, rawmatid);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not get raw mat with ID: " + rawmatid);
         }
     }
@@ -43,7 +43,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
         try {
             Connection conn = dbc.getConnection();
             return rawMatDAO.loadAll(conn);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not get all raw mats");
         }
     }
@@ -53,7 +53,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
         try {
             Connection conn = dbc.getConnection();
             rawMatDAO.save(conn, rawmat);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not update given raw mat");
         }
     }
@@ -63,7 +63,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
         try {
             Connection conn = dbc.getConnection();
             rawMatDAO.delete(conn, rawmat);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not delete raw mat");
         }
     }

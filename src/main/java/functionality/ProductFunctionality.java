@@ -14,7 +14,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
     private IProductDAO productDAO;
     private IDatabaseConnection dbc;
 
-    public ProductFunctionality(){
+    public ProductFunctionality() {
         dbc = new DatabaseConnection();
         productDAO = new ProductDAO();
     }
@@ -24,7 +24,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
         try {
             Connection conn = dbc.getConnection();
             productDAO.create(conn, prod);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not create product with ingredients!");
         }
     }
@@ -34,7 +34,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
         try {
             Connection conn = dbc.getConnection();
             return productDAO.getObject(conn, prodId);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not get product with ID: " + prodId);
         }
     }
@@ -44,7 +44,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
         try {
             Connection conn = dbc.getConnection();
             return productDAO.loadAll(conn);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not get all products");
         }
     }
@@ -54,7 +54,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
         try {
             Connection conn = dbc.getConnection();
             productDAO.save(conn, product);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not update given product");
         }
     }
@@ -64,7 +64,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
         try {
             Connection conn = dbc.getConnection();
             productDAO.delete(conn, product);
-        }catch (Exception e){
+        } catch (Exception e){
             throw new Exception("Could not delete given product");
         }
     }

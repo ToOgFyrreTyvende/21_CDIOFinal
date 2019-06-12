@@ -9,5 +9,5 @@ public interface IProductBatchFunctionality {
     IProductBatch getProdBatch(int pBatchId) throws Exception;
     List<IProductBatch> getAllProdBatches() throws Exception;
     void updateProdBatch(IProductBatch prodBatch) throws Exception;
-    void deleteProdBatch(IProductBatch prodBatch)throws Exception;
+    void deleteProdBatch(IProductBatch prodBatch) throws Exception;
 }
