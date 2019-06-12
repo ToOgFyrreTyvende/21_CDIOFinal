@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IProductBatchDAO {
-    ProductBatch createProductBatch();
+    IProductBatch createProductBatch();
 
-    ProductBatch getObject(Connection conn, int prodBatchId) throws NotFoundException, SQLException;
+    IProductBatch getObject(Connection conn, int prodBatchId) throws NotFoundException, SQLException;
 
     void load(Connection conn, IProductBatch ProductBatch) throws NotFoundException, SQLException;
 
-    List loadAll(Connection conn) throws SQLException;
+    List<IProductBatch> loadAll(Connection conn) throws SQLException;
 
     void create(Connection conn, IProductBatch ProductBatch) throws SQLException;
 
@@ -27,5 +27,5 @@ public interface IProductBatchDAO {
 
     int countAll(Connection conn) throws SQLException;
 
-    List searchMatching(Connection conn, IProductBatch ProductBatch) throws SQLException;
+    List<IProductBatch> searchMatching(Connection conn, IProductBatch ProductBatch) throws SQLException;
 }

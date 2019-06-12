@@ -10,14 +10,14 @@ import dto.interfaces.IProductBatch;
 public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
     @Override
-    public ProductBatch createProductBatch() {
+    public IProductBatch createProductBatch() {
         return new ProductBatch();
     }
 
     @Override
-    public ProductBatch getObject(Connection conn, int prodBatchId) throws NotFoundException, SQLException {
+    public IProductBatch getObject(Connection conn, int prodBatchId) throws NotFoundException, SQLException {
 
-        ProductBatch ProductBatch = createProductBatch();
+        IProductBatch ProductBatch = createProductBatch();
         ProductBatch.setProdBatchId(prodBatchId);
         load(conn, ProductBatch);
         return ProductBatch;
@@ -402,7 +402,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                ProductBatch temp = createProductBatch();
+                IProductBatch temp = createProductBatch();
 
                 temp.setProdBatchId(result.getInt("prodBatchId"));
                 temp.setProdId(result.getInt("prodId"));
