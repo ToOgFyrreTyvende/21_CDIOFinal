@@ -1,26 +1,22 @@
 package web;
 
-import dal.ProductDAO;
-import dal.UserDAO;
-import dal.interfaces.IProductDAO;
-import dal.interfaces.IUserDAO;
+import dto.Product;
 import dto.User;
-import dto.interfaces.IUser;
+import functionality.ProductFunctionality;
 import functionality.UserFunctionality;
+import functionality.interfaces.IProductFunctionality;
 import functionality.interfaces.IUserFunctionality;
-import utils.SQLTools;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.Connection;
 
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("/users")
-public class UserResource {
-    private IUserFunctionality userFunc = new UserFunctionality();
+@Path("/products")
+public class ProductResource {
+    private IProductFunctionality prodFunc = new ProductFunctionality();
     /**
      * Method handling HTTP GET requests. The returned object will be sent
      * to the client as "text/plain" media type.
@@ -28,49 +24,33 @@ public class UserResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Path("{userId}")
+    @Path("{productId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("userId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("productId") int id) {
 
         try {
-            return Response.ok(userFunc.getUser(id)).build();
+            return Response.ok(prodFunc.getProduct(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
-
-
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(userFunc.getAllUsers()).build();
+            return Response.ok(prodFunc.getAllProducts()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
 
-    /*@GET
-    @Path("/roles")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllRoles() {
-        try {
-            return Response.ok(userFunc.getRolesList()).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error occurred").build();
-    }*/
-
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(User user) {
+    public Response create(Product product) {
         try {
-            userFunc.createUser(user);
+            prodFunc.createProduct(product);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -80,9 +60,9 @@ public class UserResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(User user) {
+    public Response update(Product prod) {
         try {
-            userFunc.updateUser(user);
+            prodFunc.updateProduct(prod);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -90,11 +70,11 @@ public class UserResource {
     }
 
     @DELETE
-    @Path("{userId}")
+    @Path("{prodId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("userId") int id) {
+    public Response delete(@PathParam("prodId") int id) {
         try {
-            userFunc.deleteUser(userFunc.getUser(id));
+            prodFunc.deleteProduct(prodFunc.getProduct(id));
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
