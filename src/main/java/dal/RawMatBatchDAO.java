@@ -8,7 +8,12 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
+public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO, dal.arrayDao.IARawMatBatchDAO {
+
+    private List<IRawMatBatch> rmb;
+
+    public RawMatBatchDAO() { rmb = new ArrayList<>(); }
+
     @Override
     public IRawMatBatch createrawMatBatch() {
         return new RawMatBatch();
@@ -350,4 +355,40 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
         return (List) searchResults;
     }
 
+    //=========================     array       ===========================
+
+
+
+    @Override
+    public IRawMatBatch getRawMatBat(int rawmatbatId) {
+        return rmb.get(rawmatbatId);
+    }
+
+    @Override
+    public List<IRawMatBatch> getRawMatBatList() {
+        return rmb;
+    }
+
+    @Override
+    public void createRawMatBat(IRawMatBatch rawmatbat) {
+        rmb.add(rawmatbat);
+    }
+
+    @Override
+    public void updateRawMatBat(IRawMatBatch rawmatbat) {
+        int rmbID = rawmatbat.getRmbId();
+
+        int i = 0;
+        for (IRawMatBatch upRawMatBat : rmb){
+            if (upRawMatBat.getRmbId() == rmbID){
+                rmb.set(i, upRawMatBat);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteRawMatBat(int rawmatbatId) {
+        rmb.remove(rawmatbatId);
+    }
 }

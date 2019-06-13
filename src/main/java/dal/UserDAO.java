@@ -8,7 +8,11 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class UserDAO implements dal.interfaces.IUserDAO {
+public class UserDAO implements dal.interfaces.IUserDAO, dal.arrayDao.IAUserDAO {
+
+    private List<IUser> u;
+
+    public UserDAO(){u = new ArrayList<>();}
 
     @Override
     public IUser createUser() {
@@ -368,4 +372,42 @@ public class UserDAO implements dal.interfaces.IUserDAO {
         return (List) searchResults;
     }
 
+    //============================      array       ============================
+
+
+
+
+
+    @Override
+    public IUser getUser(int userId) {
+        return u.get(userId);
+    }
+
+    @Override
+    public List<IUser> getUser() {
+        return u;
+    }
+
+    @Override
+    public void createUser(IUser user) {
+        u.add(user);
+    }
+
+    @Override
+    public void updateUser(IUser user) {
+        int userID = user.getUserId();
+
+        int i = 0;
+        for (IUser upUser : u){
+            if (upUser.getUserId() == userID){
+                u.set(i, upUser);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteUser(int userId) {
+        u.remove(userId);
+    }
 }

@@ -8,7 +8,11 @@ import dto.interfaces.IWeighedIngredientsBatches;
 import java.sql.*;
 import java.util.*;
 
-public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
+public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO, dal.arrayDao.IAWeightedIngredientsBatchesDAO {
+
+    private List<IWeighedIngredientsBatches> wibs;
+
+    public WeighedIngredientsBatchesDAO(){wibs = new ArrayList<>();}
 
     @Override
     public IWeighedIngredientsBatches createweighedBatch() {
@@ -369,4 +373,42 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
         return (List) searchResults;
     }
 
+    //==========================        array       =============================
+
+
+
+
+
+    @Override
+    public IWeighedIngredientsBatches getWIB(int wibId) {
+        return wibs.get(wibId);
+    }
+
+    @Override
+    public List<IWeighedIngredientsBatches> getWIBList() {
+        return wibs;
+    }
+
+    @Override
+    public void createWIB(IWeighedIngredientsBatches wib) {
+        wibs.add(wib);
+    }
+
+    @Override
+    public void updateWIB(IWeighedIngredientsBatches wib) {
+        int wibID = wib.getWeighedIngredientId();
+
+        int i = 0;
+        for (IWeighedIngredientsBatches upWeiIngBat : wibs){
+            if (upWeiIngBat.getProdBatchId() == wibID){
+                wibs.set(i, upWeiIngBat);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteWIB(int wibId) {
+        wibs.remove(wibId);
+    }
 }

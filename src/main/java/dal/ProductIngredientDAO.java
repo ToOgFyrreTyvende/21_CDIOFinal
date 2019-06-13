@@ -7,7 +7,11 @@ import dto.interfaces.*;
 import java.sql.*;
 import java.util.*;
 
-public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
+public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO, dal.arrayDao.IAProductIngredientDAO {
+
+    private List<IProductIngredient> pi;
+
+    public ProductIngredientDAO(){pi = new ArrayList<>();}
 
     @Override
     public IProductIngredient createproductIngredient() {
@@ -355,4 +359,42 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
         return (List) searchResults;
     }
 
+    //============================      array       ===============================
+
+
+
+
+
+    @Override
+    public IProductIngredient getProdIng(int prodingId) {
+        return pi.get(prodingId);
+    }
+
+    @Override
+    public List<IProductIngredient> getProdIngList() {
+        return pi;
+    }
+
+    @Override
+    public void createProdIng(IProductIngredient proding) {
+        pi.add(proding);
+    }
+
+    @Override
+    public void updateProdIng(IProductIngredient proding) {
+        int prodingID = proding.getProductIngredientId();
+
+        int i = 0;
+        for (IProductIngredient upProdIng : pi){
+            if (upProdIng.getProductIngredientId() == prodingID){
+                pi.set(i, upProdIng);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteProdIng(int prodingId) {
+        pi.remove(prodingId);
+    }
 }

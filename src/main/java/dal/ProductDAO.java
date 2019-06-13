@@ -9,7 +9,11 @@ import java.sql.*;
 import java.util.*;
 
 
-public class ProductDAO implements dal.interfaces.IProductDAO {
+public class ProductDAO implements dal.interfaces.IProductDAO, dal.arrayDao.IAProductDAO {
+
+    private List<IProduct> p;
+
+    public ProductDAO(){p = new ArrayList<>();}
 
     @Override
     public IProduct createproduct() {
@@ -402,4 +406,40 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         return (List)searchResults;
     }
 
+    //=====================     array       =====================
+
+
+
+    @Override
+    public IProduct getProd(int prodId) {
+        return p.get(prodId);
+    }
+
+    @Override
+    public List<IProduct> getProdList() {
+        return p;
+    }
+
+    @Override
+    public void createProd(IProduct prod) {
+        p.add(prod);
+    }
+
+    @Override
+    public void updateProd(IProduct prod) {
+        int prodID = prod.getProductId();
+
+        int i = 0;
+        for (IProduct upProd : p){
+            if (upProd.getProductId() == prodID){
+                p.set(i, upProd);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteProd(int prodId) {
+        p.remove(prodId);
+    }
 }

@@ -8,7 +8,11 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatDAO implements dal.interfaces.IRawMatDAO {
+public class RawMatDAO implements dal.interfaces.IRawMatDAO, dal.arrayDao.IARawMatDAO {
+
+    private List<IRawMat> rm;
+
+    public RawMatDAO(){rm = new ArrayList<>();}
 
     @Override
     public IRawMat createRawMat() {
@@ -326,4 +330,42 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
         return (List) searchResults;
     }
 
+    //============================      array       ==============================
+
+
+
+
+
+    @Override
+    public IRawMat getRawMat(int rawmatId) {
+        return rm.get(rawmatId);
+    }
+
+    @Override
+    public List<IRawMat> getRawMatList() {
+        return rm;
+    }
+
+    @Override
+    public void createRawMat(IRawMat rawmat) {
+        rm.add(rawmat);
+    }
+
+    @Override
+    public void updateRawMat(IRawMat rawmat) {
+        int rmID = rawmat.getRawMatID();
+
+        int i = 0;
+        for (IRawMat upRawMat : rm){
+            if (upRawMat.getRawMatID() == rmID){
+                rm.set(i, upRawMat);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteRawMat(int rawmatId) {
+        rm.remove(rawmatId);
+    }
 }

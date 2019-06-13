@@ -1,4 +1,4 @@
-package dal.Array;
+package dal.arrayDao;
 
 import java.util.List;
 import dto.interfaces.IUser;

@@ -5,9 +5,16 @@ import java.util.*;
 import java.math.*;
 import dal.exceptions.NotFoundException;
 import dto.ProductBatch;
+import dto.interfaces.IProduct;
 import dto.interfaces.IProductBatch;
 
-public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
+public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO, dal.arrayDao.IAProductBatchDAO {
+
+    private List<IProductBatch> pb;
+
+    public ProductBatchDAO() {
+         pb = new ArrayList<>();
+    }
 
     @Override
     public IProductBatch createProductBatch() {
@@ -422,4 +429,40 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
         return (List) searchResults;
     }
 
+    //====================      Array       ====================
+
+
+
+    @Override
+    public IProductBatch getProdBat(int prodbatId) {
+        return pb.get(prodbatId);
+    }
+
+    @Override
+    public List<IProductBatch> getProdBatList() {
+        return pb;
+    }
+
+    @Override
+    public void createProdBat(IProductBatch prodbat) {
+        pb.add(prodbat);
+    }
+
+    @Override
+    public void updateProdBat(IProductBatch prodbat) {
+        int prodbatID = prodbat.getProdBatchId();
+
+        int i = 0;
+        for (IProductBatch upProdBat : pb){
+            if (upProdBat.getProdBatchId() == prodbatID){
+                pb.set(i, upProdBat);
+            }
+            i++;
+        }
+    }
+
+    @Override
+    public void deleteProdBat(int prodbatId) {
+        pb.remove(prodbatId);
+    }
 }
