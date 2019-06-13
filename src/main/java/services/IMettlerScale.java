@@ -5,5 +5,4 @@ public interface IMettlerScale {
     String taraWeight();
     String getWeight();
     boolean isConnected();
-    void displayText(String text);
 }

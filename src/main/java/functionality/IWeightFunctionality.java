@@ -5,6 +5,4 @@ public interface IWeightFunctionality {
     boolean getConfirmation(String msg);
     void taraWeight();
     String getWeight();
-
-    void displayText(String msg);
 }

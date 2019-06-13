@@ -27,8 +27,5 @@ public class WeightFunctionality implements IWeightFunctionality {
     public String getWeight(){
         return scale.getWeight();
     }
-    @Override
-    public void displayText(String msg){
-        scale.displayText(msg);
-    }
+
 }
