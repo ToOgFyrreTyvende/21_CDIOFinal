@@ -38,17 +38,12 @@ public class main {
             }
         });
 
-
-        HttpService  h = new HttpService();
-        User us = h.getUser();
-        System.out.println(us.getUserName());
-
-        /*IMettlerScale scale = new MettlerScale("127.0.0.1", 8000);
+        IMettlerScale scale = new MettlerScale("127.0.0.1", 8000);
 
         IWeightFunctionality wFunc = new WeightFunctionality(scale);
         WeightUI ui = new WeightUI(wFunc);
 
-        ui.menu();*/
+        ui.menu();
 
     }
 }

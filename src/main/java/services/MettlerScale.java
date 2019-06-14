@@ -39,6 +39,19 @@ public class MettlerScale implements IMettlerScale {
     }
 
     @Override
+    public String requestUserNumber(String requestText) {
+        scaleRequest(String.format("RM20 3 \"%s\" \"\" \"&3\"", requestText));
+        String returnText = "";
+        try{
+            returnText = in.readLine();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return returnText;
+    }
+
+    @Override
     public String taraWeight() {
         return scaleRequest("T").split(" ")[2];
     }

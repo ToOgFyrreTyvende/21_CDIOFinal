@@ -1,6 +1,9 @@
 package ui;
 
 import functionality.IWeightFunctionality;
+import models.ProductBatch;
+import models.User;
+import services.HttpService;
 
 public class WeightUI {
 
@@ -12,22 +15,34 @@ public class WeightUI {
 
     public void menu(){
 
+        HttpService http = new HttpService();
+        User user;
+        ProductBatch productBatch;
+
         String displayText = "Enter user ID";
         while (true) {
             String userID = wFunc.requestInput(String.format("%s .. press OK to confirm",displayText));
-            // get userID.name from DB here
-            if (userID.equals("12")) {break;} // check against DB
-            else {displayText = "Unvalid user ID, try again";}
+            user = http.getUser(userID);
+            if (user != null) {break;}
+            else {displayText = "Unvalid ID, try again";}
         }
-        String username = "test name"; // this should come from DB
-        wFunc.getConfirmation(String.format("%s .. press OK to confirm",username));
+        wFunc.getConfirmation(String.format("%s .. press OK to confirm",user.getUserName()));
+
+        displayText = "Enter product batch ID";
+        while (true) {
+            String productBatchID = wFunc.requestInput(String.format("%s .. press OK to confirm",displayText));
+            productBatch = http.getProductBatch(productBatchID);
+            if (productBatch != null) {break;}
+            else {displayText = "Unvalid ID, try again";}
+        }
+        wFunc.getConfirmation(String.format("%s .. press OK to confirm",productBatch.getName()));
 
         displayText = "Enter raw material batch ID";
         while (true) {
             String rawMatBatchID = wFunc.requestInput(String.format("%s .. press OK to confirm",displayText));
             // get rawMatBatchID.name from DB here
             if (rawMatBatchID.equals("1234")) {break;} // check against DB
-            else {displayText = "Unvalid raw material batch ID, try again";}
+            else {displayText = "Unvalid ID, try again";}
         }
 
         String rawMatBatch = "test batch"; // this should come from DB
