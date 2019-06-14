@@ -26,7 +26,8 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
     @Override
     public void load(Connection conn, IRawMatBatch rawMatBatch) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM RawMatBatches WHERE (rmbId = ? ) ";
+        String sql = "SELECT rm.rawMatName, rmb.* FROM RawMatBatches as rmb inner join RawMats as rm on rmb.rawMatId = rm.rawMatId" +
+                " WHERE (rmbId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
