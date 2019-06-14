@@ -10,14 +10,14 @@ import java.util.*;
 public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
 
     @Override
-    public IProductIngredient createproductIngredient() {
+    public IProductIngredient createProductIngredient() {
         return new ProductIngredient();
     }
 
     @Override
     public IProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException {
 
-        IProductIngredient productIngredient = createproductIngredient();
+        IProductIngredient productIngredient = createProductIngredient();
         productIngredient.setProductIngredientId(ingredientId);
         load(conn, productIngredient);
         return productIngredient;
@@ -335,7 +335,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             result = stmt.executeQuery();
 
             while (result.next()) {
-                IProductIngredient temp = createproductIngredient();
+                IProductIngredient temp = createProductIngredient();
 
                 temp.setProductIngredientId(result.getInt("productIngredientId"));
                 temp.setRawMatId(result.getInt("rawMatId"));

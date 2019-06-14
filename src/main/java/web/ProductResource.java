@@ -19,9 +19,9 @@ public class ProductResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Path("{rawmantId}")
+    @Path("{rawMatId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("rawmantId") int id) {
+    public Response get(@DefaultValue("0") @PathParam("rawMatId") int id) {
         try {
             return Response.ok(prodFunc.getProduct(id)).build();
         } catch (Exception e) {
@@ -64,9 +64,9 @@ public class ProductResource {
     }
 
     @DELETE
-    @Path("{rawmatId}")
+    @Path("{rawMatId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("rawmatId") int id) {
+    public Response delete(@PathParam("rawMatId") int id) {
         try {
             prodFunc.deleteProduct(prodFunc.getProduct(id));
             return Response.ok().build();

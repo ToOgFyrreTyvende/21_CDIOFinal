@@ -10,11 +10,11 @@ import java.sql.Connection;
 import java.util.List;
 
 public class IngredientsFunctionality implements functionality.interfaces.IIngredientsFunctionality {
-    private IProductIngredientDAO prodingDAO;
+    private IProductIngredientDAO prodIngDAO;
     private IDatabaseConnection dbc;
 
     public IngredientsFunctionality(){
-        prodingDAO = new ProductIngredientDAO();
+        prodIngDAO = new ProductIngredientDAO();
         dbc = new DatabaseConnection();
     }
 
@@ -37,17 +37,17 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
                 throw new Exception("Product ingredient is incorrect");
             }
             Connection conn = dbc.getConnection();
-            prodingDAO.create(conn, ingredient);
+            prodIngDAO.create(conn, ingredient);
         } catch (Exception e) {
             throw new Exception("Can't create ingredient: " + e.getMessage());
         }
     }
 
     @Override
-    public IProductIngredient getIngredient(int prodingID) throws Exception {
+    public IProductIngredient getIngredient(int prodIngID) throws Exception {
         try {
             Connection conn = dbc.getConnection();
-            return prodingDAO.getObject(conn,prodingID);
+            return prodIngDAO.getObject(conn, prodIngID);
         } catch (Exception e) {
             throw new Exception("Can't get ingredient: " + e.getMessage());
         }
@@ -58,27 +58,27 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
     public List<IProductIngredient> getAllIngredient() throws Exception {
         try {
             Connection conn = dbc.getConnection();
-            return prodingDAO.loadAll(conn);
+            return prodIngDAO.loadAll(conn);
         } catch (Exception e) {
             throw new Exception("Can't get all ingredient: " + e.getMessage());
         }
     }
 
     @Override
-    public void updateIngredient(IProductIngredient proding) throws Exception {
+    public void updateIngredient(IProductIngredient prodIng) throws Exception {
         try {
             Connection conn = dbc.getConnection();
-            prodingDAO.load(conn,proding);
+            prodIngDAO.load(conn, prodIng);
         } catch (Exception e) {
             throw new Exception("Can't update ingredient: " + e.getMessage());
         }
     }
 
     @Override
-    public void deleteIngredient(IProductIngredient proding) throws Exception {
+    public void deleteIngredient(IProductIngredient prodIng) throws Exception {
         try {
             Connection conn = dbc.getConnection();
-            prodingDAO.delete(conn,proding);
+            prodIngDAO.delete(conn, prodIng);
         } catch (Exception e) {
             throw new Exception("Can't delete ingredient: " + e.getMessage());
         }
