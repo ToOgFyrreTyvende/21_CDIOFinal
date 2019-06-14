@@ -33,20 +33,31 @@ public class WeightUI {
         String rawMatBatch = "test batch"; // this should come from DB
         wFunc.getConfirmation(String.format("%s .. press OK to confirm",rawMatBatch));
 
-        wFunc.getConfirmation(String.format("Clear weight .. Press OK to confirm"));
+        wFunc.getConfirmation("Clear weight .. Press OK to confirm");
         wFunc.taraWeight();
 
-        wFunc.getConfirmation(String.format("Place empty tara on weight .. Press OK to confirm"));
-        String taraWeight = wFunc.getWeight();
+        wFunc.getConfirmation("Place empty tara on weight .. Press OK to confirm");
+        String tara = wFunc.getWeight();
+        double taraWeight = Double.parseDouble(tara);
         wFunc.taraWeight();
 
-        wFunc.getConfirmation(String.format("Place netto in tara .. Press OK to confirm"));
-        String nettoWeight = wFunc.getWeight();
+        wFunc.getConfirmation("Place netto in tara .. Press OK to confirm");
+        String netto = wFunc.getWeight();
+        double nettoWeight = Double.parseDouble(netto);
         wFunc.taraWeight();
 
-        wFunc.getConfirmation(String.format("Remove brutto from weight .. Press OK to confirm"));
-        String bruttoWeight = wFunc.getWeight();
+        wFunc.getConfirmation("Remove brutto from weight .. Press OK to confirm");
+        String brutto = wFunc.getWeight();
+        double bruttoWeight = -(Double.parseDouble(brutto));
         wFunc.taraWeight();
+
+        wFunc.getConfirmation("Weighing complete .. Press OK to end");
+        wFunc.taraWeight();
+
+        // Send this to DB
+        System.out.println("Tara: " + taraWeight + " kg");
+        System.out.println("Netto: " + nettoWeight + " kg");
+        System.out.println("Brutto: " + bruttoWeight + " kg");
 
     }
 }
