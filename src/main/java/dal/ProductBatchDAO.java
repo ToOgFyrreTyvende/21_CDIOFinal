@@ -346,7 +346,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
                 productBatch.setName(result.getString("productName"));
                 productBatch.setProdBatchId(result.getInt("prodBatchId"));
-                productBatch.setProdId(result.getInt("prodId"));
+                productBatch.setProdId(result.getInt("productId"));
                 productBatch.setStatus(result.getInt("status"));
                 retrieveWeighings(conn, productBatch, result.getInt("prodBatchId"));
             } else {
@@ -409,7 +409,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
                 temp.setName(result.getString(("productName")));
                 temp.setProdBatchId(result.getInt("prodBatchId"));
-                temp.setProdId(result.getInt("prodId"));
+                temp.setProdId(result.getInt("productId"));
                 temp.setStatus(result.getInt("status"));
                 retrieveWeighings(conn, temp, result.getInt("prodBatchId"));
 
