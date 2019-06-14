@@ -2,6 +2,7 @@ package ui;
 
 import functionality.IWeightFunctionality;
 import models.ProductBatch;
+import models.RawMatBatch;
 import models.User;
 import services.HttpService;
 
@@ -18,6 +19,7 @@ public class WeightUI {
         HttpService http = new HttpService();
         User user;
         ProductBatch productBatch;
+        RawMatBatch rawMatBatch;
 
         String displayText = "Enter user ID";
         while (true) {
@@ -40,13 +42,11 @@ public class WeightUI {
         displayText = "Enter raw material batch ID";
         while (true) {
             String rawMatBatchID = wFunc.requestInput(String.format("%s .. press OK to confirm",displayText));
-            // get rawMatBatchID.name from DB here
-            if (rawMatBatchID.equals("1234")) {break;} // check against DB
+            rawMatBatch = http.getRawMatBatch(rawMatBatchID);
+            if (rawMatBatch != null) {break;} // check against DB
             else {displayText = "Unvalid ID, try again";}
         }
-
-        String rawMatBatch = "test batch"; // this should come from DB
-        wFunc.getConfirmation(String.format("%s .. press OK to confirm",rawMatBatch));
+        wFunc.getConfirmation(String.format("%s .. press OK to confirm",rawMatBatch.getName()));
 
         wFunc.getConfirmation("Clear weight .. Press OK to confirm");
         wFunc.taraWeight();
