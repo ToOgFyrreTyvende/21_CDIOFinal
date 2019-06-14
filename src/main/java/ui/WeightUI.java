@@ -1,10 +1,7 @@
 package ui;
 
 import functionality.IWeightFunctionality;
-import models.Product;
-import models.ProductBatch;
-import models.RawMatBatch;
-import models.User;
+import models.*;
 import services.HttpService;
 import utils.Helper;
 
@@ -79,10 +76,16 @@ public class WeightUI {
         wFunc.getConfirmation("Weighing complete .. Press OK to end");
         wFunc.taraWeight();
 
-        // Send this to DB
-        System.out.println("Tara: " + taraWeight + " kg");
-        System.out.println("Netto: " + nettoWeight + " kg");
-        System.out.println("Brutto: " + bruttoWeight + " kg");
+        Weighing weighing = new Weighing(rawMatBatch.getRmbId(), productBatch.getProdBatchId(), user.getUserId(), taraWeight, nettoWeight);
+        boolean result = http.saveWeighing(weighing);
 
+        if (result){
+            System.out.println("Tara: " + taraWeight + " kg");
+            System.out.println("Netto: " + nettoWeight + " kg");
+            System.out.println("Brutto: " + bruttoWeight + " kg");
+        }
+        else {
+            throw new IOException("Couldn't save weighing, you wasted your time :(");
+        }
     }
 }

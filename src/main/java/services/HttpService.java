@@ -1,9 +1,11 @@
 package services;
 
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import models.Product;
 import models.ProductBatch;
+import models.Weighing;
 import models.RawMatBatch;
 import models.User;
 import utils.Consts;
@@ -49,5 +51,22 @@ public class HttpService {
             //e.printStackTrace();
         }
         return rawMatBatch;
+    }
+
+    public boolean saveWeighing(Weighing weighing){
+        RawMatBatch rawMatBatch = null;
+        try {
+
+            HttpResponse postresp = Unirest.post(Consts.URL + "/api/weighing")
+                    .header("Content-Type", "application/json")
+                    .body(weighing)
+                    .asJson();
+            if (postresp.getStatus() == 200) return true;
+            else return false;
+
+        } catch (UnirestException e) {
+            //e.printStackTrace();
+        }
+        return false;
     }
 }
