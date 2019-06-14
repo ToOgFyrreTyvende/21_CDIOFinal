@@ -6,6 +6,7 @@ import java.util.*;
 public class ProductBatch implements dto.interfaces.IProductBatch {
 
     private int prodBatchId;
+    private String name;
     private int prodId;
     private int status;
     private List<IWeighings> weighings;
@@ -60,6 +61,14 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
     @Override
     public void setWeighings(List<IWeighings> weighings) {
         this.weighings = weighings;
+    }
+    @Override
+    public String getName() {
+        return name;
+    }
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

@@ -11,6 +11,7 @@ public class RawMatBatch implements dto.interfaces.IRawMatBatch {
     private int rawMatId;
     private double amount;
     private String supplier;
+    private String name;
 
     public RawMatBatch() {
     }
@@ -57,6 +58,15 @@ public class RawMatBatch implements dto.interfaces.IRawMatBatch {
     @Override
     public void setSupplier(String supplierIn) {
         this.supplier = supplierIn;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

@@ -26,7 +26,8 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
     @Override
     public void load(Connection conn, IProductBatch ProductBatch) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM ProductBatches WHERE (prodBatchId = ? ) ";
+        String sql = "SELECT P.productName, pb.* FROM ProductBatches as pb" +
+                "    inner join Products as P on pb.productId = P.productId WHERE (prodBatchId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
@@ -50,7 +51,8 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
     @Override
     public List loadAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT * FROM ProductBatches ORDER BY prodBatchId ASC ";
+        String sql = "SELECT P.productName, pb.* FROM ProductBatches as pb inner join Products as P on pb.productId = P.productId" +
+                " ORDER BY prodBatchId ASC";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
         return searchResults;
@@ -342,6 +344,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
             if (result.next()) {
 
+                productBatch.setName(result.getString("productName"));
                 productBatch.setProdBatchId(result.getInt("prodBatchId"));
                 productBatch.setProdId(result.getInt("prodId"));
                 productBatch.setStatus(result.getInt("status"));
@@ -404,6 +407,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             while (result.next()) {
                 IProductBatch temp = createProductBatch();
 
+                temp.setName(result.getString(("productName")));
                 temp.setProdBatchId(result.getInt("prodBatchId"));
                 temp.setProdId(result.getInt("prodId"));
                 temp.setStatus(result.getInt("status"));
