@@ -9,7 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/rawMatBatch")
+@Path("/rawMatBatches")
 public class RawMatBatchResource {
     private IRawMatBatchFunctionality rawMatBatchFunc = new RawMatBatchFunctionality();
 
