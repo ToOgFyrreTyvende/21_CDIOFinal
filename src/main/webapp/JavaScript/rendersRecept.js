@@ -26,7 +26,7 @@ const renders = {
 
     <!--RenderInputField RECEPT-->
     renderInputFields: function(id){
-        recept = this.users.filter((el) => el.userId === id)[0]
+        recept = this.Recepts.filter((el) => el.receptId === id)[0]
         if(user){
             $("#receptIdInput").val(recept.receptId);
             $("#receptNameInput").val(recept.receptName);
