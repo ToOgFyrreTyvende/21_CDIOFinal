@@ -1,7 +1,6 @@
 package web;
 
 
-import dal.interfaces.IRawMatDAO;
 import dto.RawMat;
 import functionality.RawMatFunctionality;
 import functionality.interfaces.IRawMatFunctionality;
@@ -18,7 +17,6 @@ public class RawMatResource {
     @Path("{productId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("productId") int id) {
-
         try {
             return Response.ok(rawMatFunc.getRawMat(id)).build();
         } catch (Exception e) {
@@ -70,6 +68,5 @@ public class RawMatResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

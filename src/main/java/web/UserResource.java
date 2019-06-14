@@ -1,19 +1,12 @@
 package web;
 
-import dal.ProductDAO;
-import dal.UserDAO;
-import dal.interfaces.IProductDAO;
-import dal.interfaces.IUserDAO;
 import dto.User;
-import dto.interfaces.IUser;
 import functionality.UserFunctionality;
 import functionality.interfaces.IUserFunctionality;
-import utils.SQLTools;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.sql.Connection;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -56,7 +49,6 @@ public class UserResource {
     @Path("{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("userId") int id) {
-
         try {
             return Response.ok(userFunc.getUser(id)).build();
         } catch (Exception e) {
@@ -98,6 +90,5 @@ public class UserResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

@@ -17,7 +17,6 @@ public class RawMatBatchResource {
     @Path("{rmbId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("rmbId") int id) {
-
         try {
             return Response.ok(rawMatBatchFunc.getRawMatBatch(id)).build();
         } catch (Exception e) {
@@ -69,6 +68,5 @@ public class RawMatBatchResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

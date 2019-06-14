@@ -16,7 +16,6 @@ public class ProductBatchResource {
     @Path("{productBatchId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("productBatchId") int id) {
-
         try {
             return Response.ok(prodFunc.getProdBatch(id)).build();
         } catch (Exception e) {
@@ -68,6 +67,5 @@ public class ProductBatchResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

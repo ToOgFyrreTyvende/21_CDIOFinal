@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("/products")
 public class ProductResource {
     private IProductFunctionality prodFunc = new ProductFunctionality();
+
     /**
      * Method handling HTTP GET requests. The returned object will be sent
      * to the client as "text/plain" media type.
@@ -21,7 +22,6 @@ public class ProductResource {
     @Path("{rawmantId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("rawmantId") int id) {
-
         try {
             return Response.ok(prodFunc.getProduct(id)).build();
         } catch (Exception e) {
@@ -73,6 +73,5 @@ public class ProductResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

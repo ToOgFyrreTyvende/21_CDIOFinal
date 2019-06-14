@@ -1,6 +1,5 @@
 package web;
 
-import dto.User;
 import dto.WeighedIngredientsBatches;
 import functionality.WeighingFunctionality;
 import functionality.interfaces.IWeighingFunctionality;
@@ -11,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/weighing")
 public class WeighingResource {
-    public IWeighingFunctionality wFunc = new WeighingFunctionality();
+    private IWeighingFunctionality wFunc = new WeighingFunctionality();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -27,7 +26,6 @@ public class WeighingResource {
     @Path("{weighingId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("weighingId") int id) {
-
         try {
             return Response.ok(wFunc.getWeighing(id)).build();
         } catch (Exception e) {
@@ -69,6 +67,5 @@ public class WeighingResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

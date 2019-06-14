@@ -7,7 +7,6 @@ import functionality.interfaces.IIngredientsFunctionality;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.awt.*;
 
 /**
  * Root resource (exposed at "myresource" path)
