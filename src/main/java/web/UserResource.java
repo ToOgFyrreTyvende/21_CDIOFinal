@@ -21,25 +21,6 @@ import java.sql.Connection;
 @Path("/users")
 public class UserResource {
     private IUserFunctionality userFunc = new UserFunctionality();
-    /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
-     */
-    @GET
-    @Path("{userId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("userId") int id) {
-
-        try {
-            return Response.ok(userFunc.getUser(id)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
-        }
-
-
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,19 +32,37 @@ public class UserResource {
         }
     }
 
-    /*@GET
+    @GET
     @Path("/roles")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllRoles() {
+        /*
+        0 = Admin,
+        1 = Laborant,
+        2 = Produktionsleder,
+        3 = Farmaceut
+        */
+        String[] roles = {"Admin", "Laborant", "Produktionsleder", "Farmaceut"};
         try {
-            return Response.ok(userFunc.getRolesList()).build();
+            return Response.ok(roles).build();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error occurred").build();
-    }*/
+    }
 
+    @GET
+    @Path("{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get(@PathParam("userId") int id) {
+
+        try {
+            return Response.ok(userFunc.getUser(id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+        }
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
