@@ -50,7 +50,8 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
     @Override
     public List<IRawMatBatch> loadAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT * FROM RawMatBatches ORDER BY rmbId ASC ";
+        String sql = "SELECT rm.rawMatName, rmb.* FROM RawMatBatches as rmb inner join RawMats as rm on rmb.rawMatId = rm.rawMatId" +
+                " ORDER BY rmbId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
         return searchResults;
@@ -297,7 +298,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
             result = stmt.executeQuery();
 
             if (result.next()) {
-
+                rawMatBatch.setName(result.getString("rawMatName"));
                 rawMatBatch.setRmbId(result.getInt("rmbId"));
                 rawMatBatch.setRawMatId(result.getInt("rawMatId"));
                 rawMatBatch.setAmount(result.getDouble("amount"));
@@ -332,6 +333,7 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
             while (result.next()) {
                 IRawMatBatch temp = createrawMatBatch();
 
+                temp.setName(result.getString("rawMatName"));
                 temp.setRmbId(result.getInt("rmbId"));
                 temp.setRawMatId(result.getInt("rawMatId"));
                 temp.setAmount(result.getDouble("amount"));
