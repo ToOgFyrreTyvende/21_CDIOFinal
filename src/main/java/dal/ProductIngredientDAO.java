@@ -26,7 +26,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public void load(Connection conn, IProductIngredient productIngredient) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM ProductIngredients WHERE (ingredientId = ? ) ";
+        String sql = "SELECT * FROM ProductIngredients WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
