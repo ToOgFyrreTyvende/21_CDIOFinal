@@ -2,6 +2,7 @@ package services;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import models.Product;
 import models.ProductBatch;
 import models.RawMatBatch;
 import models.User;
@@ -28,6 +29,16 @@ public class HttpService {
             //e.printStackTrace();
         }
         return productBatch;
+    }
+
+    public Product getProduct(int id){
+        Product product = null;
+        try {
+            product = Unirest.get(Consts.URL + "/api/products/" + id).asObject(Product.class).getBody();
+        } catch (UnirestException e) {
+            //e.printStackTrace();
+        }
+        return product;
     }
 
     public RawMatBatch getRawMatBatch(String id){

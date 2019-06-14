@@ -1,10 +1,14 @@
 package ui;
 
 import functionality.IWeightFunctionality;
+import models.Product;
 import models.ProductBatch;
 import models.RawMatBatch;
 import models.User;
 import services.HttpService;
+import utils.Helper;
+
+import java.io.IOException;
 
 public class WeightUI {
 
@@ -14,12 +18,13 @@ public class WeightUI {
         this.wFunc = wFunc;
     }
 
-    public void menu(){
+    public void menu() throws IOException {
 
         HttpService http = new HttpService();
         User user;
         ProductBatch productBatch;
         RawMatBatch rawMatBatch;
+        Product product;
 
         String displayText = "Enter user ID";
         while (true) {
@@ -37,16 +42,21 @@ public class WeightUI {
             if (productBatch != null) {break;}
             else {displayText = "Unvalid ID, try again";}
         }
+        product = http.getProduct(productBatch.getProdId());
+        if (product == null) throw new IOException("product failed");
         wFunc.getConfirmation(String.format("%s .. press OK to confirm",productBatch.getName()));
 
         displayText = "Enter raw material batch ID";
         while (true) {
             String rawMatBatchID = wFunc.requestInput(String.format("%s .. press OK to confirm",displayText));
             rawMatBatch = http.getRawMatBatch(rawMatBatchID);
-            if (rawMatBatch != null) {break;} // check against DB
+            if (rawMatBatch != null && Helper.rawMatInProduct(product,rawMatBatch)) {break;}
             else {displayText = "Unvalid ID, try again";}
         }
         wFunc.getConfirmation(String.format("%s .. press OK to confirm",rawMatBatch.getName()));
+        double amount = Helper.getAmount(product,rawMatBatch);
+        if (amount == 0.0) throw new IOException("amount failed");
+        wFunc.getConfirmation(String.format("%s kg .. press OK to confirm",amount));
 
         wFunc.getConfirmation("Clear weight .. Press OK to confirm");
         wFunc.taraWeight();

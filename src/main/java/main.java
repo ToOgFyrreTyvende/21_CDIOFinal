@@ -13,7 +13,7 @@ import services.MettlerScale;
 import ui.WeightUI;
 
 public class main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, Exception {
 
         Unirest.setObjectMapper(new ObjectMapper() {
             com.fasterxml.jackson.databind.ObjectMapper mapper
@@ -23,7 +23,7 @@ public class main {
                 try {
                     return mapper.writeValueAsString(value);
                 } catch (JsonProcessingException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
                 return null;
             }
@@ -32,7 +32,7 @@ public class main {
                 try {
                     return mapper.readValue(value, valueType);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
                 return null;
             }
