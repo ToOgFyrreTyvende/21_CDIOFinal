@@ -33,7 +33,7 @@ select rawMatBatchId, rmb.rawMatId, wib.userId, rawMatName, tara, netto, supplie
 inner join WeighedIngredientsBatches as wib on wib.prodBatchId = pb.prodBatchId
 inner join RawMatBatches as rmb on wib.rawMatBatchId = rmb.rmbId
 inner join RawMats Mat on rmb.rawMatId = Mat.rawMatId
-where pb.prodBatchId = 1
+where pb.prodBatchId = 1;
 
 
 SELECT *
@@ -44,3 +44,7 @@ SELECT *
 FROM RawMats;
 SELECT *
 FROM ProductIngredients;
+SELECT *
+FROM RawMatBatches;
+
+select * from WeighedIngredientsBatches;
