@@ -32,7 +32,7 @@ public class WeighingFunctionality implements functionality.interfaces.IWeighing
     public IWeighedIngredientsBatches getWeighing(int weighingId) throws Exception {
         try {
             Connection conn = dbc.getConnection();
-            return wibDAO.getObject(conn,weighingID);
+            return wibDAO.getObject(conn,weighingId);
         } catch (Exception e) {
             throw new Exception("Can't get weighing: " + e.getMessage());
         }
