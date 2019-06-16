@@ -1,19 +1,19 @@
-const utils = {
+const utilsRawMat = {
     createForm: true,
     RawMaterials: [],
     Count: function (data) {
-        let name = 'RawMaterial';
+        let name = 'Raw Material';
         counter = $('#counter');
         if (data) {
             if (data > 1)
-                name = 'RawMaterials';
+                name = 'Raw Materials';
 
             counter.html(data + ' ' + name);
         } else
             counter.html('No ' + name);
     },
     FetchAllRawMaterials: function () {
-        $.get('/api/RawMaterials').done((data) => {
+        $.get('/api/rawMat').done((data) => {
             this.RawMaterials = data.sort((a, b) => (a.rawMatId > b.rawMatId) ? 1 : -1);
             this.renderRawMaterials(data);
         })
@@ -21,7 +21,7 @@ const utils = {
 
     removeWithId: function (id) {
         $.ajax({
-            url: `/api/RawMaterials/${id}`,
+            url: `/api/rawMat/${id}`,
             type: 'DELETE',
             dataType: 'text',
             success: () => {
@@ -59,7 +59,7 @@ const utils = {
         let _this = this;
         $.ajax({
             type: "POST",
-            url: "/api/RawMaterials",
+            url: "/api/rawMat",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -79,7 +79,7 @@ const utils = {
         $("#rawMatInput").prop('disabled', false);
         $.ajax({
             type: "PUT",
-            url: "/api/RawMaterials",
+            url: "/api/rawMat",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -98,23 +98,6 @@ const utils = {
     }
 
 }
-
-const app = Object.assign(utils, renders);
-
-$(document).ready(() => {
-
-    Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-    app.RawMatEl = $('#RawMaterial');
-    app.FetchAllRawMaterials();
-    $('#submitForm').on('click', (event) => {
-        event.preventDefault();
-        if(app.createForm)
-            app.createRawMaterial();
-        else
-            app.updateRawMaterial();
-    });
-})
-
 
 /* Fix this */
 function getFormData($form){

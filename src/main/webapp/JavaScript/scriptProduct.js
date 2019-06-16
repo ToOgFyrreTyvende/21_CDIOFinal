@@ -1,32 +1,32 @@
-const utils = {
+const utilsProduct = {
     createForm: true,
-    Recepts: [],
+    Products: [],
     Count: function (data) {
-        let name = 'Recept';
+        let name = 'Product';
         counter = $('#counter');
         if (data) {
             if (data > 1)
-                name = 'Recepts';
+                name = 'Products';
 
             counter.html(data + ' ' + name);
         } else
             counter.html('No ' + name);
     },
-    FetchAllRecepts: function () {
-        $.get('/api/Recepts').done((data) => {
-            this.Recepts = data.sort((a, b) => (a.receptId > b.receptId) ? 1 : -1);
-            this.renderRecepts(data);
+    FetchAllProducts: function () {
+        $.get('/api/products').done((data) => {
+            this.Products = data.sort((a, b) => (a.productId > b.productId) ? 1 : -1);
+            this.renderProducts(data);
         })
     },
     removeWithId: function (id) {
         $.ajax({
-            url: `/api/Recepts/${id}`,
+            url: `/api/products/${id}`,
             type: 'DELETE',
             dataType: 'text',
             success: () => {
-                $(`#Recept${id}`).remove();
+                $(`#Product${id}`).remove();
                 console.log("Deleted!, fetching now");
-                this.FetchAllRecepts();
+                this.FetchAllProducts();
             }
         });
     },
@@ -45,27 +45,27 @@ const utils = {
             this.createForm = true;
             document.getElementById("inputForm").reset();
             $("#modalText").text("Create");
-            $("#receptIdInput").prop('disabled', false);
+            $("#productIdInput").prop('disabled', false);
         }else{
             this.createForm = false;
             this.renderInputFields(id)
-            $("#receptIdInput").prop('disabled', true);
+            $("#productIdInput").prop('disabled', true);
             $("#modalText").text(`Update ${name}, #${id}`);
-            $('#createReceptModal').modal();
+            $('#createProductModal').modal();
         }
     },
-    createRecept: function(){
+    createProduct: function(){
         let _this = this;
         $.ajax({
             type: "POST",
-            url: "/api/Recepts",
+            url: "/api/products",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data){
-                $('#createReceptModal').modal('toggle');
+                $('#createProductModal').modal('toggle');
                 document.getElementById("inputForm").reset();
-                _this.FetchAllRecepts();
+                _this.FetchAllProducts();
             },
             failure: function(errMsg) {
                 alert(errMsg);
@@ -73,48 +73,31 @@ const utils = {
             }
         });
     },
-    updateRecept: function(){
+    updateProduct: function(){
         let _this = this;
-        $("#receptIdInput").prop('disabled', false);
+        $("#productIdInput").prop('disabled', false);
         $.ajax({
             type: "PUT",
-            url: "/api/Recepts",
+            url: "/api/products",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data){
-                $('#createReceptModal').modal('toggle');
+                $('#createProductModal').modal('toggle');
                 document.getElementById("inputForm").reset();
-                _this.FetchAllRecepts();
+                _this.FetchAllProducts();
             },
             failure: function(errMsg) {
                 alert(errMsg);
                 console.error(errMsg);
             }
         });
-        $("#receptIdInput").prop('disabled', true);
+        $("#productIdInput").prop('disabled', true);
 
     }
 
 }
 
-const app = Object.assign(utils, renders);
-
-$(document).ready(() => {
-
-    Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-    app.ReceptEL = $('#Recept');
-
-    app.FetchAllRecepts();
-
-    $('#submitForm').on('click', (event) => {
-        event.preventDefault();
-        if(app.createForm)
-            app.createRecept();
-        else
-            app.updateRecept();
-    });
-})
 
 /* Fix this */
 function getFormData($form){

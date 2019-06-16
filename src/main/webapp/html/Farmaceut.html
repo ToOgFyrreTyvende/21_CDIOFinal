@@ -28,14 +28,14 @@
 
         <div class="col-sm">
             <h1 style="color:white;" > List of Products</h1>
-        <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createReceptModal">
-            Create Recept
+        <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
+            Create Product
         </button>
             <span id="counterProd">0</span>
             <table class="table table-striped">
                 <tr>
-                    <th>ReceptID</th>
-                    <th>ReceptName</th>
+                    <th>ProductID</th>
+                    <th>ProductName</th>
                     <th>RMID</th>
                     <th>nonNetto</th>
                     <th>Tolerance</th>
@@ -98,7 +98,7 @@
                 <tr>
                     <th>Name</th>
                     <th>ProductBatch ID</th>
-                    <th>Recept ID</th>
+                    <th>Product ID</th>
                     <th>Status</th>
                     <!--th>UserID</th-->
                     <th>Weighings done</th>
@@ -115,7 +115,7 @@
 
 <!-- Modal RAW MAT -->
 <div class="modal fade" style="display:none;" id="createRawMatModal" tabindex="-1" role="dialog"
-     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+     aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -141,7 +141,7 @@
                         <input type="text" id="supplierInput" min="2" max="20" class="form-control" name="supplier" placeholder="Novo Nordisk">
                     </div>
 
-                    <button id="submitForm" class="btn btn-success">Submit <span
+                    <button id="submitFormRawMat" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
                 </form>
@@ -152,7 +152,7 @@
 
 <!-- Modal RAW MAT BATCH-->
 <div class="modal fade" style="display:none;" id="createRawMatBatchModal" tabindex="-1" role="dialog"
-     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+     aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -178,7 +178,7 @@
                         <input type="number" id="amountInput" min="0" max="99999999" step="0.0001" class="form-control" name="amount" placeholder="10,65">
                     </div>
 
-                    <button id="submitForm" class="btn btn-success">Submit <span
+                    <button id="submitFormRawMatBatch" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
                 </form>
@@ -188,12 +188,12 @@
 </div>
 
 <!-- Modal RECEPT-->
-<div class="modal fade" style="display:none;" id="createReceptModal" tabindex="-1" role="dialog"
-     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+<div class="modal fade" style="display:none;" id="createProductModal" tabindex="-1" role="dialog"
+     aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> Recept</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Create</span> Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -201,12 +201,12 @@
             <div class="modal-body">
                 <form id="inputForm">
                     <div id="id-group" class="form-group">
-                        <label for="receptId">Recept ID</label>
+                        <label for="receptId">Product ID</label>
                         <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="42">
                     </div>
 
                     <div id="name-group" class="form-group">
-                        <label for="receptName">Recept Name</label>
+                        <label for="receptName">Product Name</label>
                         <input type="text" id="receptNameInput" min="2" max="20" class="form-control" name="receptName" placeholder="Panodil">
                     </div>
 
@@ -225,7 +225,7 @@
                         <input type="number" id="toleranceInput" min="0.1" max="10.0" step="0.0001" class="form-control" name="tolerance" placeholder="4.3">
                     </div>
 
-                    <button id="submitForm" class="btn btn-success">Submit <span
+                    <button id="submitFormProduct" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
                 </form>
@@ -237,7 +237,7 @@
 
 <!-- Modal PRODUCTBATCH-->
 <div class="modal fade" style="display:none;" id="createProductbatchModal" tabindex="-1" role="dialog"
-     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+     aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -254,7 +254,7 @@
                     </div>
 
                     <div id="receptId-group" class="form-group">
-                        <label for="receptId">Recept ID</label>
+                        <label for="receptId">Product ID</label>
                         <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="21">
                     </div>
 
@@ -283,7 +283,7 @@
                         <input type="number" id="nettoInput" min="0" max="99999999" step="0.0001" class="form-control" name="netto" placeholder="13.37">
                     </div>
 
-                    <button id="submitForm" class="btn btn-success">Submit <span
+                    <button id="submitFormProductBatch" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
                 </form>
@@ -304,6 +304,60 @@
 <script src="../JavaScript/scriptRawMat.js"></script>
 <script src="../JavaScript/scriptRawMatBatch.js"></script>
 <script src="../JavaScript/scriptProductBatch.js"></script>
+
+<script>
+    const productApp = Object.assign(utilsProduct, rendersProduct);
+    const RawMatApp = Object.assign(utilsRawMat, rendersRawMat);
+    const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
+    const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
+
+    $(document).ready(() => {
+        Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
+        productApp.ProductEl = $('#Product');
+        productApp.FetchAllProducts();
+
+        RawMatApp.RawMatEl = $('#RawMat');
+        RawMatApp.FetchAllRawMaterials();
+
+        prodBatchApp.RroductBatchEl = $('#ProductBatch');
+        prodBatchApp.FetchAllProductBatches();
+
+        RawBatchApp.RMBEl = $('#RawMaterialBatch');
+        RawBatchApp.FetchAllRawMaterialBatches();
+
+        $('#submitFormProduct').on('click', (event) => {
+            event.preventDefault();
+            if(productApp.createForm)
+                productApp.createRawMaterial();
+            else
+                productApp.updateRawMaterial();
+        });
+
+        $('#submitFormRawMat').on('click', (event) => {
+            event.preventDefault();
+            if(RawMatApp.createForm)
+                RawMatApp.createRawMaterial();
+            else
+                RawMatApp.updateRawMaterial();
+        });
+
+        $('#submitFormProdBatch').on('click', (event) => {
+            event.preventDefault();
+            if(prodBatchApp.createForm)
+                prodBatchApp.createProductBatch();
+            else
+                prodBatchApp.updateProductBatch();
+        });
+
+        $('#submitFormRawMatBatch').on('click', (event) => {
+            event.preventDefault();
+            if(RawBatchApp.createForm)
+                RawBatchApp.createRawMaterialBatch();
+            else
+                RawBatchApp.updateRawMaterialBatch();
+        });
+    })
+</script>
 
 </body>
 

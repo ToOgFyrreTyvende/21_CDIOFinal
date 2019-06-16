@@ -1,4 +1,4 @@
-const renders = {
+const rendersRawMat = {
     renderRawMaterials: function (RawMaterials) {
         let data = '';
 
@@ -9,9 +9,9 @@ const renders = {
                 data += `<td>${this.RawMaterials[i].rawMatName}</td>`;
                 data += `<td>${this.RawMaterials[i].supplier}</td>`;
 
-                data += `<td><button type="button" onclick="app.setForm('update', ${this.RawMaterials[i].rawMatId}, '${this.RawMaterials[i].rawMatName}')" 
+                data += `<td><button type="button" onclick="RawMatApp.setForm('update', ${this.RawMaterials[i].rawMatId}, '${this.RawMaterials[i].rawMatName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
-                data += `<td><button type="button" onclick="app.closebtn(this)" class="closebtn btn btn-danger" 
+                data += `<td><button type="button" onclick="RawMatApp.closebtn(this)" class="closebtn btn btn-danger" 
                 data-name="${this.RawMaterials[i].rawMatName}"
                 data-id="${this.RawMaterials[i].rawMatId}" aria-label="Close">&times;</button></td>`;
                 data += `</tr>`;
