@@ -99,7 +99,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="../JavaScript/rendersUser.js"></script>
 <script src="../JavaScript/scriptUser.js"></script>
+<script>
+    const app = Object.assign(utils, renders);
 
+    $(document).ready(() => {
+
+        Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
+        app.userEl = $('#user');
+        app.roleEl = $('#roles');
+        app.FetchAllUsers();
+        app.FetchAllRoles();
+        $('#submitForm').on('click', (event) => {
+            event.preventDefault();
+            if(app.createForm)
+                app.createUser();
+            else
+                app.updateUser();
+        });
+    })
+</script>
 
 
 </body>

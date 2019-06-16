@@ -98,34 +98,6 @@ const utilsProdBatch = {
 
 }
 
-const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
-const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
-
-$(document).ready(() => {
-
-    Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-    prodBatchApp.RroductBatchEl = $('#ProductBatch');
-    prodBatchApp.FetchAllProductBatches();
-
-    RawBatchApp.RMBEl = $('#RawMaterialBatch');
-    RawBatchApp.FetchAllRawMaterialBatches();
-
-    $('#submitFormProdBatch').on('click', (event) => {
-        event.preventDefault();
-        if(prodBatchApp.createForm)
-            prodBatchApp.createProductBatch();
-        else
-            prodBatchApp.updateProductBatch();
-    });
-
-    $('#submitFormRawMatBatch').on('click', (event) => {
-        event.preventDefault();
-        if(RawBatchApp.createForm)
-            RawBatchApp.createRawMaterialBatch();
-        else
-            RawBatchApp.updateRawMaterialBatch();
-    });
-})
 
 /* Fix this */
 function getFormData($form){

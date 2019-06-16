@@ -102,24 +102,6 @@ const utils = {
 
 }
 
-const app = Object.assign(utils, renders);
-
-$(document).ready(() => {
-
-    Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-    app.userEl = $('#user');
-    app.roleEl = $('#roles');
-    app.FetchAllUsers();
-    app.FetchAllRoles();
-    $('#submitForm').on('click', (event) => {
-        event.preventDefault();
-        if(app.createForm)
-            app.createUser();
-        else
-            app.updateUser();
-    });
-})
-
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
     var indexed_array = {roles: []};
