@@ -1,11 +1,12 @@
-const renders = {
+const rendersRawBatch = {
     renderRawMaterialBatches: function (RawMaterialBatches) {
         let data = '';
 
         if (this.RawMaterialBatches.length > 0) {
             for (i = 0; i < this.RawMaterialBatches.length; i++) {
-                data += `<tr id="user${this.RawMaterialBatches[i].RMBId}">`;
-                data += `<td>${this.RawMaterialBatches[i].RMBId}</td>`;
+                data += `<tr id="rmb${this.RawMaterialBatches[i].rmbId}">`;
+                data += `<td>${this.RawMaterialBatches[i].name}</td>`;
+                data += `<td>${this.RawMaterialBatches[i].rmbId}</td>`;
                 data += `<td>${this.RawMaterialBatches[i].rawMatId}</td>`;
                 data += `<td>${this.RawMaterialBatches[i].amount}</td>`;
 

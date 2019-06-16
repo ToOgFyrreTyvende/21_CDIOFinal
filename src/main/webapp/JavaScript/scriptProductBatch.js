@@ -1,26 +1,26 @@
-const utils = {
+const utilsProdBatch = {
     createForm: true,
     ProductBatches: [],
     Count: function (data) {
-        let name = 'ProductBatch';
-        counter = $('#counter');
+        let name = 'Product Batch';
+        counter = $('#counterPB');
         if (data) {
             if (data > 1)
-                name = 'ProductBatchs';
+                name = 'Product Batchs';
 
             counter.html(data + ' ' + name);
         } else
             counter.html('No ' + name);
     },
     FetchAllProductBatches: function () {
-        $.get('/api/ProductBatchs').done((data) => {
-            this.ProductBatchs = data.sort((a, b) => (a.productBatchId > b.productBatchId) ? 1 : -1);
+        $.get('/api/productBatches').done((data) => {
+            this.ProductBatches = data.sort((a, b) => (a.productBatchId > b.productBatchId) ? 1 : -1);
             this.renderProductBatches(data);
         })
     },
     removeWithId: function (id) {
         $.ajax({
-            url: `/api/ProductBatchs/${id}`,
+            url: `/api/productBatches/${id}`,
             type: 'DELETE',
             dataType: 'text',
             success: () => {
@@ -58,7 +58,7 @@ const utils = {
         let _this = this;
         $.ajax({
             type: "POST",
-            url: "/api/ProductBatchs",
+            url: "/api/productBatches",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -78,7 +78,7 @@ const utils = {
         $("#productBatchIdInput").prop('disabled', false);
         $.ajax({
             type: "PUT",
-            url: "/api/ProductBatchs",
+            url: "/api/productBatches",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -98,19 +98,32 @@ const utils = {
 
 }
 
-const app = Object.assign(utils, renders);
+const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
+const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
 
 $(document).ready(() => {
 
     Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-    app.RroductBatchEl = $('#ProductBatch');
-    app.FetchAllProductBatches();
-    $('#submitForm').on('click', (event) => {
+    prodBatchApp.RroductBatchEl = $('#ProductBatch');
+    prodBatchApp.FetchAllProductBatches();
+
+    RawBatchApp.RMBEl = $('#RawMaterialBatch');
+    RawBatchApp.FetchAllRawMaterialBatches();
+
+    $('#submitFormProdBatch').on('click', (event) => {
         event.preventDefault();
-        if(app.createForm)
-            app.createProductBatch();
+        if(prodBatchApp.createForm)
+            prodBatchApp.createProductBatch();
         else
-            app.updateProductBatch();
+            prodBatchApp.updateProductBatch();
+    });
+
+    $('#submitFormRawMatBatch').on('click', (event) => {
+        event.preventDefault();
+        if(RawBatchApp.createForm)
+            RawBatchApp.createRawMaterialBatch();
+        else
+            RawBatchApp.updateRawMaterialBatch();
     });
 })
 

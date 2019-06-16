@@ -1,19 +1,19 @@
-const utils = {
+const utilsRawBatch = {
     createForm: true,
     RawMaterialBatches: [],
     Count: function (data) {
-        let name = 'RawMaterialBatch';
-        counter = $('#counter');
+        let name = 'Raw Material Batch';
+        counter = $('#counterRMB');
         if (data) {
             if (data > 1)
-                name = 'RawMaterialBatches';
+                name = 'Raw Material Batches';
 
             counter.html(data + ' ' + name);
         } else
             counter.html('No ' + name);
     },
     FetchAllRawMaterialBatches: function () {
-        $.get('/api/RawMaterialBatches').done((data) => {
+        $.get('/api/rawMatBatches').done((data) => {
             this.RawMaterialBatches = data.sort((a, b) => (a.RMBId > b.RMBId) ? 1 : -1);
             this.renderRawMaterialBatches(data);
         })
@@ -21,7 +21,7 @@ const utils = {
 
     removeWithId: function (id) {
         $.ajax({
-            url: `/api/RawMaterialBatches/${id}`,
+            url: `/api/rawMatBatches/${id}`,
             type: 'DELETE',
             dataType: 'text',
             success: () => {
@@ -59,7 +59,7 @@ const utils = {
         let _this = this;
         $.ajax({
             type: "POST",
-            url: "/api/RawMaterialBatches",
+            url: "/api/rawMatBatches",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -79,7 +79,7 @@ const utils = {
         $("#RMBIdInput").prop('disabled', false);
         $.ajax({
             type: "PUT",
-            url: "/api/RawMaterialBatches",
+            url: "/api/rawMatBatches",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -99,21 +99,6 @@ const utils = {
 
 }
 
-const app = Object.assign(utils, renders);
-
-$(document).ready(() => {
-
-    Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-    app.RMBEl = $('#RawMaterialBatch');
-    app.FetchAllRawMaterialBatches();
-    $('#submitForm').on('click', (event) => {
-        event.preventDefault();
-        if(app.createForm)
-            app.createRawMaterialBatch();
-        else
-            app.updateRawMaterialBatch();
-    });
-})
 
 /* Fix this */
 function getFormData($form){

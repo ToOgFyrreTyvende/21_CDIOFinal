@@ -27,11 +27,11 @@
     <div class="row" id="tableRow">
 
         <div class="col-sm">
-            <h1 style="color:white;" > List of Recepts</h1>
+            <h1 style="color:white;" > List of Products</h1>
         <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createReceptModal">
             Create Recept
         </button>
-            <span id="counter">0</span>
+            <span id="counterProd">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>ReceptID</th>
@@ -42,7 +42,7 @@
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
-                <tbody id="Recept">
+                <tbody id="Product">
                 </tbody>
             </table>
         </div>
@@ -52,7 +52,7 @@
             <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
                 Create Raw Material
             </button>
-            <span id="counter">0</span>
+            <span id="counterRawMat">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>RMID</th>
@@ -61,7 +61,7 @@
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
-                <tbody id="RawMaterial">
+                <tbody id="RawMat">
                 </tbody>
             </table>
         </div>
@@ -72,11 +72,12 @@
                 Create Raw Material Batch
 
             </button>
-            <span id="counter">0</span>
+            <span id="counterRMB">0</span>
             <table class="table table-striped">
                 <tr>
-                    <th>RMBID</th>
-                    <th>RMID</th>
+                    <th>Name</th>
+                    <th>RMB ID</th>
+                    <th>Raw mat ID</th>
                     <th>Amount</th>
                     <th>Update</th>
                     <th>Delete</th>
@@ -92,16 +93,15 @@
                 Create Product Batch
 
             </button>
-            <span id="counter">0</span>
+            <span id="counterPB">0</span>
             <table class="table table-striped">
                 <tr>
-                    <th>PBID</th>
-                    <th>ReceptID</th>
+                    <th>Name</th>
+                    <th>ProductBatch ID</th>
+                    <th>Recept ID</th>
                     <th>Status</th>
-                    <th>UserID</th>
-                    <th>RMBID</th>
-                    <th>Tara</th>
-                    <th>Netto</th>
+                    <!--th>UserID</th-->
+                    <th>Weighings done</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
