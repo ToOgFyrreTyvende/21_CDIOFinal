@@ -5,9 +5,8 @@ const rendersRawMat = {
         if (this.RawMaterials.length > 0) {
             for (i = 0; i < this.RawMaterials.length; i++) {
                 data += `<tr id="user${this.RawMaterials[i].rawMatId}">`;
-                data += `<td>${this.RawMaterials[i].rawMatId}</td>`;
+                data += `<td>${this.RawMaterials[i].rawMatID}</td>`;
                 data += `<td>${this.RawMaterials[i].rawMatName}</td>`;
-                data += `<td>${this.RawMaterials[i].supplier}</td>`;
 
                 data += `<td><button type="button" onclick="RawMatApp.setForm('update', ${this.RawMaterials[i].rawMatId}, '${this.RawMaterials[i].rawMatName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;

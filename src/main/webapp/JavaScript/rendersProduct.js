@@ -1,15 +1,13 @@
 const rendersProduct = {
-    renderRecepts: function (Recepts) {
+    renderProducts: function (Products) {
         let data = '';
 
         if (this.Products.length > 0) {
             for (i = 0; i < this.Products.length; i++) {
                 data += `<tr id="product${this.Products[i].receptId}">`;
-                data += `<td>${this.Products[i].receptId}</td>`;
-                data += `<td>${this.Products[i].receptName}</td>`;
-                data += `<td>${this.Products[i].rawMatId}</td>`;
-                data += `<td>${this.Products[i].nonNetto}</td>`;
-                data += `<td>${this.Products[i].tolerance}</td>`;
+                data += `<td>${this.Products[i].productId}</td>`;
+                data += `<td>${this.Products[i].productName}</td>`;
+                data += `<td>${this.Products[i].ingredients.length}</td>`;
 
                 data += `<td><button type="button" onclick="productApp.setForm('update', ${this.Products[i].receptId}, '${this.Products[i].receptName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
@@ -21,7 +19,7 @@ const rendersProduct = {
         }
         console.log(this.Products.length)
         this.Count(this.Products.length);
-        this.ReceptEL.html(data);
+        this.ProductEl.html(data);
     },
 
     <!--RenderInputField PRODUCT-->
