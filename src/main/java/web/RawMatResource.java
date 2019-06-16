@@ -40,7 +40,7 @@ public class RawMatResource {
     public Response create(RawMat rawmat) {
         try {
             rawMatFunc.createRawMat(rawmat);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -52,7 +52,7 @@ public class RawMatResource {
     public Response update(RawMat rawmat) {
         try {
             rawMatFunc.updateRawMat(rawmat);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -64,7 +64,7 @@ public class RawMatResource {
     public Response delete(@PathParam("prodId") int id) {
         try {
             rawMatFunc.deleteRawMat(rawMatFunc.getRawMat(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

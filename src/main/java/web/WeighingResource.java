@@ -39,7 +39,7 @@ public class WeighingResource {
     public Response create(WeighedIngredientsBatches weighing) {
         try {
             wFunc.createWeighing(weighing);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -51,7 +51,7 @@ public class WeighingResource {
     public Response update(WeighedIngredientsBatches weighing) {
         try {
             wFunc.updateWeighing(weighing);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -63,7 +63,7 @@ public class WeighingResource {
     public Response delete(@PathParam("weighingId") int id) {
         try {
             wFunc.deleteWeighing(wFunc.getWeighing(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

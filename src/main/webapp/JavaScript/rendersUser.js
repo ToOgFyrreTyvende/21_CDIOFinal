@@ -8,7 +8,7 @@ const renders = {
                 data += `<td>${this.users[i].userId}</td>`;
                 data += `<td>${this.users[i].userName}</td>`;
                 data += `<td>${this.users[i].ini}</td>`;
-                data += `<td>${this.users[i].roles.reduce((el, acc) => acc + ', ' + el)}</td>`;
+                data += `<td>${this.users[i].role}</td>`;
                 data += `<td>${this.users[i].cpr}</td>`;
                 data += `<td><button type="button" onclick="app.setForm('update', ${this.users[i].userId}, '${this.users[i].userName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
@@ -27,7 +27,7 @@ const renders = {
 
         if (roles.length > 0) {
             for (i = 0; i < roles.length; i++) {
-                data += `<option value="${roles[i].name}">${roles[i].name}</option>`;
+                data += `<option value="${i}">${roles[i]}</option>`;
             }
         }
         this.roleEl.html(data);
@@ -44,7 +44,7 @@ const renders = {
             $("#cprInput").val(user.cpr);
             $("#passwordInput").val(user.password);
             $(`#roles option`).prop('selected', false);
-            user.roles.map((x) => $(`#roles option[value='${x}']`).prop('selected', true))
+            $(`#roles option[value='${user.role}']`).prop('selected', true)
         }
     }
 }

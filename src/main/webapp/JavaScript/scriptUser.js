@@ -29,7 +29,6 @@ const utils = {
         $.ajax({
             url: `/api/users/${id}`,
             type: 'DELETE',
-            dataType: 'text',
             success: () => {
                 $(`#user${id}`).remove();
                 console.log("Deleted!, fetching now");
@@ -68,7 +67,6 @@ const utils = {
             url: "/api/users",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
             success: function(data){
                 $('#createUserModal').modal('toggle');
                 document.getElementById("inputForm").reset();
@@ -88,7 +86,6 @@ const utils = {
             url: "/api/users",
             data: JSON.stringify(getFormData($('#inputForm'))),
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
             success: function(data){
                 $('#createUserModal').modal('toggle');
                 document.getElementById("inputForm").reset();

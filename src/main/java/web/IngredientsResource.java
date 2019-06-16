@@ -48,7 +48,7 @@ public class IngredientsResource {
     public Response create(ProductIngredient ingredient) {
         try {
             ingrFunc.createIngredient(ingredient);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -60,7 +60,7 @@ public class IngredientsResource {
     public Response update(ProductIngredient ingredient) {
         try {
             ingrFunc.updateIngredient(ingredient);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -72,7 +72,7 @@ public class IngredientsResource {
     public Response delete(@PathParam("productIngredientId") int id) {
         try {
             ingrFunc.deleteIngredient(ingrFunc.getIngredient(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

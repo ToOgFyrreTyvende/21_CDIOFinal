@@ -45,7 +45,7 @@ public class ProductResource {
     public Response create(Product product) {
         try {
             prodFunc.createProduct(product);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -57,7 +57,7 @@ public class ProductResource {
     public Response update(Product prod) {
         try {
             prodFunc.updateProduct(prod);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -69,7 +69,7 @@ public class ProductResource {
     public Response delete(@PathParam("rawMatId") int id) {
         try {
             prodFunc.deleteProduct(prodFunc.getProduct(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

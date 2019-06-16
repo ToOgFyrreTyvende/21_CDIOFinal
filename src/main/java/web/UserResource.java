@@ -62,7 +62,7 @@ public class UserResource {
     public Response create(User user) {
         try {
             userFunc.createUser(user);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -74,7 +74,7 @@ public class UserResource {
     public Response update(User user) {
         try {
             userFunc.updateUser(user);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -86,7 +86,7 @@ public class UserResource {
     public Response delete(@PathParam("userId") int id) {
         try {
             userFunc.deleteUser(userFunc.getUser(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

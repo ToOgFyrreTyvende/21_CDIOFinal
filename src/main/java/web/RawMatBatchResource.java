@@ -40,7 +40,7 @@ public class RawMatBatchResource {
     public Response create(RawMatBatch rawmat) {
         try {
             rawMatBatchFunc.createRawMatBatch(rawmat);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -52,7 +52,7 @@ public class RawMatBatchResource {
     public Response update(RawMatBatch rawmatBatch) {
         try {
             rawMatBatchFunc.updateRawMatBatch(rawmatBatch);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -64,7 +64,7 @@ public class RawMatBatchResource {
     public Response delete(@PathParam("rmbId") int id) {
         try {
             rawMatBatchFunc.deleteRawMatBatch(rawMatBatchFunc.getRawMatBatch(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
