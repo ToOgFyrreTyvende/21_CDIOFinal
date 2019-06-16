@@ -10,7 +10,8 @@ const renders = {
                 data += `<td>${this.users[i].ini}</td>`;
                 data += `<td>${this.users[i].roles.reduce((el, acc) => acc + ', ' + el)}</td>`;
                 data += `<td>${this.users[i].cpr}</td>`;
-                data += `<td><button type="button" onclick="app.setForm('update', ${this.users[i].userId}, '${this.users[i].userName}')" class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
+                data += `<td><button type="button" onclick="app.setForm('update', ${this.users[i].userId}, '${this.users[i].userName}')" 
+                                     class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
                 data += `<td><button type="button" onclick="app.closebtn(this)" class="closebtn btn btn-danger" 
                 data-name="${this.users[i].userName}"
                 data-id="${this.users[i].userId}" aria-label="Close">&times;</button></td>`;
@@ -31,8 +32,11 @@ const renders = {
         }
         this.roleEl.html(data);
     },
+
+
+    <!--RenderInputField user-->
     renderInputFields: function(id){
-        user = this.users.filter((el) => el.userId === id)[0];
+        user = this.users.filter((el) => el.userId === id)[0]
         if(user){
             $("#userIdInput").val(user.userId);
             $("#userNameInput").val(user.userName);
@@ -41,7 +45,6 @@ const renders = {
             $("#passwordInput").val(user.password);
             $(`#roles option`).prop('selected', false);
             user.roles.map((x) => $(`#roles option[value='${x}']`).prop('selected', true))
-
         }
     }
-};
+}
