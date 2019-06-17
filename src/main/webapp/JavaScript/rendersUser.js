@@ -1,3 +1,4 @@
+const roleNames = ["Admin", "Laborant", "Produktionsleder", "Farmaceut"];
 const renders = {
     renderUsers: function (users) {
         let data = '';
@@ -8,7 +9,21 @@ const renders = {
                 data += `<td>${this.users[i].userId}</td>`;
                 data += `<td>${this.users[i].userName}</td>`;
                 data += `<td>${this.users[i].ini}</td>`;
-                data += `<td>${this.users[i].role}</td>`;
+                // switch (this.users[i].role) {
+                //     case 0:
+                //         data += `<td>Admin</td>`;
+                //         break;
+                //     case 1:
+                //         data += `<td>Laborant</td>`;
+                //         break;
+                //     case 2:
+                //         data += `<td>Produktionsleder</td>`;
+                //         break;
+                //     case 3:
+                //         data += `<td>Farmaceut</td>`;
+                //         break;
+                // }
+                data += `<td>${roleNames[this.users[i].role]}</td>`;
                 data += `<td>${this.users[i].cpr}</td>`;
                 data += `<td><button type="button" onclick="app.setForm('update', ${this.users[i].userId}, '${this.users[i].userName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
@@ -18,7 +33,7 @@ const renders = {
                 data += `</tr>`;
             }
         }
-        console.log(this.users.length)
+        console.log(this.users.length);
         this.Count(this.users.length);
         this.userEl.html(data);
     },
@@ -47,4 +62,4 @@ const renders = {
             $(`#roles option[value='${user.role}']`).prop('selected', true)
         }
     }
-}
+};
