@@ -46,7 +46,12 @@ const utilsProduct = {
             document.getElementById("inputForm").reset();
             $("#modalText").text("Create");
             $("#productIdInput").prop('disabled', false);
-        }else{
+        }else if(status === "addIngredient"){
+            document.getElementById("inputForm").reset();
+            $("#modalText").text("Create");
+            $("#productIdInput").prop('disabled', false);
+        }
+        else{
             this.createForm = false;
             this.renderInputFields(id)
             $("#productIdInput").prop('disabled', true);

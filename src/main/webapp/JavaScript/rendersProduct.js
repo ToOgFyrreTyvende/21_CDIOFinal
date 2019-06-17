@@ -9,6 +9,9 @@ const rendersProduct = {
                 data += `<td>${this.Products[i].productName}</td>`;
                 data += `<td>${this.Products[i].ingredients.length}</td>`;
 
+                data += `<td><button type="button" onclick="productApp.setForm('addIngredient', ${this.Products[i].receptId}, '${this.Products[i].receptName} ingredients')" 
+                                     class="editbtn btn btn-success" aria-label="Edit">&#9998;</button></td>`;
+
                 data += `<td><button type="button" onclick="productApp.setForm('update', ${this.Products[i].receptId}, '${this.Products[i].receptName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
                 data += `<td><button type="button" onclick="productApp.closebtn(this)" class="closebtn btn btn-danger" 
