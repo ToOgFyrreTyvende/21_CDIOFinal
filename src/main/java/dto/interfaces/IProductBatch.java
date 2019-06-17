@@ -24,6 +24,10 @@ public interface IProductBatch extends Cloneable, Serializable {
 
     void setWeighings(List<IProductBatch.IWeighings> weighings);
 
+    String getName();
+
+    void setName(String name);
+
     boolean hasEqualMapping(ProductBatch valueObject);
 
     interface IWeighings {

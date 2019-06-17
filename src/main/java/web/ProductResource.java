@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 @Path("/products")
 public class ProductResource {
     private IProductFunctionality prodFunc = new ProductFunctionality();
+
     /**
      * Method handling HTTP GET requests. The returned object will be sent
      * to the client as "text/plain" media type.
@@ -18,10 +19,9 @@ public class ProductResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Path("{rawmantId}")
+    @Path("{rawMatId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("rawmantId") int id) {
-
+    public Response get(@DefaultValue("0") @PathParam("rawMatId") int id) {
         try {
             return Response.ok(prodFunc.getProduct(id)).build();
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class ProductResource {
     public Response create(Product product) {
         try {
             prodFunc.createProduct(product);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -57,22 +57,21 @@ public class ProductResource {
     public Response update(Product prod) {
         try {
             prodFunc.updateProduct(prod);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
 
     @DELETE
-    @Path("{rawmatId}")
+    @Path("{rawMatId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("rawmatId") int id) {
+    public Response delete(@PathParam("rawMatId") int id) {
         try {
             prodFunc.deleteProduct(prodFunc.getProduct(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

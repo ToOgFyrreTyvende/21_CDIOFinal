@@ -16,7 +16,6 @@ public class ProductBatchResource {
     @Path("{productBatchId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("productBatchId") int id) {
-
         try {
             return Response.ok(prodFunc.getProdBatch(id)).build();
         } catch (Exception e) {
@@ -40,7 +39,7 @@ public class ProductBatchResource {
     public Response create(ProductBatch productBatch) {
         try {
             prodFunc.createProductBatch(productBatch);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -52,7 +51,7 @@ public class ProductBatchResource {
     public Response update(ProductBatch prod) {
         try {
             prodFunc.updateProdBatch(prod);
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -64,10 +63,9 @@ public class ProductBatchResource {
     public Response delete(@PathParam("prodBatchId") int id) {
         try {
             prodFunc.deleteProdBatch(prodFunc.getProdBatch(id));
-            return Response.ok().build();
+            return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
 }

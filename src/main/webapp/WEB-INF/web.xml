@@ -14,9 +14,9 @@
     </servlet>
 
     <welcome-file-list>
-        <welcome-file>default</welcome-file>
         <welcome-file>index.html</welcome-file>
-        <welcome-file>index</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet-mapping>
@@ -40,6 +40,10 @@
         <url-pattern>*.js</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.ico</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
@@ -47,6 +51,8 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-
-
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>

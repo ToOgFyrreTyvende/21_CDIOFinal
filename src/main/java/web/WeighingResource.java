@@ -1,45 +1,44 @@
 package web;
 
-
-import dto.RawMatBatch;
-import functionality.RawMatBatchFunctionality;
-import functionality.interfaces.IRawMatBatchFunctionality;
+import dto.WeighedIngredientsBatches;
+import functionality.WeighingFunctionality;
+import functionality.interfaces.IWeighingFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/rawMatBatches")
-public class RawMatBatchResource {
-    private IRawMatBatchFunctionality rawMatBatchFunc = new RawMatBatchFunctionality();
-
-    @GET
-    @Path("{rmbId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@DefaultValue("0") @PathParam("rmbId") int id) {
-        try {
-            return Response.ok(rawMatBatchFunc.getRawMatBatch(id)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
-        }
-    }
+@Path("/weighing")
+public class WeighingResource {
+    private IWeighingFunctionality wFunc = new WeighingFunctionality();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(rawMatBatchFunc.getAllRawMatBatches()).build();
+            return Response.ok(wFunc.getAllWeighings()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("{weighingId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get(@PathParam("weighingId") int id) {
+        try {
+            return Response.ok(wFunc.getWeighing(id)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(RawMatBatch rawmat) {
+    public Response create(WeighedIngredientsBatches weighing) {
         try {
-            rawMatBatchFunc.createRawMatBatch(rawmat);
+            wFunc.createWeighing(weighing);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -49,9 +48,9 @@ public class RawMatBatchResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(RawMatBatch rawmatBatch) {
+    public Response update(WeighedIngredientsBatches weighing) {
         try {
-            rawMatBatchFunc.updateRawMatBatch(rawmatBatch);
+            wFunc.updateWeighing(weighing);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -59,11 +58,11 @@ public class RawMatBatchResource {
     }
 
     @DELETE
-    @Path("{rmbId}")
+    @Path("{weighingId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("rmbId") int id) {
+    public Response delete(@PathParam("weighingId") int id) {
         try {
-            rawMatBatchFunc.deleteRawMatBatch(rawMatBatchFunc.getRawMatBatch(id));
+            wFunc.deleteWeighing(wFunc.getWeighing(id));
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

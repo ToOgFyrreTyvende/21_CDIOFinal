@@ -21,6 +21,10 @@ public interface IRawMatBatch extends Cloneable, Serializable {
 
     void setSupplier(String supplierIn);
 
+    String getName();
+
+    void setName(String name);
+
     void setAll(int rmbIdIn, int rawMatIdIn, double amountIn, String supplierIn);
 
     boolean hasEqualMapping(RawMatBatch valueObject);

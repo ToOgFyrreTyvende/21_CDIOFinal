@@ -14,14 +14,14 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     public ProductIngredientDAO(){pi = new ArrayList<>();}
 
     @Override
-    public IProductIngredient createproductIngredient() {
+    public IProductIngredient createProductIngredient() {
         return new ProductIngredient();
     }
 
     @Override
     public IProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException {
 
-        IProductIngredient productIngredient = createproductIngredient();
+        IProductIngredient productIngredient = createProductIngredient();
         productIngredient.setProductIngredientId(ingredientId);
         load(conn, productIngredient);
         return productIngredient;
@@ -30,7 +30,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     @Override
     public void load(Connection conn, IProductIngredient productIngredient) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM ProductIngredients WHERE (ingredientId = ? ) ";
+        String sql = "SELECT * FROM ProductIngredients WHERE (productIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
@@ -339,7 +339,7 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
             result = stmt.executeQuery();
 
             while (result.next()) {
-                IProductIngredient temp = createproductIngredient();
+                IProductIngredient temp = createProductIngredient();
 
                 temp.setProductIngredientId(result.getInt("productIngredientId"));
                 temp.setRawMatId(result.getInt("rawMatId"));

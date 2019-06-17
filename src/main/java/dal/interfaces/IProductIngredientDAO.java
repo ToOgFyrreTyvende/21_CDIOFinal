@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IProductIngredientDAO {
-    IProductIngredient createproductIngredient();
+    IProductIngredient createProductIngredient();
 
     IProductIngredient getObject(Connection conn, int ingredientId) throws NotFoundException, SQLException;
 

@@ -31,7 +31,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     @Override
     public void load(Connection conn, IWeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
-        String sql = "SELECT * FROM WeighedBatches WHERE (weighedIngredientId = ? ) ";
+        String sql = "SELECT * FROM WeighedIngredientsBatches WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
@@ -49,7 +49,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     @Override
     public List<IWeighedIngredientsBatches> loadAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT * FROM WeighedBatches ORDER BY weighedIngredientId ASC ";
+        String sql = "SELECT * FROM WeighedIngredientsBatches ORDER BY weighedIngredientId ASC ";
         List searchResults = listQuery(conn, conn.prepareStatement(sql));
 
         return searchResults;
@@ -70,7 +70,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO WeighedBatches ( weighedIngredientId, prodBatchId, rawMatBatchId, userId, "
+            sql = "INSERT INTO WeighedIngredientsBatches ( weighedIngredientId, prodBatchId, rawMatBatchId, userId, "
                     + "tara, netto) VALUES (?, ?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(sql);
 
@@ -105,7 +105,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     @Override
     public void save(Connection conn, IWeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
-        String sql = "UPDATE WeighedBatches SET rawMatBatchId = ?, userId = ?, tara = ?, "
+        String sql = "UPDATE WeighedIngredientsBatches SET rawMatBatchId = ?, userId = ?, tara = ?, "
                 + "netto = ?, prodBatchId = ? WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
@@ -146,7 +146,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     @Override
     public void delete(Connection conn, IWeighedIngredientsBatches weighedBatch) throws NotFoundException, SQLException {
 
-        String sql = "DELETE FROM WeighedBatches WHERE (weighedIngredientId = ? ) ";
+        String sql = "DELETE FROM WeighedIngredientsBatches WHERE (weighedIngredientId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
@@ -178,7 +178,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     @Override
     public void deleteAll(Connection conn) throws SQLException {
 
-        String sql = "DELETE FROM WeighedBatches";
+        String sql = "DELETE FROM WeighedIngredientsBatches";
         PreparedStatement stmt = null;
 
         try {
@@ -199,7 +199,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     @Override
     public int countAll(Connection conn) throws SQLException {
 
-        String sql = "SELECT count(*) FROM WeighedBatches";
+        String sql = "SELECT count(*) FROM WeighedIngredientsBatches";
         PreparedStatement stmt = null;
         ResultSet result = null;
         int allRows = 0;
@@ -233,7 +233,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
         List searchResults;
 
         boolean first = true;
-        StringBuffer sql = new StringBuffer("SELECT * FROM WeighedBatches WHERE 1=1 ");
+        StringBuffer sql = new StringBuffer("SELECT * FROM WeighedIngredientsBatches WHERE 1=1 ");
 
         if (weighedBatch.getWeighedIngredientId() != 0) {
             if (first) {

@@ -11,6 +11,12 @@ public class User implements Cloneable, Serializable, dto.interfaces.IUser {
     private String userName;
     private String ini;
     private String cpr;
+    /*
+    0 = Admin,
+    1 = Laborant,
+    2 = Produktionsleder,
+    3 = Farmaceut
+     */
     private int role;
 
     public User () {}
