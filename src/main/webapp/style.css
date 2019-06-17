@@ -42,6 +42,10 @@ table{
 }
 
 /* nav bar */
+#nav{
+    z-index: 2;
+}
+
 #nav ul {
     list-style-type: none;
     margin: 0;
@@ -82,9 +86,10 @@ table{
     display: block;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
     background-blend-mode: multiply;
     /*sorte kanter omkring bg */
+    pointer-events: none;
     box-shadow: 50px 50px 113px rgba(0, 0, 0, 1) inset, -50px -50px 110px rgba(0, 0, 0, 1) inset;
 }
 

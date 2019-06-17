@@ -75,7 +75,8 @@ CREATE TABLE ProductBatches
 );
 
 /* Table: "WeighedIngredientBatches"*/
-DROP TABLE IF EXISTS WeighedIngredientsBatches;
+DROP TABLE IF EXISTS
+;
 CREATE TABLE WeighedIngredientsBatches
 (
     weighedIngredientId INT AUTO_INCREMENT COMMENT 'Ingredientens ID',
