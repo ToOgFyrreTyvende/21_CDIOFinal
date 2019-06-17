@@ -39,7 +39,7 @@ const utils = {
     closebtn: function (el) {
         let id = el.dataset.id;
         let name = el.dataset.name;
-        let resp = confirm(`Are you sure you want to delete ${name} with id ${id}?`)
+        let resp = confirm(`Are you sure you want to delete ${name} with id ${id}?`);
         if (resp) {
             this.removeWithId(id);
         }
@@ -62,10 +62,13 @@ const utils = {
     },
     createUser: function(){
         let _this = this;
+        let editedData = getFormData($('#inputForm'));
+        editedData.role = parseInt(editedData.roles[0]);
+        delete editedData.roles;
         $.ajax({
             type: "POST",
             url: "/api/users",
-            data: JSON.stringify(getFormData($('#inputForm'))),
+            data: JSON.stringify(editedData),
             contentType: "application/json; charset=utf-8",
             success: function(data){
                 $('#createUserModal').modal('toggle');
@@ -81,10 +84,13 @@ const utils = {
     updateUser: function(){
         let _this = this;
         $("#userIdInput").prop('disabled', false);
+        let editedData = getFormData($('#inputForm'));
+        editedData.role = parseInt(editedData.roles[0]);
+        delete editedData.roles;
         $.ajax({
             type: "PUT",
             url: "/api/users",
-            data: JSON.stringify(getFormData($('#inputForm'))),
+            data: JSON.stringify(editedData),
             contentType: "application/json; charset=utf-8",
             success: function(data){
                 $('#createUserModal').modal('toggle');
@@ -100,7 +106,7 @@ const utils = {
 
     }
 
-}
+};
 
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
