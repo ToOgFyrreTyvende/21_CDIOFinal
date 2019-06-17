@@ -3,7 +3,7 @@ const utilsProduct = {
     Products: [],
     Count: function (data) {
         let name = 'Product';
-        counter = $('#counter');
+        counter = $('#counterProd');
         if (data) {
             if (data > 1)
                 name = 'Products';

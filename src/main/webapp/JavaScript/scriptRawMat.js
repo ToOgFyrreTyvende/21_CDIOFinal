@@ -3,7 +3,7 @@ const utilsRawMat = {
     RawMaterials: [],
     Count: function (data) {
         let name = 'Raw Material';
-        counter = $('#counter');
+        counter = $('#counterRawMat');
         if (data) {
             if (data > 1)
                 name = 'Raw Materials';
