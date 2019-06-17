@@ -32,5 +32,22 @@ const rendersProduct = {
 			$("#productIdInput").val(product.productId);
 			$("#productNameInput").val(product.productName);
 		}
-	}
+	},
+
+    renderInputFieldsIngredients: function(id){
+        $("#productIdInput2").val(id);
+        this.IngredientsFromDB.map((el) =>{
+            $("#rawMatIdInputIngredient").append($("<option></option>")
+                .attr("value",el.rawMatID)
+                .text(el.rawMatName));
+        })
+	},
+
+    renderIngredientsTable: function(el){
+	    let ingredients = this.IngredientsFromDB;
+	    // Use == because rawmatID likely is string...
+	    $("#ingredientFormTable").append(`<tr><td>${ingredients.find((x) => x.rawMatID == el.rawMatID).rawMatName}</td>`+
+                                         `<td>${el.amount}</td><td>${el.tolerance}</td></tr>`)
+
+    }
 };

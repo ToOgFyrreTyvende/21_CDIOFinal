@@ -2,6 +2,7 @@ const utilsProduct = {
 	createForm: true,
 	Products: [],
 	IngredientsFromDB: [],
+    Ingredients: {}, // Format {"/id/": [/*ingredients as {"rawMatId": "1","nonNetto": "1","tolerance": "3"} */]}
 	Count: function(data) {
 		let name = 'Product';
 		counter = $('#counterProd');
@@ -55,9 +56,10 @@ const utilsProduct = {
 
 		} else if (status === "addIngredient") {
 			this.createForm = true;
-			document.getElementById("inputForm").reset();
+            this.renderInputFieldsIngredients(id)
 			$("#modalText").text("Update");
-			$("#productIdInput").prop('disabled', false);
+            this.Ingredients[id] = [];
+			$("#productIdInput2").prop('disabled', true);
 			$('#mangeProductModal').modal();
 		} else {
 			this.createForm = false;
@@ -106,8 +108,55 @@ const utilsProduct = {
 			}
 		});
 		$("#productIdInput").prop('disabled', true);
+	},
 
+    addIngredient: function(){
+        $("#productIdInput2").prop('disabled', false);
+        let formData = getFormData($("#inputFormProductIng"));
+        $("#productIdInput2").prop('disabled', true);
+
+        var pid = parseInt(formData.productId);
+        ;
+
+        if(this.Ingredients[pid] === undefined)
+            this.Ingredients[pid] = [];
+        let el = {
+            "rawMatId": parseInt(formData.rawMatID),
+            "amount": parseFloat(formData.amount),
+            "tolerance": parseFloat(formData.tolerance),
+            "prodIngId": "",
+            "name":"name"
+        };
+        this.Ingredients[pid].push(el);
+        this.renderIngredientsTable(formData);
+
+    },
+
+    submitIngredients: function(){
+	    let id = $("#productIdInput2").val();
+	    let prod = this.Products.find((x) => x.productId == id )
+
+        var objToSend = {...prod};
+        this.Ingredients[id].map((x) => {
+            objToSend.ingredients.push(x);
+        });
+        $.ajax({
+            type: "PUT",
+            url: "/api/products",
+            data: JSON.stringify(objToSend),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                $('#createProductModal').modal('toggle');
+                this.FetchAllProducts();
+            },
+            failure: function(errMsg) {
+                alert(errMsg);
+                console.error(errMsg);
+            }
+        });
 	}
+
 
 }
 
