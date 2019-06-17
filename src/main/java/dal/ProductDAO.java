@@ -103,14 +103,12 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     @Override
     public void save(Connection conn, IProduct product)
             throws NotFoundException, SQLException {
-
         String sql = "UPDATE Products SET productName = ? WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
-
             stmt.setInt(2, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
@@ -131,23 +129,24 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     }
 
     private void ensureIngredients(Connection conn, IProduct product) throws SQLException {
-        if(product.getIngredients().size() > 0){
+        if (product.getIngredients() != null) {
             String sql = "DELETE FROM ProductIngredients WHERE productId = ?";
-            PreparedStatement stmt =  conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, product.getProductId());
             stmt.executeUpdate();
             stmt.close();
 
+            if (product.getIngredients().size() > 0){
+                String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                int prodid = product.getProductId();
 
-            String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
-            PreparedStatement stmt2 =  conn.prepareStatement(sql2);
-            int prodid = product.getProductId();
-
-            for (IProduct.IRawMatAmount rawmat : product.getIngredients()){
-                stmt2.setInt(1, rawmat.getRawMatId());
-                stmt2.setInt(2, prodid);
-                stmt2.setDouble(3, rawmat.getAmount());
-                stmt2.execute();
+                for (IProduct.IRawMatAmount rawmat : product.getIngredients()) {
+                    stmt2.setInt(1, rawmat.getRawMatId());
+                    stmt2.setInt(2, prodid);
+                    stmt2.setDouble(3, rawmat.getAmount());
+                    stmt2.execute();
+                }
             }
         }
     }
