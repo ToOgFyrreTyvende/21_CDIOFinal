@@ -74,8 +74,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO Products ( productId, productName, "
-                    + "nomNetto, tolerance) VALUES (?, ?, ?, ?, ?) ";
+            sql = "INSERT INTO Products ( productId, productName) VALUES (?, ?) ";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, product.getProductId());
