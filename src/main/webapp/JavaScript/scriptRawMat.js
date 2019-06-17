@@ -33,7 +33,7 @@ const utilsRawMat = {
 	closebtn: function(el) {
 		let id = el.dataset.id;
 		let name = el.dataset.name;
-		let resp = confirm(`Are you sure you want to delete ${name} with id ${id}?`)
+		let resp = confirm(`Are you sure you want to delete ${name} with id ${id}?`);
 		if (resp) {
 			this.removeWithId(id);
 		}
@@ -93,10 +93,8 @@ const utilsRawMat = {
 			}
 		});
 		$("#rawMatInput").prop('disabled', true);
-
 	}
-
-}
+};
 
 /* Fix this */
 function getFormData($form) {
