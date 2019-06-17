@@ -54,7 +54,7 @@ const utils = {
             $("#userIdInput").prop('disabled', false);
         }else{
             this.createForm = false;
-            this.renderInputFields(id)
+            this.renderInputFields(id);
             $("#userIdInput").prop('disabled', true);
             $("#modalText").text(`Update ${name}, #${id}`);
             $('#createUserModal').modal();
