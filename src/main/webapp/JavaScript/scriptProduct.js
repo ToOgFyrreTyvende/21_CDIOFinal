@@ -1,6 +1,7 @@
 const utilsProduct = {
     createForm: true,
     Products: [],
+    IngredientsFromDB: [],
     Count: function (data) {
         let name = 'Product';
         counter = $('#counterProd');
@@ -16,6 +17,10 @@ const utilsProduct = {
         $.get('/api/products').done((data) => {
             this.Products = data.sort((a, b) => (a.productId > b.productId) ? 1 : -1);
             this.renderProducts(data);
+        })
+
+        $.get('/api/rawMat').done((data) => {
+            this.IngredientsFromDB = data.sort((a, b) => (a.rawMatID > b.rawMatID) ? 1 : -1);
         })
     },
     removeWithId: function (id) {
@@ -46,10 +51,14 @@ const utilsProduct = {
             document.getElementById("inputForm").reset();
             $("#modalText").text("Create");
             $("#productIdInput").prop('disabled', false);
+            $('#createProductModal').modal();
+
         }else if(status === "addIngredient"){
+            this.createForm = true;
             document.getElementById("inputForm").reset();
-            $("#modalText").text("Create");
+            $("#modalText").text("Update");
             $("#productIdInput").prop('disabled', false);
+            $('#mangeProductModal').modal();
         }
         else{
             this.createForm = false;
@@ -64,12 +73,12 @@ const utilsProduct = {
         $.ajax({
             type: "POST",
             url: "/api/products",
-            data: JSON.stringify(getFormData($('#inputForm'))),
+            data: JSON.stringify(getFormData($('#inputFormProduct'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data){
                 $('#createProductModal').modal('toggle');
-                document.getElementById("inputForm").reset();
+                document.getElementById("inputFormProduct").reset();
                 _this.FetchAllProducts();
             },
             failure: function(errMsg) {
@@ -84,12 +93,12 @@ const utilsProduct = {
         $.ajax({
             type: "PUT",
             url: "/api/products",
-            data: JSON.stringify(getFormData($('#inputForm'))),
+            data: JSON.stringify(getFormData($('#inputFormProduct'))),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data){
                 $('#createProductModal').modal('toggle');
-                document.getElementById("inputForm").reset();
+                document.getElementById("inputFormProduct").reset();
                 _this.FetchAllProducts();
             },
             failure: function(errMsg) {
@@ -107,7 +116,7 @@ const utilsProduct = {
 /* Fix this */
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
-    var indexed_array = {roles: []};
+    var indexed_array = {};
 
     $.map(unindexed_array, function(n, i){
         if(n['name'] == "roles"){

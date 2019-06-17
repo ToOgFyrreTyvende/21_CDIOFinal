@@ -105,15 +105,14 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     public void save(Connection conn, IProduct product)
             throws NotFoundException, SQLException {
 
-        String sql = "UPDATE Products SET productName = ?, nomNetto = ?, "
-                + "tolerance = ? WHERE (productId = ? ) ";
+        String sql = "UPDATE Products SET productName = ? WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
 
-            stmt.setInt(4, product.getProductId());
+            stmt.setInt(2, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
             ensureIngredients(conn, product);
@@ -139,17 +138,18 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             stmt.setInt(1, product.getProductId());
             stmt.executeUpdate();
             stmt.close();
-        }
 
-        String sql = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
-        PreparedStatement stmt =  conn.prepareStatement(sql);
-        int prodid = product.getProductId();
 
-        for (IProduct.IRawMatAmount rawmat : product.getIngredients()){
-            stmt.setInt(1, rawmat.getRawMatId());
-            stmt.setInt(2, prodid);
-            stmt.setDouble(3, rawmat.getAmount());
-            stmt.execute();
+            String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
+            PreparedStatement stmt2 =  conn.prepareStatement(sql2);
+            int prodid = product.getProductId();
+
+            for (IProduct.IRawMatAmount rawmat : product.getIngredients()){
+                stmt2.setInt(1, rawmat.getRawMatId());
+                stmt2.setInt(2, prodid);
+                stmt2.setDouble(3, rawmat.getAmount());
+                stmt2.execute();
+            }
         }
     }
 

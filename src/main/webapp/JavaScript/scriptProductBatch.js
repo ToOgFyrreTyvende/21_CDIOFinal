@@ -102,7 +102,7 @@ const utilsProdBatch = {
 /* Fix this */
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
-    var indexed_array = {roles: []};
+    var indexed_array = {};
 
     $.map(unindexed_array, function(n, i){
         if(n['name'] == "roles"){
