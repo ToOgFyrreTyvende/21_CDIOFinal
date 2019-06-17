@@ -6,7 +6,7 @@ const utilsProdBatch = {
         counter = $('#counterPB');
         if (data) {
             if (data > 1)
-                name = 'Product Batchs';
+                name = 'Product Batches';
 
             counter.html(data + ' ' + name);
         } else
