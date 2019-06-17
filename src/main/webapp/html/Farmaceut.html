@@ -28,10 +28,10 @@
 
         <div class="col-sm">
             <h1 style="color:white;" > List of Products</h1>
-        <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
+        <button type="button" onclick="productApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
             Create Product
         </button>
-            <span id="counterProd">0</span>
+            <span class="counters" id="counterProd">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>ProductID</th>
@@ -47,10 +47,10 @@
 
         <div class="col-sm">
             <h1 style="color:white;" > List of Raw Materials</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
+            <button type="button" onclick="rawMatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
                 Create Raw Material
             </button>
-            <span id="counterRawMat">0</span>
+            <span class="counters" id="counterRawMat">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>Raw Mat. Batch ID</th>
@@ -65,11 +65,11 @@
 
         <div class="col-sm">
             <h1 style="color:white;" > List of Raw Material Batches</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
+            <button type="button" onclick="rawMatBatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
                 Create Raw Material Batch
 
             </button>
-            <span id="counterRMB">0</span>
+            <span class="counters" id="counterRMB">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>Name</th>
@@ -86,11 +86,11 @@
 
         <div class="col-sm">
             <h1 style="color:white;" > List of Product Batches</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductbatchModal">
+            <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductbatchModal">
                 Create Product Batch
 
             </button>
-            <span id="counterPB">0</span>
+            <span class="counters" id="counterPB">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>Name</th>
@@ -129,7 +129,7 @@
                     </div>
 
                     <div id="RawMatName-group" class="form-group">
-                        <label for="rawMatName">Raw Martial Name</label>
+                        <label for="rawMatName">Raw Material Name</label>
                         <input type="text" id="rawMatNameInput" min="2" max="20" class="form-control" name="rawMatName" placeholder="Salt">
                     </div>
 
@@ -166,7 +166,7 @@
                     </div>
 
                     <div id="receptId-group" class="form-group">
-                        <label for="rawMatId">Raw Martial ID</label>
+                        <label for="rawMatId">Raw Material ID</label>
                         <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="21">
                     </div>
 
@@ -230,7 +230,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal PRODUCTBATCH-->
 <div class="modal fade" style="display:none;" id="createProductbatchModal" tabindex="-1" role="dialog"
@@ -304,23 +303,23 @@
 
 <script>
     const productApp = Object.assign(utilsProduct, rendersProduct);
-    const RawMatApp = Object.assign(utilsRawMat, rendersRawMat);
+    const rawMatApp = Object.assign(utilsRawMat, rendersRawMat);
     const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
-    const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
+    const rawMatBatApp = Object.assign(utilsRawBatch, rendersRawBatch);
 
     $(document).ready(() => {
         Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
         productApp.ProductEl = $('#Product');
         productApp.FetchAllProducts();
 
-        RawMatApp.RawMatEl = $('#RawMat');
-        RawMatApp.FetchAllRawMaterials();
+        rawMatApp.RawMatEl = $('#RawMat');
+        rawMatApp.FetchAllRawMaterials();
 
         prodBatchApp.RroductBatchEl = $('#ProductBatch');
         prodBatchApp.FetchAllProductBatches();
 
-        RawBatchApp.RMBEl = $('#RawMaterialBatch');
-        RawBatchApp.FetchAllRawMaterialBatches();
+        rawMatBatApp.RMBEl = $('#RawMaterialBatch');
+        rawMatBatApp.FetchAllRawMaterialBatches();
 
         $('#submitFormProduct').on('click', (event) => {
             event.preventDefault();
@@ -332,10 +331,10 @@
 
         $('#submitFormRawMat').on('click', (event) => {
             event.preventDefault();
-            if(RawMatApp.createForm)
-                RawMatApp.createRawMaterial();
+            if(rawMatApp.createForm)
+                rawMatApp.createRawMaterial();
             else
-                RawMatApp.updateRawMaterial();
+                rawMatApp.updateRawMaterial();
         });
 
         $('#submitFormProdBatch').on('click', (event) => {
@@ -348,10 +347,10 @@
 
         $('#submitFormRawMatBatch').on('click', (event) => {
             event.preventDefault();
-            if(RawBatchApp.createForm)
-                RawBatchApp.createRawMaterialBatch();
+            if(rawMatBatApp.createForm)
+                rawMatBatApp.createRawMaterialBatch();
             else
-                RawBatchApp.updateRawMaterialBatch();
+                rawMatBatApp.updateRawMaterialBatch();
         });
     })
 </script>
