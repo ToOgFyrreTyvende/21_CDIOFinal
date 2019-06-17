@@ -6,11 +6,10 @@ import dto.interfaces.IUser;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
-public class UserDAO implements dal.interfaces.IUserDAO, dal.arrayDao.IAUserDAO {
+public class UserDAO implements dal.interfaces.IUserDAO, dal.Array.IArray {
 
-    private List<IUser> u;
+    private List<Object> u;
 
     public UserDAO(){u = new ArrayList<>();}
 
@@ -373,41 +372,34 @@ public class UserDAO implements dal.interfaces.IUserDAO, dal.arrayDao.IAUserDAO 
     }
 
     //============================      array       ============================
-
-
-
-
-
     @Override
-    public IUser getUser(int userId) {
-        return u.get(userId);
+    public Object getA(int Id) {
+        return u.get(Id);
     }
 
     @Override
-    public List<IUser> getUser() {
+    public List getListA() {
         return u;
     }
 
     @Override
-    public void createUser(IUser user) {
-        u.add(user);
+    public void createA(Object ob) {
+        u.add(ob);
     }
 
     @Override
-    public void updateUser(IUser user) {
-        int userID = user.getUserId();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IUser upUser : u){
-            if (upUser.getUserId() == userID){
-                u.set(i, upUser);
+        for (Object upOp : u){
+            if (upOp == ob){
+                u.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteUser(int userId) {
-        u.remove(userId);
+    public void deleteA(int Id) {
+        u.remove(Id);
     }
 }

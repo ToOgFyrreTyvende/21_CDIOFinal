@@ -8,9 +8,9 @@ import dto.interfaces.IWeighedIngredientsBatches;
 import java.sql.*;
 import java.util.*;
 
-public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO, dal.arrayDao.IAWeightedIngredientsBatchesDAO {
+public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO, dal.Array.IArray {
 
-    private List<IWeighedIngredientsBatches> wibs;
+    private List<Object> wibs;
 
     public WeighedIngredientsBatchesDAO(){wibs = new ArrayList<>();}
 
@@ -374,41 +374,34 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
     }
 
     //==========================        array       =============================
-
-
-
-
-
     @Override
-    public IWeighedIngredientsBatches getWIB(int wibId) {
-        return wibs.get(wibId);
+    public Object getA(int Id) {
+        return wibs.get(Id);
     }
 
     @Override
-    public List<IWeighedIngredientsBatches> getWIBList() {
+    public List getListA() {
         return wibs;
     }
 
     @Override
-    public void createWIB(IWeighedIngredientsBatches wib) {
-        wibs.add(wib);
+    public void createA(Object ob) {
+        wibs.add(ob);
     }
 
     @Override
-    public void updateWIB(IWeighedIngredientsBatches wib) {
-        int wibID = wib.getWeighedIngredientId();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IWeighedIngredientsBatches upWeiIngBat : wibs){
-            if (upWeiIngBat.getProdBatchId() == wibID){
-                wibs.set(i, upWeiIngBat);
+        for (Object upOp : wibs){
+            if (upOp == ob){
+                wibs.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteWIB(int wibId) {
-        wibs.remove(wibId);
+    public void deleteA(int Id) {
+        wibs.remove(Id);
     }
 }

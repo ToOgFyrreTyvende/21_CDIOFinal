@@ -3,15 +3,14 @@ package dal;
 import dal.exceptions.NotFoundException;
 import dto.Product;
 import dto.interfaces.IProduct;
-import dto.interfaces.IProductBatch;
 
 import java.sql.*;
 import java.util.*;
 
 
-public class ProductDAO implements dal.interfaces.IProductDAO, dal.arrayDao.IAProductDAO {
+public class ProductDAO implements dal.interfaces.IProductDAO, dal.Array.IArray {
 
-    private List<IProduct> p;
+    private List<Object> p;
 
     public ProductDAO(){p = new ArrayList<>();}
 
@@ -407,39 +406,34 @@ public class ProductDAO implements dal.interfaces.IProductDAO, dal.arrayDao.IAPr
     }
 
     //=====================     array       =====================
-
-
-
     @Override
-    public IProduct getProd(int prodId) {
-        return p.get(prodId);
+    public Object getA(int Id) {
+        return p.get(Id);
     }
 
     @Override
-    public List<IProduct> getProdList() {
+    public List getListA() {
         return p;
     }
 
     @Override
-    public void createProd(IProduct prod) {
-        p.add(prod);
+    public void createA(Object ob) {
+        p.add(ob);
     }
 
     @Override
-    public void updateProd(IProduct prod) {
-        int prodID = prod.getProductId();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IProduct upProd : p){
-            if (upProd.getProductId() == prodID){
-                p.set(i, upProd);
+        for (Object upOp : p){
+            if (upOp == ob){
+                p.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteProd(int prodId) {
-        p.remove(prodId);
+    public void deleteA(int Id) {
+        p.remove(Id);
     }
 }

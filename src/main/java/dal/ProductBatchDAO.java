@@ -2,15 +2,14 @@ package dal;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
+
 import dal.exceptions.NotFoundException;
 import dto.ProductBatch;
-import dto.interfaces.IProduct;
 import dto.interfaces.IProductBatch;
 
-public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO, dal.arrayDao.IAProductBatchDAO {
+public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO, dal.Array.IArray {
 
-    private List<IProductBatch> pb;
+    private List<Object> pb;
 
     public ProductBatchDAO() {
          pb = new ArrayList<>();
@@ -434,39 +433,34 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO, dal.arr
     }
 
     //====================      Array       ====================
-
-
-
     @Override
-    public IProductBatch getProdBat(int prodbatId) {
-        return pb.get(prodbatId);
+    public Object getA(int Id) {
+        return pb.get(Id);
     }
 
     @Override
-    public List<IProductBatch> getProdBatList() {
+    public List getListA() {
         return pb;
     }
 
     @Override
-    public void createProdBat(IProductBatch prodbat) {
-        pb.add(prodbat);
+    public void createA(Object ob) {
+        pb.add(ob);
     }
 
     @Override
-    public void updateProdBat(IProductBatch prodbat) {
-        int prodbatID = prodbat.getProdBatchId();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IProductBatch upProdBat : pb){
-            if (upProdBat.getProdBatchId() == prodbatID){
-                pb.set(i, upProdBat);
+        for (Object upOp : pb){
+            if (upOp == ob){
+                pb.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteProdBat(int prodbatId) {
-        pb.remove(prodbatId);
+    public void deleteA(int Id) {
+        pb.remove(Id);
     }
 }

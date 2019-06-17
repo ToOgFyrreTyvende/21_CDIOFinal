@@ -7,9 +7,9 @@ import dto.interfaces.*;
 import java.sql.*;
 import java.util.*;
 
-public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO, dal.arrayDao.IAProductIngredientDAO {
+public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO, dal.Array.IArray {
 
-    private List<IProductIngredient> pi;
+    private List<Object> pi;
 
     public ProductIngredientDAO(){pi = new ArrayList<>();}
 
@@ -360,41 +360,34 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
     }
 
     //============================      array       ===============================
-
-
-
-
-
     @Override
-    public IProductIngredient getProdIng(int prodingId) {
-        return pi.get(prodingId);
+    public Object getA(int Id) {
+        return pi.get(Id);
     }
 
     @Override
-    public List<IProductIngredient> getProdIngList() {
+    public List getListA() {
         return pi;
     }
 
     @Override
-    public void createProdIng(IProductIngredient proding) {
-        pi.add(proding);
+    public void createA(Object ob) {
+        pi.add(ob);
     }
 
     @Override
-    public void updateProdIng(IProductIngredient proding) {
-        int prodingID = proding.getProductIngredientId();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IProductIngredient upProdIng : pi){
-            if (upProdIng.getProductIngredientId() == prodingID){
-                pi.set(i, upProdIng);
+        for (Object upOp : pi){
+            if (upOp == ob){
+                pi.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteProdIng(int prodingId) {
-        pi.remove(prodingId);
+    public void deleteA(int Id) {
+        pi.remove(Id);
     }
 }

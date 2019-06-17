@@ -6,11 +6,10 @@ import dto.interfaces.IRawMat;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
-public class RawMatDAO implements dal.interfaces.IRawMatDAO, dal.arrayDao.IARawMatDAO {
+public class RawMatDAO implements dal.interfaces.IRawMatDAO, dal.Array.IArray {
 
-    private List<IRawMat> rm;
+    private List<Object> rm;
 
     public RawMatDAO(){rm = new ArrayList<>();}
 
@@ -331,41 +330,34 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO, dal.arrayDao.IARawM
     }
 
     //============================      array       ==============================
-
-
-
-
-
     @Override
-    public IRawMat getRawMat(int rawmatId) {
-        return rm.get(rawmatId);
+    public Object getA(int Id) {
+        return rm.get(Id);
     }
 
     @Override
-    public List<IRawMat> getRawMatList() {
+    public List getListA() {
         return rm;
     }
 
     @Override
-    public void createRawMat(IRawMat rawmat) {
-        rm.add(rawmat);
+    public void createA(Object ob) {
+        rm.add(ob);
     }
 
     @Override
-    public void updateRawMat(IRawMat rawmat) {
-        int rmID = rawmat.getRawMatID();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IRawMat upRawMat : rm){
-            if (upRawMat.getRawMatID() == rmID){
-                rm.set(i, upRawMat);
+        for (Object upOp : rm){
+            if (upOp == ob){
+                rm.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteRawMat(int rawmatId) {
-        rm.remove(rawmatId);
+    public void deleteA(int Id) {
+        rm.remove(Id);
     }
 }

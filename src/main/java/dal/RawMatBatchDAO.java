@@ -6,11 +6,10 @@ import dto.interfaces.IRawMatBatch;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
-public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO, dal.arrayDao.IARawMatBatchDAO {
+public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO, dal.Array.IArray {
 
-    private List<IRawMatBatch> rmb;
+    private List<Object> rmb;
 
     public RawMatBatchDAO() { rmb = new ArrayList<>(); }
 
@@ -359,39 +358,34 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO, dal.array
     }
 
     //=========================     array       ===========================
-
-
-
     @Override
-    public IRawMatBatch getRawMatBat(int rawmatbatId) {
-        return rmb.get(rawmatbatId);
+    public Object getA(int Id) {
+        return rmb.get(Id);
     }
 
     @Override
-    public List<IRawMatBatch> getRawMatBatList() {
+    public List getListA() {
         return rmb;
     }
 
     @Override
-    public void createRawMatBat(IRawMatBatch rawmatbat) {
-        rmb.add(rawmatbat);
+    public void createA(Object ob) {
+        rmb.add(ob);
     }
 
     @Override
-    public void updateRawMatBat(IRawMatBatch rawmatbat) {
-        int rmbID = rawmatbat.getRmbId();
-
+    public void updateA(Object ob) {
         int i = 0;
-        for (IRawMatBatch upRawMatBat : rmb){
-            if (upRawMatBat.getRmbId() == rmbID){
-                rmb.set(i, upRawMatBat);
+        for (Object upOp : rmb){
+            if (upOp == ob){
+                rmb.set(i, upOp);
             }
             i++;
         }
     }
 
     @Override
-    public void deleteRawMatBat(int rawmatbatId) {
-        rmb.remove(rawmatbatId);
+    public void deleteA(int Id) {
+        rmb.remove(Id);
     }
 }
