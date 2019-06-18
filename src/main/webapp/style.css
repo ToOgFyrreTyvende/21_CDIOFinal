@@ -94,7 +94,6 @@ table{
     background-blend-mode: multiply;
     /*sorte kanter omkring bg */
     pointer-events: none;
-    box-shadow: 50px 50px 113px rgba(0, 0, 0, 1) inset, -50px -50px 110px rgba(0, 0, 0, 1) inset;
 }
 
 #containerSR{
