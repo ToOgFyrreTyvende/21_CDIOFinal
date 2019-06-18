@@ -79,6 +79,7 @@
                     <th>Name</th>
                     <th>Raw mat ID</th>
                     <th>Amount</th>
+                    <th>Supplier</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -136,11 +137,6 @@
                         <input type="text" id="rawMatNameInput" min="2" max="20" class="form-control" name="rawMatName" placeholder="Salt">
                     </div>
 
-                    <div id="Supplier-group" class="form-group">
-                        <label for="supplierInput">Supplier</label>
-                        <input type="text" id="supplierInput" min="2" max="20" class="form-control" name="supplier" placeholder="Novo Nordisk">
-                    </div>
-
                     <button id="submitFormRawMat" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
@@ -165,7 +161,7 @@
                 <form id="inputFormRawMatBatch">
                     <div id="RMBId-group" class="form-group">
                         <label for="RMBIdInput1">Raw Material Batch ID</label>
-                        <input type="number" id="RMBIdInput1" min="1" max="99999999" class="form-control" name="RMBId" placeholder="42">
+                        <input type="number" id="RMBIdInput1" min="0" max="99999999" value="0" class="form-control" name="rmbId" placeholder="42">
                     </div>
 
                     <div id="receptId-group" class="form-group">
@@ -176,6 +172,11 @@
                     <div id="amount-group" class="form-group">
                         <label for="amountInput">Amount (kg)</label>
                         <input type="number" id="amountInput" min="0" max="99999999" step="0.0001" class="form-control" name="amount" placeholder="10,65">
+                    </div>
+
+                    <div id="Supplier-group" class="form-group">
+                        <label for="supplierInput">Supplier</label>
+                        <input type="text" id="supplierInput" min="2" max="20" class="form-control" name="supplier" placeholder="Novo Nordisk">
                     </div>
 
                     <button id="submitFormRawMatBatch" class="btn btn-success">Submit <span
@@ -307,7 +308,7 @@
                                placeholder="42">
                     </div>
 
-                    <div id="receptId-group" class="form-group">
+                    <div id="productId-group2" class="form-group">
                         <label for="productIdInput">Product ID</label>
                         <input type="number" id="productIdInput" min="0" max="99999999" class="form-control" name="prodId" placeholder="21" >
                     </div>

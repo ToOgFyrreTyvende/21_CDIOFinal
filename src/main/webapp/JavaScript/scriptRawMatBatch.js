@@ -44,12 +44,12 @@ const utilsRawBatch = {
 		name = name || "";
 		if (status === "create" && id === 0) {
 			this.createForm = true;
-			document.getElementById("inputForm").reset();
+			document.getElementById("inputFormRawMatBatch").reset();
 			$("#modalText").text("Create");
 			$("#RMBIdInput").prop('disabled', false);
 		} else {
 			this.createForm = false;
-			this.renderInputFields(id)
+			this.renderInputFields(id);
 			$("#RMBIdInput").prop('disabled', true);
 			$("#modalText").text(`Update ${name}, #${id}`);
 			$('#createRawMatBatchModal').modal();
@@ -60,12 +60,12 @@ const utilsRawBatch = {
 		$.ajax({
 			type: "POST",
 			url: "/api/rawMatBatches",
-			data: JSON.stringify(getFormData($('#inputForm'))),
+			data: JSON.stringify(getFormData($('#inputFormRawMatBatch'))),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
 				$('#createRawMatBatchModal').modal('toggle');
-				document.getElementById("inputForm").reset();
+				document.getElementById("inputFormRawMatBatch").reset();
 				_this.FetchAllRawMaterialBatches();
 			},
 			failure: function(errMsg) {
@@ -80,12 +80,12 @@ const utilsRawBatch = {
 		$.ajax({
 			type: "PUT",
 			url: "/api/rawMatBatches",
-			data: JSON.stringify(getFormData($('#inputForm'))),
+			data: JSON.stringify(getFormData($('#inputFormRawMatBatch'))),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
 				$('#createRawMatBatchModal').modal('toggle');
-				document.getElementById("inputForm").reset();
+				document.getElementById("inputFormRawMatBatch").reset();
 				_this.FetchAllRawMaterialBatches();
 			},
 			failure: function(errMsg) {

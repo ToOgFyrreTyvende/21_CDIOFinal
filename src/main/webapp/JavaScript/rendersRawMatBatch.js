@@ -9,8 +9,9 @@ const rendersRawBatch = {
                 data += `<td>${this.RawMaterialBatches[i].name}</td>`;
 				data += `<td>${this.RawMaterialBatches[i].rawMatId}</td>`;
 				data += `<td>${this.RawMaterialBatches[i].amount}</td>`;
+				data += `<td>${this.RawMaterialBatches[i].supplier}</td>`;
 
-				data += `<td><button type="button" onclick="rawMatBatApp.setForm('update', ${this.RawMaterialBatches[i].RMBId}, '${this.RawMaterialBatches[i].RMBName}')" 
+				data += `<td><button type="button" onclick="rawMatBatApp.setForm('update', ${this.RawMaterialBatches[i].rmbId}, '${this.RawMaterialBatches[i].name}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
 				data += `<td><button type="button" onclick="rawMatBatApp.closebtn(this)" class="closebtn btn btn-danger" 
                 data-name="${this.RawMaterialBatches[i].RMBName}"
@@ -26,11 +27,12 @@ const rendersRawBatch = {
 
 	<!--RenderInputField RAW MAT BATCH-->
 	renderInputFields: function(id) {
-		let rawMatBatch = this.RawMaterialBatches.filter((el) => el.RMBId === id)[0];
+		let rawMatBatch = this.RawMaterialBatches.find((el) => el.rmbId === id);
 		if (rawMatBatch) {
-			$("#RMBIdInput").val(rawMatBatch.RMBId);
-			$("#rawMatInput").val(rawMatBatch.rawMatId);
+			$("#RMBIdInput1").val(rawMatBatch.rmbId);
+			$("#rawMatIdInput2").val(rawMatBatch.rawMatId);
 			$("#amountInput").val(rawMatBatch.amount);
+			$("#supplierInput").val(rawMatBatch.supplier);
 		}
 	}
 };
