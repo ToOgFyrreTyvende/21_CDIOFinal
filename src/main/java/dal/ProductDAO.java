@@ -136,7 +136,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             stmt.executeUpdate();
             stmt.close();
 
-            if (product.getIngredients().size() > 0){
+            if (product.getIngredients().length > 0){
                 String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
                 PreparedStatement stmt2 = conn.prepareStatement(sql2);
                 int prodid = product.getProductId();
@@ -340,7 +340,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
                 "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
                 "where ProductIngredients.productId = ?;";
 
-        List<IProduct.IRawMatAmount> inglist = new ArrayList<>();
+        List<IProduct.IRawMatAmount> inglist = new ArrayList<IProduct.IRawMatAmount>();
 
         PreparedStatement ingredients = null;
         ingredients = conn.prepareStatement(sql);
@@ -358,7 +358,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             inglist.add(temping);
         }
 
-        product.setIngredients(inglist);
+        product.setIngredients(inglist.toArray(new Product.RawMatAmount[inglist.size()]));
     }
 
 

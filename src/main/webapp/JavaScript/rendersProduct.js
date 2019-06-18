@@ -43,11 +43,20 @@ const rendersProduct = {
         })
 	},
 
-    renderIngredientsTable: function(el){
-	    let ingredients = this.IngredientsFromDB;
-	    // Use == because rawmatID likely is string...
-	    $("#ingredientFormTable").append(`<tr><td>${ingredients.find((x) => x.rawMatID == el.rawMatID).rawMatName}</td>`+
-                                         `<td>${el.amount}</td><td>${el.tolerance}</td></tr>`)
+    renderIngredientsTable: function(product){
+		product.ingredients.map((ingredient) => {
+			let ingname = this.IngredientsFromDB.find((y) => y.rawMatID == ingredient.rawMatId).rawMatName
+			this.renderAddIngredient(ingredient, ingname, product.productId);
 
-    }
+		})
+    },
+
+	renderAddIngredient: function (el, name, pid){
+		// Use == because rawmatID likely is string...
+		$("#ingredientFormTable").append(`<tr><td>${name}</td>`+
+			`<td>${el.amount}</td><td>${el.tolerance}</td><td><button type="button" onclick="productApp.deleteIngredient(this)" class="closebtn btn btn-danger" 
+                data-name="${name}" data-prodid="${pid}"
+                data-amount="${el.amount}" data-tolerance="${el.tolerance}" aria-label="Close">&times;</button></td></tr>`)
+
+	}
 };
