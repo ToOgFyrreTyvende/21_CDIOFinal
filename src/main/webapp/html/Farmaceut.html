@@ -6,8 +6,7 @@
     <title>Farmaceut</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -22,21 +21,28 @@
     </ul>
 </div>
 
+<div class="container">
+    <div id="tabs">
 
-<div class="container3">
-    <div class="row" id="tableRow">
+        <ul>
+            <li><a href="#tabs-1">Product</a></li>
+            <li><a href="#tabs-2">Raw mat</a></li>
+            <li><a href="#tabs-3">Product batch</a></li>
+            <li><a href="#tabs-4">Raw mat batch</a></li>
+        </ul>
 
-        <div class="col-sm">
+        <div id="tabs-1">
             <h1 style="color:white;" > List of Products</h1>
-        <button type="button" onclick="productApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
+            <button type="button" onclick="productApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
             Create Product
-        </button>
+            </button>
             <span class="counters" id="counterProd">0</span>
             <table class="table table-striped">
                 <tr>
                     <th>ProductID</th>
                     <th>ProductName</th>
                     <th>Number of ingredients</th>
+                    <th>Change Ingredients</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -45,7 +51,7 @@
             </table>
         </div>
 
-        <div class="col-sm">
+        <div id="tabs-2">
             <h1 style="color:white;" > List of Raw Materials</h1>
             <button type="button" onclick="rawMatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
                 Create Raw Material
@@ -63,11 +69,11 @@
             </table>
         </div>
 
-        <div class="col-sm">
+
+        <div id="tabs-3">
             <h1 style="color:white;" > List of Raw Material Batches</h1>
             <button type="button" onclick="rawMatBatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
                 Create Raw Material Batch
-
             </button>
             <span class="counters" id="counterRMB">0</span>
             <table class="table table-striped">
@@ -84,7 +90,7 @@
             </table>
         </div>
 
-        <div class="col-sm">
+        <div id="tabs-4">
             <h1 style="color:white;" > List of Product Batches</h1>
             <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductbatchModal">
                 Create Product Batch
@@ -110,6 +116,7 @@
 </div>
 
 
+
 <!-- Modal RAW MAT -->
 <div class="modal fade" style="display:none;" id="createRawMatModal" tabindex="-1" role="dialog"
      aria-labelledby="createProductModalLabel" aria-hidden="true">
@@ -122,19 +129,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="inputForm">
+                <form id="inputFormRawMat">
                     <div id="rawMatId-group" class="form-group">
-                        <label for="rawMatId">Raw Material ID</label>
-                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="42">
+                        <label for="rawMatIdInput1">Raw Material ID</label>
+                        <input type="number" id="rawMatIdInput1" min="1" max="99999999" class="form-control" name="rawMatID" placeholder="42">
                     </div>
 
                     <div id="RawMatName-group" class="form-group">
-                        <label for="rawMatName">Raw Material Name</label>
+                        <label for="rawMatNameInput">Raw Material Name</label>
                         <input type="text" id="rawMatNameInput" min="2" max="20" class="form-control" name="rawMatName" placeholder="Salt">
                     </div>
 
                     <div id="Supplier-group" class="form-group">
-                        <label for="supplier">Supplier</label>
+                        <label for="supplierInput">Supplier</label>
                         <input type="text" id="supplierInput" min="2" max="20" class="form-control" name="supplier" placeholder="Novo Nordisk">
                     </div>
 
@@ -159,19 +166,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="inputForm">
+                <form id="inputFormRawMatBatch">
                     <div id="RMBId-group" class="form-group">
-                        <label for="RMBId">Raw Material Batch ID</label>
-                        <input type="number" id="RMBIdInput" min="1" max="99999999" class="form-control" name="RMBId" placeholder="42">
+                        <label for="RMBIdInput1">Raw Material Batch ID</label>
+                        <input type="number" id="RMBIdInput1" min="1" max="99999999" class="form-control" name="RMBId" placeholder="42">
                     </div>
 
                     <div id="receptId-group" class="form-group">
-                        <label for="rawMatId">Raw Material ID</label>
-                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="21">
+                        <label for="rawMatIdInput2">Raw Material ID</label>
+                        <input type="number" id="rawMatIdInput2" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="21">
                     </div>
 
                     <div id="amount-group" class="form-group">
-                        <label for="amount">Amount (kg)</label>
+                        <label for="amountInput">Amount (kg)</label>
                         <input type="number" id="amountInput" min="0" max="99999999" step="0.0001" class="form-control" name="amount" placeholder="10,65">
                     </div>
 
@@ -184,7 +191,7 @@
     </div>
 </div>
 
-<!-- Modal RECEPT-->
+<!-- Modal Product-->
 <div class="modal fade" style="display:none;" id="createProductModal" tabindex="-1" role="dialog"
      aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -196,33 +203,87 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="inputForm">
+                <form id="inputFormProduct">
                     <div id="id-group" class="form-group">
-                        <label for="receptId">Product ID</label>
-                        <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="42">
+                        <label for="productIdInput1">Product ID</label>
+                        <input type="number" id="productIdInput1" min="1" max="99999999" class="form-control" name="productId" placeholder="42">
                     </div>
 
                     <div id="name-group" class="form-group">
-                        <label for="receptName">Product Name</label>
-                        <input type="text" id="receptNameInput" min="2" max="20" class="form-control" name="receptName" placeholder="Panodil">
-                    </div>
-
-                    <div id="rawMatId-group" class="form-group">
-                        <label for="rawMatId">Raw Material ID</label>
-                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="10 (Salt)">
-                    </div>
-
-                    <div id="nonNetto-group" class="form-group">
-                        <label for="nonNetto">non Netto (kg)</label>
-                        <input type="number" id="nonNettoInput" min="0.05" max="20.0" step="0.0001" class="form-control" name="nonNetto" placeholder="15.3">
-                    </div>
-
-                    <div id="tolerance-group" class="form-group">
-                        <label for="tolerance">Tolerance (%)</label>
-                        <input type="number" id="toleranceInput" min="0.1" max="10.0" step="0.0001" class="form-control" name="tolerance" placeholder="4.3">
+                        <label for="productNameInput">Product Name</label>
+                        <input type="text" id="productNameInput" min="2" max="20" class="form-control" name="productName" placeholder="Panodil">
                     </div>
 
                     <button id="submitFormProduct" class="btn btn-success">Submit <span
+                            class="fa fa-arrow-right"></span></button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" style="display:none;" id="manageProductModal" tabindex="-1" role="dialog"
+     aria-labelledby="createManageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="modalText">Add</span> ingredient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="inputFormProductIng">
+                    <div id="id-group" class="form-group">
+                        <label for="productIdInput2">Product ID</label>
+                        <input type="number" id="productIdInput2" min="1" max="99999999" class="form-control" name="productId" placeholder="42" disabled>
+                    </div>
+
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Amount (nominal netto in kg)</th>
+                            <th>Tolerance</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tbody id="ingredientFormTable"></tbody>
+                    </table>
+
+                    <!--div id="rawMatId-group" class="form-group">
+                        <label for="rawMatIdInput3">Raw Material ID</label>
+                        <input type="number" id="rawMatIdInput3" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="10 (Salt)">
+                    </div-->
+                    <div id="rawMatId-group" class="form-group">
+                        <label for="rawMatIdInputIngredient">Raw Material</label>
+                        <select name="rawMatID" class="form-control" id="rawMatIdInputIngredient">
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div id="nonNetto-group" class="form-group">
+                                <label for="amountInput2">non Netto (kg)</label>
+                                <input type="number" id="amountInput2" min="0.05" max="20.0" step="0.0001" class="form-control" name="amount" placeholder="15.3">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div id="tolerance-group" class="form-group">
+                                <label for="toleranceInput">Tolerance (%)</label>
+                                <input type="number" id="toleranceInput" min="0.1" max="10.0" step="0.0001" class="form-control" name="tolerance" placeholder="4.3">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <button id="addProductIngredients" class="btn btn-primary">Add ingredient<span
+                            class="fa fa-arrow-right"></span></button>
+                    <br />
+                    <br />
+
+                    <button id="submitFormProductIngredients" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
                 </form>
@@ -243,39 +304,39 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="inputForm">
+                <form id="inputFormProductBatch">
                     <div id="pdId-group" class="form-group">
-                        <label for="productBatchId">Productbatch ID</label>
+                        <label for="productBatchIdInput">Productbatch ID</label>
                         <input type="number" id="productBatchIdInput" min="1" max="99999999" class="form-control" name="productBatchId" placeholder="42">
                     </div>
 
                     <div id="receptId-group" class="form-group">
-                        <label for="receptId">Product ID</label>
-                        <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="21">
+                        <label for="productIdInput">Product ID</label>
+                        <input type="number" id="productIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="21">
                     </div>
 
                     <div id="status-group" class="form-group">
-                        <label for="status">Status (0 = Not Initiated / 1 = Under Prodction / 2 = Finished)</label>
+                        <label for="statusInput">Status (0 = Not Initiated / 1 = Under Prodction / 2 = Finished)</label>
                         <input type="number" id="statusInput" min="0" max="2" class="form-control" name="status" placeholder="1">
                     </div>
 
                     <div id="userId-group" class="form-group">
-                        <label for="userId">User ID</label>
-                        <input type="number" id="userIDInput" min="1" max="99999999" class="form-control" name="userID" placeholder="420">
+                        <label for="userIdInput">User ID</label>
+                        <input type="number" id="userIdInput" min="1" max="99999999" class="form-control" name="userID" placeholder="420">
                     </div>
 
                     <div id="RMBId-group" class="form-group">
-                        <label for="RMBId">Raw Material Batch ID</label>
-                        <input type="number" id="RMBIdInput" min="1" max="99999999" class="form-control" name="RMBId" placeholder="69">
+                        <label for="RMBIdInput2">Raw Material Batch ID</label>
+                        <input type="number" id="RMBIdInput2" min="1" max="99999999" class="form-control" name="RMBId" placeholder="69">
                     </div>
 
                     <div id="tara-group" class="form-group">
-                        <label for="tara">Tara (kg) </label>
+                        <label for="taraInput">Tara (kg) </label>
                         <input type="number" id="taraInput" min="0" max="99999999" step="0.0001" class="form-control" name="tara" placeholder="2.09">
                     </div>
 
                     <div id="netto-group" class="form-group">
-                        <label for="netto">Netto (kg)</label>
+                        <label for="nettoInput">Netto (kg)</label>
                         <input type="number" id="nettoInput" min="0" max="99999999" step="0.0001" class="form-control" name="netto" placeholder="13.37">
                     </div>
 
@@ -289,6 +350,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!-- oh dear god bi har brug for web components -->
@@ -302,13 +364,17 @@
 <script src="../JavaScript/scriptProductBatch.js"></script>
 
 <script>
+    $( function() {
+        $( "#tabs" ).tabs();
+    } );
+
     const productApp = Object.assign(utilsProduct, rendersProduct);
     const rawMatApp = Object.assign(utilsRawMat, rendersRawMat);
     const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
     const rawMatBatApp = Object.assign(utilsRawBatch, rendersRawBatch);
 
     $(document).ready(() => {
-        Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
+        Particles.init({ selector: '.background', maxParticles: 70, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
         productApp.ProductEl = $('#Product');
         productApp.FetchAllProducts();
 
@@ -321,12 +387,24 @@
         rawMatBatApp.RMBEl = $('#RawMaterialBatch');
         rawMatBatApp.FetchAllRawMaterialBatches();
 
+        $('#submitFormProductIngredients').on('click', (event) =>{
+            event.preventDefault();
+            productApp.submitIngredients();
+
+        });
+
+        $('#addProductIngredients').on('click', (event) =>{
+            event.preventDefault();
+            productApp.addIngredient();
+
+        })
+
         $('#submitFormProduct').on('click', (event) => {
             event.preventDefault();
             if(productApp.createForm)
-                productApp.createRawMaterial();
+                productApp.createProduct();
             else
-                productApp.updateRawMaterial();
+                productApp.updateProduct();
         });
 
         $('#submitFormRawMat').on('click', (event) => {

@@ -13,9 +13,9 @@ public interface IProduct {
 
     void setProductName(String productNameIn);
 
-    List<IProduct.IRawMatAmount> getIngredients();
+    Product.RawMatAmount[] getIngredients();
 
-    void setIngredients(List<IProduct.IRawMatAmount> ingredients);
+    void setIngredients(Product.RawMatAmount[] ingredients);
 
     void setAll(int productIdIn,
                 String productNameIn);

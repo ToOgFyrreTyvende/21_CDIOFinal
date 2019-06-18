@@ -19,7 +19,7 @@
     </ul>
 </div>
 
-<div class="container">
+<div class="container2">
     <h1 style="color:white;" > List of all users</h1>
     <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
         Create User
@@ -104,7 +104,7 @@
 
     $(document).ready(() => {
 
-        Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
+        Particles.init({ selector: '.background', maxParticles: 70, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
         app.userEl = $('#user');
         app.roleEl = $('#roles');
         app.FetchAllUsers();

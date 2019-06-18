@@ -7,6 +7,10 @@ html, body {
     -o-background-size: cover;
 }
 
+.container{
+    padding-top: 60px;
+}
+
 .container2{
     padding-top:50px;
     width:80%;
@@ -90,49 +94,20 @@ table{
     background-blend-mode: multiply;
     /*sorte kanter omkring bg */
     pointer-events: none;
-    box-shadow: 50px 50px 113px rgba(0, 0, 0, 1) inset, -50px -50px 110px rgba(0, 0, 0, 1) inset;
 }
 
-
-/* SELECT ROLE */
-.containerSR{
-    padding-top:50px;
-    width: 10%;
-    margin: 0 auto;
-    z-index: 69;
+#containerSR{
+    padding-top: 55px;
 }
 
-#SR ul {
-    margin: 0;
-    padding: 0;
-    width: 200px;
- }
-
-#SR li a {
-    display: block;
-    color: white;
-    padding: 8px 16px;
-    text-decoration: none;
-    background-color: #171eff;
+ul {
+    list-style-type: none;
 }
 
 #SR li {
-    list-style: none;
+    text-decoration: none;
+    list-style-type: none;
     text-align: center;
-    border-bottom: 1px solid #555;
-
-}
-
-#SR li:last-child {
-    border-bottom: none;
-}
-
-#SR li a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-#SR li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
+    maring: 0 auto;
+    padding-bottom: 5px;
 }

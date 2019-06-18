@@ -74,8 +74,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
         ResultSet result = null;
 
         try {
-            sql = "INSERT INTO Products ( productId, productName, "
-                    + "nomNetto, tolerance) VALUES (?, ?, ?, ?, ?) ";
+            sql = "INSERT INTO Products ( productId, productName) VALUES (?, ?) ";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, product.getProductId());
@@ -104,16 +103,13 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     @Override
     public void save(Connection conn, IProduct product)
             throws NotFoundException, SQLException {
-
-        String sql = "UPDATE Products SET productName = ?, nomNetto = ?, "
-                + "tolerance = ? WHERE (productId = ? ) ";
+        String sql = "UPDATE Products SET productName = ? WHERE (productId = ? ) ";
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, product.getProductName());
-
-            stmt.setInt(4, product.getProductId());
+            stmt.setInt(2, product.getProductId());
 
             int rowcount = databaseUpdate(conn, stmt);
             ensureIngredients(conn, product);
@@ -133,23 +129,25 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
     }
 
     private void ensureIngredients(Connection conn, IProduct product) throws SQLException {
-        if(product.getIngredients().size() > 0){
+        if (product.getIngredients() != null) {
             String sql = "DELETE FROM ProductIngredients WHERE productId = ?";
-            PreparedStatement stmt =  conn.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, product.getProductId());
             stmt.executeUpdate();
             stmt.close();
-        }
 
-        String sql = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
-        PreparedStatement stmt =  conn.prepareStatement(sql);
-        int prodid = product.getProductId();
+            if (product.getIngredients().length > 0){
+                String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
+                PreparedStatement stmt2 = conn.prepareStatement(sql2);
+                int prodid = product.getProductId();
 
-        for (IProduct.IRawMatAmount rawmat : product.getIngredients()){
-            stmt.setInt(1, rawmat.getRawMatId());
-            stmt.setInt(2, prodid);
-            stmt.setDouble(3, rawmat.getAmount());
-            stmt.execute();
+                for (IProduct.IRawMatAmount rawmat : product.getIngredients()) {
+                    stmt2.setInt(1, rawmat.getRawMatId());
+                    stmt2.setInt(2, prodid);
+                    stmt2.setDouble(3, rawmat.getAmount());
+                    stmt2.execute();
+                }
+            }
         }
     }
 
@@ -342,7 +340,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
                 "  inner join Products pr on ProductIngredients.productId = pr.productId\n" +
                 "where ProductIngredients.productId = ?;";
 
-        List<IProduct.IRawMatAmount> inglist = new ArrayList<>();
+        List<IProduct.IRawMatAmount> inglist = new ArrayList<IProduct.IRawMatAmount>();
 
         PreparedStatement ingredients = null;
         ingredients = conn.prepareStatement(sql);
@@ -360,7 +358,7 @@ public class ProductDAO implements dal.interfaces.IProductDAO {
             inglist.add(temping);
         }
 
-        product.setIngredients(inglist);
+        product.setIngredients(inglist.toArray(new Product.RawMatAmount[inglist.size()]));
     }
 
 
