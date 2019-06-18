@@ -25,9 +25,8 @@ const rendersRawMat = {
 	renderInputFields: function(id) {
 		let rawMaterial = this.RawMaterials.filter((el) => el.rawMatID === id)[0];
 		if (rawMaterial) {
-			$("#rawMatInput").val(rawMaterial.rawMatID);
+			$("#rawMatIdInput1").val(rawMaterial.rawMatID);
 			$("#rawMatNameInput").val(rawMaterial.rawMatName);
-			$("#supplierInput").val(rawMaterial.supplier);
 		}
 	}
 };

@@ -43,7 +43,7 @@ const utilsRawMat = {
 		name = name || "";
 		if (status === "create" && id === 0) {
 			this.createForm = true;
-			document.getElementById("inputForm").reset();
+			document.getElementById("inputFormRawMat").reset();
 			$("#modalText").text("Create");
 			$("#rawMatInput").prop('disabled', false);
 		} else {
@@ -59,16 +59,16 @@ const utilsRawMat = {
 		$.ajax({
 			type: "POST",
 			url: "/api/rawMat",
-			data: JSON.stringify(getFormData($('#inputForm'))),
+			data: JSON.stringify(getFormData($('#inputFormRawMat'))),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
 				$('#createRawMatModal').modal('toggle');
-				document.getElementById("inputForm").reset();
+				document.getElementById("inputFormRawMat").reset();
 				_this.FetchAllRawMaterials();
 			},
-			failure: function(errMsg) {
-				alert(errMsg);
+            error: function(errMsg) {
+                alert("Error, id might already be in use. Put in 0 for auto generated.");
 				console.error(errMsg);
 			}
 		});
@@ -79,12 +79,12 @@ const utilsRawMat = {
 		$.ajax({
 			type: "PUT",
 			url: "/api/rawMat",
-			data: JSON.stringify(getFormData($('#inputForm'))),
+			data: JSON.stringify(getFormData($('#inputFormRawMat'))),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
 				$('#createRawMatModal').modal('toggle');
-				document.getElementById("inputForm").reset();
+				document.getElementById("inputFormRawMat").reset();
 				_this.FetchAllRawMaterials();
 			},
 			failure: function(errMsg) {

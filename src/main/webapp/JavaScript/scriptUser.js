@@ -75,8 +75,8 @@ const utils = {
 				document.getElementById("inputForm").reset();
 				_this.FetchAllUsers();
 			},
-			failure: function(errMsg) {
-				alert(errMsg);
+            error: function(errMsg) {
+                alert("Error, id might already be in use. Put in 0 for auto generated.");
 				console.error(errMsg);
 			}
 		});
