@@ -81,7 +81,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             stmt.setInt(3, ProductBatch.getStatus());
 
             int rowcount = databaseUpdate(conn, stmt);
-            ensureRawMatBatches(conn, ProductBatch);
+            //ensureRawMatBatches(conn, ProductBatch);
             if (rowcount != 1) {
                 // System.out.println("PrimaryKey Error when updating DB!");
                 throw new SQLException("PrimaryKey Error when updating DB!");

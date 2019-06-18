@@ -59,7 +59,7 @@ const utilsProduct = {
 		// logik for opret
 		if (status === "create" && id === 0) {
 			this.createForm = true;
-			document.getElementById("inputForm").reset();
+			document.getElementById("inputFormProduct").reset();
 			$("#modalText").text("Create");
 			$("#productIdInput").prop('disabled', false);
 			$('#createProductModal').modal();

@@ -43,9 +43,9 @@ const utilsProdBatch = {
 		name = name || "";
 		if (status === "create" && id === 0) {
 			this.createForm = true;
-			document.getElementById("inputForm").reset();
+            $("#productBatchIdInput").prop('disabled', false);
+			document.getElementById("inputFormProductBatch").reset();
 			$("#modalText").text("Create");
-			$("#productBatchIdInput").prop('disabled', false);
 		} else {
 			this.createForm = false;
 			this.renderInputFields(id);
@@ -59,7 +59,7 @@ const utilsProdBatch = {
 		$.ajax({
 			type: "POST",
 			url: "/api/productBatches",
-			data: JSON.stringify(getFormData($('#inputForm'))),
+			data: JSON.stringify(getFormData($('#inputFormProductBatch'))),
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
@@ -67,8 +67,8 @@ const utilsProdBatch = {
                 $("#inputFormProductBatch")[0].reset();
                 _this.FetchAllProductBatches();
 			},
-			failure: function(errMsg) {
-				alert(errMsg);
+			error: function(errMsg) {
+				alert("Error, id might already be in use. Put in 0 for auto generated.");
 				console.error(errMsg);
 			}
 		});
