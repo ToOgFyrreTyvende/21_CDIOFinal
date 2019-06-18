@@ -87,7 +87,7 @@
 
         <div class="col-sm">
             <h1 style="color:white;" > List of Product Batches</h1>
-            <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductbatchModal">
+            <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductBatchModal">
                 Create Product Batch
 
             </button>
@@ -286,7 +286,7 @@
 </div>
 
 <!-- Modal PRODUCTBATCH-->
-<div class="modal fade" style="display:none;" id="createProductbatchModal" tabindex="-1" role="dialog"
+<div class="modal fade" style="display:none;" id="createProductBatchModal" tabindex="-1" role="dialog"
      aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -300,7 +300,8 @@
                 <form id="inputFormProductBatch">
                     <div id="pdId-group" class="form-group">
                         <label for="productBatchIdInput">Productbatch ID</label>
-                        <input type="number" id="productBatchIdInput" min="1" max="99999999" class="form-control" name="productBatchId" placeholder="42">
+                        <input type="number" id="productBatchIdInput" min="1" max="99999999" class="form-control" name="prodBatchId"
+                               placeholder="42">
                     </div>
 
                     <div id="receptId-group" class="form-group">
@@ -309,7 +310,7 @@
                     </div>
 
                     <div id="status-group" class="form-group">
-                        <label for="statusInput">Status (0 = Not Initiated / 1 = Under Prodction / 2 = Finished)</label>
+                        <label for="statusInput">Status (0 = Not Initiated / 1 = Under Production / 2 = Finished)</label>
                         <input type="number" id="statusInput" min="0" max="2" class="form-control" name="status" placeholder="1">
                     </div>
 
@@ -333,7 +334,7 @@
                         <input type="number" id="nettoInput" min="0" max="99999999" step="0.0001" class="form-control" name="netto" placeholder="13.37">
                     </div>
 
-                    <button id="submitFormProductBatch" class="btn btn-success">Submit <span
+                    <button id="submitFormProdBatch" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
 
                 </form>
@@ -369,7 +370,7 @@
         rawMatApp.RawMatEl = $('#RawMat');
         rawMatApp.FetchAllRawMaterials();
 
-        prodBatchApp.RroductBatchEl = $('#ProductBatch');
+        prodBatchApp.ProductBatchEl = $('#ProductBatch');
         prodBatchApp.FetchAllProductBatches();
 
         rawMatBatApp.RMBEl = $('#RawMaterialBatch');

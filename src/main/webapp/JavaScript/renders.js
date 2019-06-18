@@ -10,9 +10,9 @@ const renders = {
                 data += `<td>${this.users[i].ini}</td>`;
                 data += `<td>${this.users[i].roles.reduce((el, acc) => acc + ', ' + el)}</td>`;
                 data += `<td>${this.users[i].cpr}</td>`;
-                data += `<td><button type="button" onclick="app.setForm('update', ${this.users[i].userId}, '${this.users[i].userName}')" 
+                data += `<td><button type="button" onclick="userApp.setForm('update', ${this.users[i].userId}, '${this.users[i].userName}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
-                data += `<td><button type="button" onclick="app.closebtn(this)" class="closebtn btn btn-danger" 
+                data += `<td><button type="button" onclick="userApp.closebtn(this)" class="closebtn btn btn-danger" 
                 data-name="${this.users[i].userName}"
                 data-id="${this.users[i].userId}" aria-label="Close">&times;</button></td>`;
                 data += `</tr>`;
@@ -84,7 +84,7 @@ const renders = {
     renderInputFields: function(id){
         user = this.users.filter((el) => el.userId === id)[0]
         if(user){
-            $("#productBatchIdInput").val(user.productBatchId);
+            $("#productBatchIdInput").val(user.prodBatchId);
             $("#receptIdInput").val(user.receptId);
             $("#statusInput").val(user.status);
             $("#userIDInput").val(user.userId);
