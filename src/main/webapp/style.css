@@ -7,6 +7,10 @@ html, body {
     -o-background-size: cover;
 }
 
+.container{
+    padding-top: 60px;
+}
+
 .container2{
     padding-top:50px;
     width:80%;
@@ -98,9 +102,6 @@ table{
 }
 
 ul {
-    margin: 0 auto;
-    padding: 0 !important;
-    width: 200px;
     list-style-type: none;
 }
 

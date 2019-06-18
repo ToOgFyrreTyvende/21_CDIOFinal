@@ -6,6 +6,7 @@
     <title>Farmaceut</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 </head>
@@ -23,92 +24,108 @@
 </div>
 
 
-<div class="container3">
-    <div class="row" id="tableRow">
+<div class="container">
+    <div id="tabs">
 
-        <div class="col-sm">
-            <h1 style="color:white;" > List of Products</h1>
-        <button type="button" onclick="productApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
-            Create Product
-        </button>
-            <span class="counters" id="counterProd">0</span>
-            <table class="table table-striped">
-                <tr>
-                    <th>ProductID</th>
-                    <th>ProductName</th>
-                    <th>Number of ingredients</th>
-                    <th>Change Ingredients</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-                <tbody id="Product">
-                </tbody>
-            </table>
+        <ul>
+            <li><a href="#tabs-1">Product</a></li>
+            <li><a href="#tabs-2">Raw mat</a></li>
+            <li><a href="#tabs-3">Product batch</a></li>
+            <li><a href="#tabs-4">Raw Mat batch</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <div class="col-sm">
+                <h1 style="color:white;" > List of Products</h1>
+            <button type="button" onclick="productApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductModal">
+                Create Product
+            </button>
+                <span class="counters" id="counterProd">0</span>
+                <table class="table table-striped">
+                    <tr>
+                        <th>ProductID</th>
+                        <th>ProductName</th>
+                        <th>Number of ingredients</th>
+                        <th>Change Ingredients</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tbody id="Product">
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="col-sm">
-            <h1 style="color:white;" > List of Raw Materials</h1>
-            <button type="button" onclick="rawMatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
-                Create Raw Material
-            </button>
-            <span class="counters" id="counterRawMat">0</span>
-            <table class="table table-striped">
-                <tr>
-                    <th>Raw Mat. Batch ID</th>
-                    <th>Name</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-                <tbody id="RawMat">
-                </tbody>
-            </table>
+        <div id="tabs-2">
+            <div class="col-sm">
+                <h1 style="color:white;" > List of Raw Materials</h1>
+                <button type="button" onclick="rawMatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatModal">
+                    Create Raw Material
+                </button>
+                <span class="counters" id="counterRawMat">0</span>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Raw Mat. Batch ID</th>
+                        <th>Name</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tbody id="RawMat">
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="col-sm">
-            <h1 style="color:white;" > List of Raw Material Batches</h1>
-            <button type="button" onclick="rawMatBatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
-                Create Raw Material Batch
 
-            </button>
-            <span class="counters" id="counterRMB">0</span>
-            <table class="table table-striped">
-                <tr>
-                    <th>Name</th>
-                    <th>RMB ID</th>
-                    <th>Raw mat ID</th>
-                    <th>Amount</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-                <tbody id="RawMaterialBatch">
-                </tbody>
-            </table>
+        <div id="tabs-3">
+            <div class="col-sm">
+                <h1 style="color:white;" > List of Raw Material Batches</h1>
+                <button type="button" onclick="rawMatBatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
+                    Create Raw Material Batch
+                </button>
+                <span class="counters" id="counterRMB">0</span>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>RMB ID</th>
+                        <th>Raw mat ID</th>
+                        <th>Amount</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tbody id="RawMaterialBatch">
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="col-sm">
-            <h1 style="color:white;" > List of Product Batches</h1>
-            <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductbatchModal">
-                Create Product Batch
+        <div id="tabs-4">
+            <div class="col-sm">
+                <h1 style="color:white;" > List of Product Batches</h1>
+                <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductbatchModal">
+                    Create Product Batch
 
-            </button>
-            <span class="counters" id="counterPB">0</span>
-            <table class="table table-striped">
-                <tr>
-                    <th>Name</th>
-                    <th>ProductBatch ID</th>
-                    <th>Product ID</th>
-                    <th>Status</th>
-                    <!--th>UserID</th-->
-                    <th>Weighings done</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-                <tbody id="ProductBatch">
-                </tbody>
-            </table>
+                </button>
+                <span class="counters" id="counterPB">0</span>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>ProductBatch ID</th>
+                        <th>Product ID</th>
+                        <th>Status</th>
+                        <!--th>UserID</th-->
+                        <th>Weighings done</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tbody id="ProductBatch">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
 
 
 <!-- Modal RAW MAT -->
@@ -344,6 +361,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!-- oh dear god bi har brug for web components -->
@@ -357,6 +375,10 @@
 <script src="../JavaScript/scriptProductBatch.js"></script>
 
 <script>
+    $( function() {
+        $( "#tabs" ).tabs();
+    } );
+
     const productApp = Object.assign(utilsProduct, rendersProduct);
     const rawMatApp = Object.assign(utilsRawMat, rendersRawMat);
     const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
