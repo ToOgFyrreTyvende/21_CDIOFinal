@@ -36,7 +36,14 @@ const rendersProduct = {
 
     renderInputFieldsIngredients: function(id){
         $("#productIdInput2").val(id);
-        this.IngredientsFromDB.map((el) =>{
+		$("#rawMatIdInputIngredient").empty();
+		let ingredient = this.Products.find(x => x.productId == id).ingredients;
+
+		let populate = this.IngredientsFromDB.filter((x) => {
+			return ingredient.find(y => y.rawMatId == x.rawMatID) == undefined;
+		})
+
+		populate.map((el) => {
             $("#rawMatIdInputIngredient").append($("<option></option>")
                 .attr("value",el.rawMatID)
                 .text(el.rawMatName));
@@ -53,10 +60,10 @@ const rendersProduct = {
 
 	renderAddIngredient: function (el, name, pid){
 		// Use == because rawmatID likely is string...
-		$("#ingredientFormTable").append(`<tr><td>${name}</td>`+
+		$("#ingredientFormTable").append(`<tr id="ing${name + el.amount + el.tolerance}"><td>${name}</td>`+
 			`<td>${el.amount}</td><td>${el.tolerance}</td><td><button type="button" onclick="productApp.deleteIngredient(this)" class="closebtn btn btn-danger" 
                 data-name="${name}" data-prodid="${pid}"
                 data-amount="${el.amount}" data-tolerance="${el.tolerance}" aria-label="Close">&times;</button></td></tr>`)
 
-	}
+	},
 };

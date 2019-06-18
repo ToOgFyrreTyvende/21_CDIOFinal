@@ -55,7 +55,8 @@ const utilsProduct = {
 			$('#createProductModal').modal();
 
 		} else if (status === "addIngredient") {
-			this.createForm = false;
+			this.createForm = true;
+			$('#ingredientFormTable').empty();
             let product = this.Products.find((x) => x.productId == id);
             this.renderInputFieldsIngredients(id);
             this.renderIngredientsTable(product);
@@ -63,7 +64,7 @@ const utilsProduct = {
             this.Ingredients[id] = [];
             this.Ingredients[id] = [...product.ingredients];
 			$("#productIdInput2").prop('disabled', true);
-			$('#mangeProductModal').modal();
+			$('#manageProductModal').modal();
 		} else {
 			this.createForm = false;
 			this.renderInputFields(id)
@@ -114,7 +115,7 @@ const utilsProduct = {
 	},
 
     addIngredient: function(){
-        $("#productIdInput2").prop('disabled', false);
+		$("#productIdInput2").prop('disabled', false);
         let formData = getFormData($("#inputFormProductIng"));
         $("#productIdInput2").prop('disabled', true);
 
@@ -153,7 +154,8 @@ const utilsProduct = {
                 x.amount == amount &&
                 x.tolerance == tolerance
         })
-        this.Ingredients.splice(obj, 1);
+        this.Ingredients[prodid].splice(obj, 1);
+	    $(`#ing${name + amount + tolerance}`).remove();
 
     },
 
@@ -167,15 +169,17 @@ const utilsProduct = {
         this.Ingredients[id].map((x) => {
             objToSend.ingredients.push(x);
         });
-        $.ajax({
+		let _this = this;
+
+		$.ajax({
             type: "PUT",
             url: "/api/products",
             data: JSON.stringify(objToSend),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
-                $('#createProductModal').modal('toggle');
-                this.FetchAllProducts();
+                $('#manageProductModal').modal('toggle');
+				_this.FetchAllProducts();
             },
             failure: function(errMsg) {
                 alert(errMsg);
