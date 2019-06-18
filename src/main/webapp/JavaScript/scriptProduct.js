@@ -212,7 +212,7 @@ const utilsProduct = {
 }
 
 
-/* funktion til at hente data fra en html form */
+/* funktion til at hente data fra en html form/ */
 function getFormData($form) {
 	var unindexed_array = $form.serializeArray();
 	var indexed_array = {};
