@@ -34,5 +34,15 @@ const rendersRawBatch = {
 			$("#amountInput").val(rawMatBatch.amount);
 			$("#supplierInput").val(rawMatBatch.supplier);
 		}
-	}
+	},
+
+    renderSelectOptions: function() {
+        $("#rawMatIdInput2").empty();
+        let populate = this.RawMaterials;
+        populate.map((el) => {
+            $("#rawMatIdInput2").append($("<option></option>")
+                .attr("value",el.rawMatID)
+                .text(`${el.rawMatID} - ${el.rawMatName}`));
+        })
+    }
 };

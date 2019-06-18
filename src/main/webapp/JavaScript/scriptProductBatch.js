@@ -1,6 +1,7 @@
 const utilsProdBatch = {
 	createForm: true,
 	ProductBatches: [],
+    Products: [],
 	Count: function(data) {
 		let name = 'Product Batch';
 		counter = $('#counterPB');
@@ -16,7 +17,11 @@ const utilsProdBatch = {
 		$.get('/api/productBatches').done((data) => {
 			this.ProductBatches = data.sort((a, b) => (a.prodBatchId > b.prodBatchId) ? 1 : -1);
 			this.renderProductBatches(data);
-		})
+		});
+
+        $.get('/api/products').done((data) => {
+            this.Products = data.sort((a, b) => (a.productId > b.productId) ? 1 : -1);
+        });
 	},
 	removeWithId: function(id) {
 		$.ajax({
@@ -41,6 +46,7 @@ const utilsProdBatch = {
 	setForm: function(status, id, name) {
 		id = id || 0;
 		name = name || "";
+		this.renderSelectOptions();
 		if (status === "create" && id === 0) {
 			this.createForm = true;
             $("#productBatchIdInput").prop('disabled', false);

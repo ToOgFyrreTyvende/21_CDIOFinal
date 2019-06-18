@@ -22,9 +22,9 @@ const utilsProduct = {
 	// denne funktion henter alle produkter fra databasen med /api/products endpointet
 	FetchAllProducts: function() {
 		$.get('/api/products').done((data) => {
-			this.Products = data.sort((a, b) => (a.productId > b.productId) ? 1 : -1);
-			this.renderProducts(data);
-		})
+            this.Products = data.sort((a, b) => (a.productId > b.productId) ? 1 : -1);
+            this.renderProducts(data);
+        });
 		// som en tilfoejelse henter vi ogsaa alle rawmats
 		$.get('/api/rawMat').done((data) => {
 			this.IngredientsFromDB = data.sort((a, b) => (a.rawMatID > b.rawMatID) ? 1 : -1);

@@ -1,6 +1,7 @@
 const utilsRawBatch = {
 	createForm: true,
 	RawMaterialBatches: [],
+	RawMaterials: [],
 	Count: function(data) {
 		let name = 'Raw Material Batch';
 		counter = $('#counterRMB');
@@ -16,7 +17,11 @@ const utilsRawBatch = {
 		$.get('/api/rawMatBatches').done((data) => {
 			this.RawMaterialBatches = data.sort((a, b) => (a.RMBId > b.RMBId) ? 1 : -1);
 			this.renderRawMaterialBatches(data);
-		})
+		});
+
+        $.get('/api/rawMat').done((data) => {
+            this.RawMaterials = data.sort((a, b) => (a.rawMatID > b.rawMatID) ? 1 : -1);
+        });
 	},
 
 	removeWithId: function(id) {
@@ -42,6 +47,7 @@ const utilsRawBatch = {
 	setForm: function(status, id, name) {
 		id = id || 0;
 		name = name || "";
+        this.renderSelectOptions();
 		if (status === "create" && id === 0) {
 			this.createForm = true;
 			document.getElementById("inputFormRawMatBatch").reset();

@@ -35,5 +35,15 @@ const rendersProdBatch = {
 			$("#userIDInput").val(productBatch.userId);
 			$("#RMBIdInput").val(productBatch.RMBId);
 		}
-	}
+	},
+
+    renderSelectOptions: function() {
+        $("#productIdInput").empty();
+        let populate = this.Products;
+        populate.map((el) => {
+            $("#productIdInput").append($("<option></option>")
+                .attr("value",el.productId)
+                .text(`${el.productId} - ${el.productName}`));
+        })
+    }
 };
