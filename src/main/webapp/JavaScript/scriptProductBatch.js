@@ -64,8 +64,8 @@ const utilsProdBatch = {
 			dataType: "json",
 			success: function(data) {
 				$('#createProductBatchModal').modal('toggle');
-				document.getElementById("inputForm").reset();
-				_this.FetchAllProductBatches();
+                $("#inputFormProductBatch")[0].reset();
+                _this.FetchAllProductBatches();
 			},
 			failure: function(errMsg) {
 				alert(errMsg);
@@ -79,14 +79,13 @@ const utilsProdBatch = {
 		$.ajax({
 			type: "PUT",
 			url: "/api/productBatches",
-			data: JSON.stringify(getFormData($('#inputForm'))),
+			data: JSON.stringify(getFormData($('#inputFormProductBatch'))),
 			contentType: "application/json; charset=utf-8",
-			dataType: "json",
 			success: function(data) {
 				$('#createProductBatchModal').modal('toggle');
-				document.getElementById("inputForm").reset();
-				_this.FetchAllProductBatches();
-			},
+                $("#inputFormProductBatch")[0].reset();
+                _this.FetchAllProductBatches();
+            },
 			failure: function(errMsg) {
 				alert(errMsg);
 				console.error(errMsg);

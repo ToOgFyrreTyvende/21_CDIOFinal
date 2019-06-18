@@ -141,7 +141,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             stmt.setInt(3, ProductBatch.getProdBatchId());
 
             int rowcount = databaseUpdate(conn, stmt);
-            ensureRawMatBatches(conn, ProductBatch);
+            //ensureRawMatBatches(conn, ProductBatch);
             if (rowcount == 0) {
                 // System.out.println("Object could not be saved! (PrimaryKey not found)");
                 throw new NotFoundException("Object could not be saved! (PrimaryKey not found)");
