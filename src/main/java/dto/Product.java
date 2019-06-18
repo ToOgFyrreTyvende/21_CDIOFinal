@@ -11,7 +11,7 @@ public class Product implements IProduct {
 
     private int productId;
     private String productName;
-    private List<IProduct.IRawMatAmount> ingredients;
+    private Product.RawMatAmount[] ingredients;
 
     public Product() {
     }
@@ -39,11 +39,11 @@ public class Product implements IProduct {
     }
 
     @Override
-    public List<IProduct.IRawMatAmount> getIngredients() {
+    public Product.RawMatAmount[] getIngredients() {
         return ingredients;
     }
     @Override
-    public void setIngredients(List<IProduct.IRawMatAmount> ingredients) {
+    public void setIngredients(Product.RawMatAmount[] ingredients) {
         this.ingredients = ingredients;
     }
 

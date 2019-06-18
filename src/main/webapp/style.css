@@ -7,6 +7,10 @@ html, body {
     -o-background-size: cover;
 }
 
+.container{
+    padding-top: 60px;
+}
+
 .container2{
     padding-top:50px;
     width:80%;
@@ -90,7 +94,6 @@ table{
     background-blend-mode: multiply;
     /*sorte kanter omkring bg */
     pointer-events: none;
-    box-shadow: 50px 50px 113px rgba(0, 0, 0, 1) inset, -50px -50px 110px rgba(0, 0, 0, 1) inset;
 }
 
 #containerSR{
@@ -98,9 +101,6 @@ table{
 }
 
 ul {
-    margin: 0 auto;
-    padding: 0 !important;
-    width: 200px;
     list-style-type: none;
 }
 

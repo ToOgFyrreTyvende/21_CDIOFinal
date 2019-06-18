@@ -56,11 +56,15 @@ const utilsProduct = {
 
 		} else if (status === "addIngredient") {
 			this.createForm = true;
-            this.renderInputFieldsIngredients(id)
+			$('#ingredientFormTable').empty();
+            let product = this.Products.find((x) => x.productId == id);
+            this.renderInputFieldsIngredients(id);
+            this.renderIngredientsTable(product);
 			$("#modalText").text("Update");
             this.Ingredients[id] = [];
+            this.Ingredients[id] = [...product.ingredients];
 			$("#productIdInput2").prop('disabled', true);
-			$('#mangeProductModal').modal();
+			$('#manageProductModal').modal();
 		} else {
 			this.createForm = false;
 			this.renderInputFields(id)
@@ -111,7 +115,7 @@ const utilsProduct = {
 	},
 
     addIngredient: function(){
-        $("#productIdInput2").prop('disabled', false);
+		$("#productIdInput2").prop('disabled', false);
         let formData = getFormData($("#inputFormProductIng"));
         $("#productIdInput2").prop('disabled', true);
 
@@ -124,31 +128,58 @@ const utilsProduct = {
             "rawMatId": parseInt(formData.rawMatID),
             "amount": parseFloat(formData.amount),
             "tolerance": parseFloat(formData.tolerance),
-            "prodIngId": "",
+            "prodIngId": 0,
             "name":"name"
         };
         this.Ingredients[pid].push(el);
-        this.renderIngredientsTable(formData);
+
+        let ingname = this.IngredientsFromDB.find((x) => x.rawMatID == formData.rawMatID).rawMatName
+        this.renderAddIngredient(formData, ingname, pid);
 
     },
+
+    deleteIngredient: function (el){
+        let prodid = el.dataset.prodid;
+        let name = el.dataset.name;
+        let amount = el.dataset.amount;
+        let tolerance = el.dataset.tolerance;
+        let resp = confirm(`Are you sure you want to delete ${name} with amount ${amount}?`);
+        if (resp) {
+            this.removeIngredientWithInfo(name, amount, tolerance, prodid);
+        }
+    },
+    removeIngredientWithInfo: function (name, amount, tolerance, prodid) {
+	    let obj = this.Ingredients[prodid].find(x => {
+	        return x.name == name &&
+                x.amount == amount &&
+                x.tolerance == tolerance
+        })
+        this.Ingredients[prodid].splice(obj, 1);
+	    $(`#ing${name + amount + tolerance}`).remove();
+
+    },
+
 
     submitIngredients: function(){
 	    let id = $("#productIdInput2").val();
 	    let prod = this.Products.find((x) => x.productId == id )
 
         var objToSend = {...prod};
+	    objToSend.ingredients = [];
         this.Ingredients[id].map((x) => {
             objToSend.ingredients.push(x);
         });
-        $.ajax({
+		let _this = this;
+
+		$.ajax({
             type: "PUT",
             url: "/api/products",
             data: JSON.stringify(objToSend),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
-                $('#createProductModal').modal('toggle');
-                this.FetchAllProducts();
+                $('#manageProductModal').modal('toggle');
+				_this.FetchAllProducts();
             },
             failure: function(errMsg) {
                 alert(errMsg);
