@@ -21,7 +21,7 @@
 
 <div class="container2">
     <h1 style="color:white;" > List of all users</h1>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
+    <button type="button" onclick="userApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
         Create User
 
     </button>
@@ -100,21 +100,21 @@
 <script src="../JavaScript/rendersUser.js"></script>
 <script src="../JavaScript/scriptUser.js"></script>
 <script>
-    const app = Object.assign(utils, renders);
+    const userApp = Object.assign(utils, renders);
 
     $(document).ready(() => {
 
         Particles.init({ selector: '.background', maxParticles: 70, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-        app.userEl = $('#user');
-        app.roleEl = $('#roles');
-        app.FetchAllUsers();
-        app.FetchAllRoles();
+        userApp.userEl = $('#user');
+        userApp.roleEl = $('#roles');
+        userApp.FetchAllUsers();
+        userApp.FetchAllRoles();
         $('#submitForm').on('click', (event) => {
             event.preventDefault();
-            if(app.createForm)
-                app.createUser();
+            if(userApp.createForm)
+                userApp.createUser();
             else
-                app.updateUser();
+                userApp.updateUser();
         });
     })
 </script>

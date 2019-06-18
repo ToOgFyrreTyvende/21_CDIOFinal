@@ -14,7 +14,7 @@ const utilsProdBatch = {
 	},
 	FetchAllProductBatches: function() {
 		$.get('/api/productBatches').done((data) => {
-			this.ProductBatches = data.sort((a, b) => (a.productBatchId > b.productBatchId) ? 1 : -1);
+			this.ProductBatches = data.sort((a, b) => (a.prodBatchId > b.prodBatchId) ? 1 : -1);
 			this.renderProductBatches(data);
 		})
 	},
@@ -48,10 +48,10 @@ const utilsProdBatch = {
 			$("#productBatchIdInput").prop('disabled', false);
 		} else {
 			this.createForm = false;
-			this.renderInputFields(id)
+			this.renderInputFields(id);
 			$("#productBatchIdInput").prop('disabled', true);
 			$("#modalText").text(`Update ${name}, #${id}`);
-			$('#createProduktbatchModal').modal();
+			$('#createProductBatchModal').modal();
 		}
 	},
 	createProductBatch: function() {
@@ -63,7 +63,7 @@ const utilsProdBatch = {
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
-				$('#createProduktbatchModal').modal('toggle');
+				$('#createProductBatchModal').modal('toggle');
 				document.getElementById("inputForm").reset();
 				_this.FetchAllProductBatches();
 			},
@@ -83,7 +83,7 @@ const utilsProdBatch = {
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function(data) {
-				$('#createProduktbatchModal').modal('toggle');
+				$('#createProductBatchModal').modal('toggle');
 				document.getElementById("inputForm").reset();
 				_this.FetchAllProductBatches();
 			},

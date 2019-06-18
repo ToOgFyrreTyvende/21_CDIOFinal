@@ -31,7 +31,7 @@
 
         <div id="tabs-1">
             <h1 style="color:white;" > List of Raw Material Batches</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
+            <button type="button" onclick="rawMatBatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
                 Create Raw Material Batch
 
             </button>
@@ -52,7 +52,7 @@
 
         <div id="tabs-2">
             <h1 style="color:white;" > List of Product Batches</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
+            <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
                 Create Product Batch
 
             </button>
@@ -96,7 +96,7 @@
                     </div>
 
                     <div id="receptId-group" class="form-group">
-                        <label for="rawMatId">Raw Martial ID</label>
+                        <label for="rawMatId">Raw Material ID</label>
                         <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="21">
                     </div>
 
@@ -185,16 +185,16 @@
     } );
 
     const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
-    const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
+    const rawMatBatApp = Object.assign(utilsRawBatch, rendersRawBatch);
 
     $(document).ready(() => {
 
         Particles.init({ selector: '.background', maxParticles: 70, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-        prodBatchApp.RroductBatchEl = $('#ProductBatch');
+        prodBatchApp.ProductBatchEl = $('#ProductBatch');
         prodBatchApp.FetchAllProductBatches();
 
-        RawBatchApp.RMBEl = $('#RawMaterialBatch');
-        RawBatchApp.FetchAllRawMaterialBatches();
+        rawMatBatApp.RMBEl = $('#RawMaterialBatch');
+        rawMatBatApp.FetchAllRawMaterialBatches();
 
         $('#submitFormProdBatch').on('click', (event) => {
             event.preventDefault();
@@ -206,10 +206,10 @@
 
         $('#submitFormRawMatBatch').on('click', (event) => {
             event.preventDefault();
-            if(RawBatchApp.createForm)
-                RawBatchApp.createRawMaterialBatch();
+            if(rawMatBatApp.createForm)
+                rawMatBatApp.createRawMaterialBatch();
             else
-                RawBatchApp.updateRawMaterialBatch();
+                rawMatBatApp.updateRawMaterialBatch();
         });
     })
 </script>
