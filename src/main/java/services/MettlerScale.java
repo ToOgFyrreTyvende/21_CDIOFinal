@@ -57,8 +57,11 @@ public class MettlerScale implements IMettlerScale {
     }
 
     @Override
-    public String getWeight() {
-        return scaleRequest("S").split(" ")[6];
+    public String getWeight(boolean sixth) {
+        if (sixth)
+            return scaleRequest("S").split(" ")[6];
+        else
+            return scaleRequest("S").split(" ")[7];
     }
 
     @Override

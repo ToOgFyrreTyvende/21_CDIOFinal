@@ -6,6 +6,6 @@ public interface IMettlerScale {
     String requestUserNumber(String requestText);
 
     String taraWeight();
-    String getWeight();
+    String getWeight(boolean sixth);
     boolean isConnected();
 }

@@ -24,8 +24,8 @@ public class WeightFunctionality implements IWeightFunctionality {
         scale.taraWeight();
     }
     @Override
-    public String getWeight(){
-        return scale.getWeight();
+    public String getWeight(boolean sixth){
+        return scale.getWeight(sixth);
     }
 
 }

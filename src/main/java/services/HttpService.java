@@ -61,7 +61,7 @@ public class HttpService {
                     .header("Content-Type", "application/json")
                     .body(weighing)
                     .asJson();
-            if (postresp.getStatus() == 200) return true;
+            if (postresp.getStatus() == 204) return true;
             else return false;
 
         } catch (UnirestException e) {

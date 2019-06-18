@@ -38,7 +38,9 @@ public class main {
             }
         });
 
-        IMettlerScale scale = new MettlerScale("127.0.0.1", 8000);
+
+
+        IMettlerScale scale = new MettlerScale("0.tcp.ngrok.io", 12082);
 
         IWeightFunctionality wFunc = new WeightFunctionality(scale);
         WeightUI ui = new WeightUI(wFunc);
