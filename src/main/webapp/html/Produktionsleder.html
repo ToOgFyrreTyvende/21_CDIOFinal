@@ -6,8 +6,7 @@
     <title>Produktionsleder</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -22,9 +21,15 @@
     </ul>
 </div>
 
-<div class="container2">
-    <div class="row" id="tableRow">
-        <div class="col-6">
+<div class="container">
+    <div id="tabs">
+
+        <ul>
+            <li><a href="#tabs-1">Raw mat batch</a></li>
+            <li><a href="#tabs-2">Product batch</a></li>
+        </ul>
+
+        <div id="tabs-1">
             <h1 style="color:white;" > List of Raw Material Batches</h1>
             <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
                 Create Raw Material Batch
@@ -44,7 +49,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-6">
+
+        <div id="tabs-2">
             <h1 style="color:white;" > List of Product Batches</h1>
             <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
                 Create Product Batch
@@ -67,7 +73,6 @@
             </table>
         </div>
     </div>
-
 </div>
 
 
@@ -167,6 +172,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="../JavaScript/rendersRawMatBatch.js"></script>
@@ -174,6 +180,10 @@
 <script src="../JavaScript/scriptRawMatBatch.js"></script>
 <script src="../JavaScript/scriptProductBatch.js"></script>
 <script>
+    $( function() {
+        $( "#tabs" ).tabs();
+    } );
+
     const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
     const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
 
