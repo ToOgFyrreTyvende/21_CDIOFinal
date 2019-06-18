@@ -98,7 +98,15 @@ const utilsProdBatch = {
 			}
 		});
 		$("#productBatchIdInput").prop('disabled', true);
-	}
+	},
+    displayProduct: function(id, name){
+	    let el = this.ProductBatches.find((x) => x.prodBatchId == id);
+	    if (el){
+            $('#printProductModel').modal('toggle');
+            $('.displayHeader').text(id + " - " + name);
+            this.renderPrintTable(el);
+        }
+    }
 };
 
 

@@ -12,6 +12,8 @@ const rendersProdBatch = {
 				//data += `<td>${this.ProductBatches[i].userId}</td>`;
 				data += `<td>${this.ProductBatches[i].weighings.length}</td>`;
 
+                data += `<td><button type="button" onclick="prodBatchApp.displayProduct(${this.ProductBatches[i].prodBatchId}, '${this.ProductBatches[i].name}')" 
+                                     class="editbtn btn btn-primary" aria-label="Edit">&#128269;</button></td>`;
 				data += `<td><button type="button" onclick="prodBatchApp.setForm('update', ${this.ProductBatches[i].prodBatchId}, '${this.ProductBatches[i].name}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
 				data += `<td><button type="button" onclick="prodBatchApp.closebtn(this)" class="closebtn btn btn-danger" 
@@ -45,5 +47,30 @@ const rendersProdBatch = {
                 .attr("value",el.productId)
                 .text(`${el.productId} - ${el.productName}`));
         })
+    },
+
+    renderPrintTable: function(prodBatchEl) {
+        $("#displayTable").empty();
+	    let productEl = this.Products.find(x => x.productId == prodBatchEl.prodId);
+
+	    if(productEl){
+	        productEl.ingredients.map((x) =>{
+	            let weighing = prodBatchEl.weighings.filter(x => x.rawMatId == x.rawMatId);
+	            var alreadyweighed = false;
+	            var toWeigh = parseFloat(x.amount);
+	            if(weighing.length > 0){
+                    alreadyweighed = true;
+                    prodBatchEl.weighings.map(w => toWeigh -= parseFloat(w.netto));
+                }
+
+            $("#displayTable").append(`<tr><td>${x.rawMatId}</td><td>${x.name}</td><td>${x.amount}</td>
+                                   <td>${x.tolerance}</td>
+                                   <td>${alreadyweighed? "yes" : "no"}</td>
+                                   <td>${toWeigh}</td></tr>`)
+
+            })
+        }
+
+
     }
 };
