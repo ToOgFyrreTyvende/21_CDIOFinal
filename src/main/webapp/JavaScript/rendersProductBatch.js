@@ -5,8 +5,8 @@ const rendersProdBatch = {
 		if (this.ProductBatches.length > 0) {
 			for (i = 0; i < this.ProductBatches.length; i++) {
 				data += `<tr id="prodbatch${this.ProductBatches[i].prodBatchId}">`;
-				data += `<td>${this.ProductBatches[i].name}</td>`;
-				data += `<td>${this.ProductBatches[i].prodBatchId}</td>`;
+                data += `<td>${this.ProductBatches[i].prodBatchId}</td>`;
+                data += `<td>${this.ProductBatches[i].name}</td>`;
 				data += `<td>${this.ProductBatches[i].prodId}</td>`;
 				data += `<td>${this.ProductBatches[i].status}</td>`;
 				//data += `<td>${this.ProductBatches[i].userId}</td>`;
@@ -30,12 +30,10 @@ const rendersProdBatch = {
 		let productBatch = this.ProductBatches.filter((el) => el.prodBatchId === id)[0];
 		if (productBatch) {
 			$("#productBatchIdInput").val(productBatch.prodBatchId);
-			$("#receptIdInput").val(productBatch.receptId);
+			$("#productIdInput").val(productBatch.prodId);
 			$("#statusInput").val(productBatch.status);
 			$("#userIDInput").val(productBatch.userId);
 			$("#RMBIdInput").val(productBatch.RMBId);
-			$("#taraInput").val(productBatch.tara);
-			$("#nettoInput").val(productBatch.netto);
 		}
 	}
 };
