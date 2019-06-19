@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.*;
 
 public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
-
     @Override
     public IProductIngredient createProductIngredient() {
         return new ProductIngredient();
@@ -354,5 +353,4 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
 
         return (List) searchResults;
     }
-
 }

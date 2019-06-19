@@ -2,13 +2,12 @@ package dal;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
+
 import dal.exceptions.NotFoundException;
 import dto.ProductBatch;
 import dto.interfaces.IProductBatch;
 
 public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
-
     @Override
     public IProductBatch createProductBatch() {
         return new ProductBatch();
@@ -425,5 +424,4 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
         return (List) searchResults;
     }
-
 }

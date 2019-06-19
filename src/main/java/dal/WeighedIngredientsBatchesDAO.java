@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.*;
 
 public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
-
     @Override
     public IWeighedIngredientsBatches createweighedBatch() {
         return new WeighedIngredientsBatches();
@@ -368,5 +367,4 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
 
         return (List) searchResults;
     }
-
 }

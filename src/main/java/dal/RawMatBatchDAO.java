@@ -6,7 +6,6 @@ import dto.interfaces.IRawMatBatch;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
 public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
     @Override
@@ -352,5 +351,4 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
 
         return (List) searchResults;
     }
-
 }

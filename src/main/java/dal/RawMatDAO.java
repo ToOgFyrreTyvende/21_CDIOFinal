@@ -6,10 +6,8 @@ import dto.interfaces.IRawMat;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
 
 public class RawMatDAO implements dal.interfaces.IRawMatDAO {
-
     @Override
     public IRawMat createRawMat() {
         return new RawMat();
@@ -325,5 +323,4 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
 
         return (List) searchResults;
     }
-
 }
