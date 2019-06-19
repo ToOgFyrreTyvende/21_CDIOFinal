@@ -8,12 +8,7 @@ import dto.interfaces.IWeighedIngredientsBatches;
 import java.sql.*;
 import java.util.*;
 
-public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO, dal.Array.IArray {
-
-    private List<Object> wibs;
-
-    public WeighedIngredientsBatchesDAO(){wibs = new ArrayList<>();}
-
+public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
     @Override
     public IWeighedIngredientsBatches createweighedBatch() {
         return new WeighedIngredientsBatches();
@@ -371,37 +366,5 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
         }
 
         return (List) searchResults;
-    }
-
-    //==========================        array       =============================
-    @Override
-    public Object getA(int Id) {
-        return wibs.get(Id);
-    }
-
-    @Override
-    public List getListA() {
-        return wibs;
-    }
-
-    @Override
-    public void createA(Object ob) {
-        wibs.add(ob);
-    }
-
-    @Override
-    public void updateA(Object ob) {
-        int i = 0;
-        for (Object upOp : wibs){
-            if (upOp == ob){
-                wibs.set(i, upOp);
-            }
-            i++;
-        }
-    }
-
-    @Override
-    public void deleteA(int Id) {
-        wibs.remove(Id);
     }
 }

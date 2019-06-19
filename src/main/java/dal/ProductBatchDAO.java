@@ -7,14 +7,7 @@ import dal.exceptions.NotFoundException;
 import dto.ProductBatch;
 import dto.interfaces.IProductBatch;
 
-public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO, dal.Array.IArray {
-
-    private List<Object> pb;
-
-    public ProductBatchDAO() {
-         pb = new ArrayList<>();
-    }
-
+public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
     @Override
     public IProductBatch createProductBatch() {
         return new ProductBatch();
@@ -430,37 +423,5 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO, dal.Arr
         }
 
         return (List) searchResults;
-    }
-
-    //====================      Array       ====================
-    @Override
-    public Object getA(int Id) {
-        return pb.get(Id);
-    }
-
-    @Override
-    public List getListA() {
-        return pb;
-    }
-
-    @Override
-    public void createA(Object ob) {
-        pb.add(ob);
-    }
-
-    @Override
-    public void updateA(Object ob) {
-        int i = 0;
-        for (Object upOp : pb){
-            if (upOp == ob){
-                pb.set(i, upOp);
-            }
-            i++;
-        }
-    }
-
-    @Override
-    public void deleteA(int Id) {
-        pb.remove(Id);
     }
 }

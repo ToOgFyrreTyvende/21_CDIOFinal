@@ -7,12 +7,7 @@ import dto.interfaces.IRawMatBatch;
 import java.sql.*;
 import java.util.*;
 
-public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO, dal.Array.IArray {
-
-    private List<Object> rmb;
-
-    public RawMatBatchDAO() { rmb = new ArrayList<>(); }
-
+public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
     @Override
     public IRawMatBatch createrawMatBatch() {
         return new RawMatBatch();
@@ -355,37 +350,5 @@ public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO, dal.Array
         }
 
         return (List) searchResults;
-    }
-
-    //=========================     array       ===========================
-    @Override
-    public Object getA(int Id) {
-        return rmb.get(Id);
-    }
-
-    @Override
-    public List getListA() {
-        return rmb;
-    }
-
-    @Override
-    public void createA(Object ob) {
-        rmb.add(ob);
-    }
-
-    @Override
-    public void updateA(Object ob) {
-        int i = 0;
-        for (Object upOp : rmb){
-            if (upOp == ob){
-                rmb.set(i, upOp);
-            }
-            i++;
-        }
-    }
-
-    @Override
-    public void deleteA(int Id) {
-        rmb.remove(Id);
     }
 }

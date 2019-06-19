@@ -7,12 +7,7 @@ import dto.interfaces.IUser;
 import java.sql.*;
 import java.util.*;
 
-public class UserDAO implements dal.interfaces.IUserDAO, dal.Array.IArray {
-
-    private List<Object> u;
-
-    public UserDAO(){u = new ArrayList<>();}
-
+public class UserDAO implements dal.interfaces.IUserDAO {
     @Override
     public IUser createUser() {
         return new User();
@@ -369,37 +364,5 @@ public class UserDAO implements dal.interfaces.IUserDAO, dal.Array.IArray {
         }
 
         return (List) searchResults;
-    }
-
-    //============================      array       ============================
-    @Override
-    public Object getA(int Id) {
-        return u.get(Id);
-    }
-
-    @Override
-    public List getListA() {
-        return u;
-    }
-
-    @Override
-    public void createA(Object ob) {
-        u.add(ob);
-    }
-
-    @Override
-    public void updateA(Object ob) {
-        int i = 0;
-        for (Object upOp : u){
-            if (upOp == ob){
-                u.set(i, upOp);
-            }
-            i++;
-        }
-    }
-
-    @Override
-    public void deleteA(int Id) {
-        u.remove(Id);
     }
 }
