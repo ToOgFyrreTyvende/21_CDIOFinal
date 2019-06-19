@@ -29,18 +29,18 @@ const rendersRawBatch = {
 	renderInputFields: function(id) {
 		let rawMatBatch = this.RawMaterialBatches.find((el) => el.rmbId === id);
 		if (rawMatBatch) {
-			$("#RMBIdInput1").val(rawMatBatch.rmbId);
-			$("#rawMatIdInput2").val(rawMatBatch.rawMatId);
+			$("#RMBIdInput").val(rawMatBatch.rmbId);
+			$("#rawMatIdInput").val(rawMatBatch.rawMatId);
 			$("#amountInput").val(rawMatBatch.amount);
 			$("#supplierInput").val(rawMatBatch.supplier);
 		}
 	},
 
     renderSelectOptions: function() {
-        $("#rawMatIdInput2").empty();
+        $("#rawMatIdInput").empty();
         let populate = this.RawMaterials;
         populate.map((el) => {
-            $("#rawMatIdInput2").append($("<option></option>")
+            $("#rawMatIdInput").append($("<option></option>")
                 .attr("value",el.rawMatID)
                 .text(`${el.rawMatID} - ${el.rawMatName}`));
         })

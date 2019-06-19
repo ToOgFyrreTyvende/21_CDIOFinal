@@ -49,7 +49,7 @@ const utilsRawMat = {
 		} else {
 			this.createForm = false;
 			this.renderInputFields(id)
-			$("#rawMatInput").prop('disabled', true);
+			$("#rawMatIdInput").prop('disabled', true);
 			$("#modalText").text(`Update ${name}, #${id}`);
 			$('#createRawMatModal').modal();
 		}

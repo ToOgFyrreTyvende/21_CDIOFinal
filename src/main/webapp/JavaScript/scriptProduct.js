@@ -74,7 +74,7 @@ const utilsProduct = {
 			$("#modalText").text("Update");
             this.Ingredients[id] = [];
             this.Ingredients[id] = [...product.ingredients];
-			$("#productIdInput2").prop('disabled', true);
+			$("#productIdInput").prop('disabled', true);
 			$('#manageProductModal').modal();
 
 			//logik for opdater ingrediens
@@ -131,9 +131,9 @@ const utilsProduct = {
 
 	// Naar man tilfoejer en enkelt ingrediens uden at submitte, sker denne logik
     addIngredient: function(){
-		$("#productIdInput2").prop('disabled', false);
+		$("#productIdInput").prop('disabled', false);
         let formData = getFormData($("#inputFormProductIng"));
-        $("#productIdInput2").prop('disabled', true);
+        $("#productIdInput").prop('disabled', true);
 
         var pid = parseInt(formData.productId);
 
@@ -181,7 +181,7 @@ const utilsProduct = {
 
 	// naar man submitter sine ingredienser for et produkt, samler vi ingredienserne og udfoerer en HTTP put paa /api/products
     submitIngredients: function(){
-	    let id = $("#productIdInput2").val();
+	    let id = $("#productIdInput").val();
 	    let prod = this.Products.find((x) => x.productId == id )
 
         var objToSend = {...prod};
