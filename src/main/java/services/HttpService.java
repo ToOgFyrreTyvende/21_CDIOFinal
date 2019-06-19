@@ -16,7 +16,7 @@ public class HttpService {
     public User getUser(String id){
         User user = null;
         try {
-            user = Unirest.get(Consts.URL + "/api/users/" + id).asObject(User.class).getBody();
+            user = Unirest.get(Consts.URL2 + "/api/users/" + id).asObject(User.class).getBody();
         } catch (UnirestException e) {
             //e.printStackTrace();
         }
@@ -26,7 +26,7 @@ public class HttpService {
     public ProductBatch getProductBatch(String id){
         ProductBatch productBatch = null;
         try {
-            productBatch = Unirest.get(Consts.URL + "/api/productBatches/" + id).asObject(ProductBatch.class).getBody();
+            productBatch = Unirest.get(Consts.URL2 + "/api/productBatches/" + id).asObject(ProductBatch.class).getBody();
         } catch (UnirestException e) {
             //e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class HttpService {
     public Product getProduct(int id){
         Product product = null;
         try {
-            product = Unirest.get(Consts.URL + "/api/products/" + id).asObject(Product.class).getBody();
+            product = Unirest.get(Consts.URL2 + "/api/products/" + id).asObject(Product.class).getBody();
         } catch (UnirestException e) {
             //e.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class HttpService {
     public RawMatBatch getRawMatBatch(String id){
         RawMatBatch rawMatBatch = null;
         try {
-            rawMatBatch = Unirest.get(Consts.URL + "/api/rawMatBatches/" + id).asObject(RawMatBatch.class).getBody();
+            rawMatBatch = Unirest.get(Consts.URL2 + "/api/rawMatBatches/" + id).asObject(RawMatBatch.class).getBody();
         } catch (UnirestException e) {
             //e.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class HttpService {
         RawMatBatch rawMatBatch = null;
         try {
 
-            HttpResponse postresp = Unirest.post(Consts.URL + "/api/weighing")
+            HttpResponse postresp = Unirest.post(Consts.URL2 + "/api/weighing")
                     .header("Content-Type", "application/json")
                     .body(weighing)
                     .asJson();

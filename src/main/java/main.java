@@ -13,7 +13,7 @@ import services.MettlerScale;
 import ui.WeightUI;
 
 public class main {
-    public static void main(String[] args) throws IOException, Exception {
+    public static void main(String[] args) throws InterruptedException {
 
         Unirest.setObjectMapper(new ObjectMapper() {
             com.fasterxml.jackson.databind.ObjectMapper mapper
@@ -40,12 +40,18 @@ public class main {
 
 
 
-        IMettlerScale scale = new MettlerScale("0.tcp.ngrok.io", 12082);
+        IMettlerScale scale = new MettlerScale("127.0.0.1", 8000);
 
         IWeightFunctionality wFunc = new WeightFunctionality(scale);
         WeightUI ui = new WeightUI(wFunc);
 
-        ui.menu();
-
+        while (true) {
+            try {
+                ui.menu();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            Thread.sleep(1000);
+        }
     }
 }

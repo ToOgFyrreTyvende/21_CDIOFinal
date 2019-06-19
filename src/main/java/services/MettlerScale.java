@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MettlerScale implements IMettlerScale {
 
@@ -57,11 +59,14 @@ public class MettlerScale implements IMettlerScale {
     }
 
     @Override
-    public String getWeight(boolean sixth) {
-        if (sixth)
-            return scaleRequest("S").split(" ")[6];
+    public String getWeight() {
+
+        Pattern p = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+");
+        Matcher m = p.matcher(scaleRequest("S"));
+        if(m.find())
+            return m.group();
         else
-            return scaleRequest("S").split(" ")[7];
+            return null;
     }
 
     @Override
