@@ -14,8 +14,8 @@ const rendersRawBatch = {
 				data += `<td><button type="button" onclick="rawMatBatApp.setForm('update', ${this.RawMaterialBatches[i].rmbId}, '${this.RawMaterialBatches[i].name}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
 				data += `<td><button type="button" onclick="rawMatBatApp.closebtn(this)" class="closebtn btn btn-danger" 
-                data-name="${this.RawMaterialBatches[i].RMBName}"
-                data-id="${this.RawMaterialBatches[i].RMBId}" aria-label="Close">&times;</button></td>`;
+                data-name="${this.RawMaterialBatches[i].name}"
+                data-id="${this.RawMaterialBatches[i].rmbId}" aria-label="Close">&times;</button></td>`;
 				data += `</tr>`;
 			}
 		}
