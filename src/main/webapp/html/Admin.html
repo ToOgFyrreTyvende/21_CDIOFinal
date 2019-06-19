@@ -13,19 +13,19 @@
 
 <div id="nav">
     <ul id="nav">
-        <li><a class="active" href="../menu.html">Home</a></li>
+        <li><a class="active" href="../index.html">Home</a></li>
         <li style="float:right"><a target="_blank" href="https://github.com/ToOgFyrreTyvende/21_del3">Github</a>
         </li>
     </ul>
 </div>
 
-<div class="container">
+<div class="container2">
     <h1 style="color:white;" > List of all users</h1>
-    <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
+    <button type="button" onclick="userApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createUserModal">
         Create User
 
     </button>
-    <span id="counter">0</span>
+    <span class="counters" id="counter">0</span>
     <table class="table table-striped">
         <tr>
             <th>ID</th>
@@ -81,7 +81,7 @@
 
                     <div id="roles-group" class="form-group">
                         <label for="roles">Roles</label>
-                        <select class="form-control" id="roles" name="roles" multiple="multiple">
+                        <select class="form-control" id="roles" name="roles">
                         </select>
                     </div>
 
@@ -100,21 +100,21 @@
 <script src="../JavaScript/rendersUser.js"></script>
 <script src="../JavaScript/scriptUser.js"></script>
 <script>
-    const app = Object.assign(utils, renders);
+    const userApp = Object.assign(utils, renders);
 
     $(document).ready(() => {
 
-        Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-        app.userEl = $('#user');
-        app.roleEl = $('#roles');
-        app.FetchAllUsers();
-        app.FetchAllRoles();
+        Particles.init({ selector: '.background', maxParticles: 70, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
+        userApp.userEl = $('#user');
+        userApp.roleEl = $('#roles');
+        userApp.FetchAllUsers();
+        userApp.FetchAllRoles();
         $('#submitForm').on('click', (event) => {
             event.preventDefault();
-            if(app.createForm)
-                app.createUser();
+            if(userApp.createForm)
+                userApp.createUser();
             else
-                app.updateUser();
+                userApp.updateUser();
         });
     })
 </script>

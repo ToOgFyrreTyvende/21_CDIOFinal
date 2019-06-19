@@ -6,8 +6,7 @@
     <title>Produktionsleder</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -16,27 +15,32 @@
 
 <div id="nav">
     <ul id="nav">
-        <li><a class="active" href="../menu.html">Home</a></li>
+        <li><a class="active" href="../index.html">Home</a></li>
         <li style="float:right"><a target="_blank" href="https://github.com/ToOgFyrreTyvende/21_del3">Github</a>
         </li>
     </ul>
 </div>
 
-<div class="container2">
-    <div class="row" id="tableRow">
-        <div class="col-6">
-            <h1 style="color:white;" > List of Raw Material Batches</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
-                Create Raw Material Batch
+<div class="container">
+    <div id="tabs">
 
+        <ul>
+            <li><a href="#tabs-1">Raw material batch</a></li>
+            <li><a href="#tabs-2">Product batch</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <button type="button" onclick="rawMatBatApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createRawMatBatchModal">
+                Create Raw Material Batch
             </button>
-            <span id="counterRMB">0</span>
+            <span class="counters" id="counterRMB">0</span>
             <table class="table table-striped">
                 <tr>
-                    <th>Name</th>
                     <th>RMB ID</th>
+                    <th>Name</th>
                     <th>Raw mat ID</th>
                     <th>Amount</th>
+                    <th>Supplier</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -44,21 +48,22 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-6">
-            <h1 style="color:white;" > List of Product Batches</h1>
-            <button type="button" onclick="app.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProduktbatchModal">
+
+        <div id="tabs-2">
+            <button type="button" onclick="prodBatchApp.setForm('create')" class="btn btn-primary" data-toggle="modal" data-target="#createProductBatchModal">
                 Create Product Batch
 
             </button>
-            <span id="counterPB">0</span>
+            <span class="counters" id="counterPB">0</span>
             <table class="table table-striped">
                 <tr>
-                    <th>Name</th>
                     <th>ProductBatch ID</th>
-                    <th>Recept ID</th>
+                    <th>Name</th>
+                    <th>Product ID</th>
                     <th>Status</th>
                     <!--th>UserID</th-->
-                    <th>Weighings done</th>
+                    <th>Weighings done</th>'
+                    <th>Show/Print</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -67,14 +72,12 @@
             </table>
         </div>
     </div>
-
 </div>
-
 
 
 <!-- Modal RAW MAT BATCH-->
 <div class="modal fade" style="display:none;" id="createRawMatBatchModal" tabindex="-1" role="dialog"
-     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+     aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -84,20 +87,26 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="inputForm">
+                <form id="inputFormRawMatBatch">
                     <div id="RMBId-group" class="form-group">
-                        <label for="RMBId">Raw Material Batch ID</label>
-                        <input type="number" id="RMBIdInput" min="1" max="99999999" class="form-control" name="RMBId" placeholder="42">
+                        <label for="RMBIdInput">Raw Material Batch ID</label>
+                        <input type="number" id="RMBIdInput" min="0" max="99999999" value="0" class="form-control" name="rmbId" placeholder="42">
                     </div>
 
-                    <div id="receptId-group" class="form-group">
-                        <label for="rawMatId">Raw Martial ID</label>
-                        <input type="number" id="rawMatInput" min="1" max="99999999" class="form-control" name="rawMatId" placeholder="21">
+                    <div id="rawmatId-BatchGroup" class="form-group">
+                        <label for="rawMatIdInputDropdown">Raw Material ID</label>
+                        <select name="rawMatId" class="form-control" id="rawMatIdInputDropdown">
+                        </select>
                     </div>
 
                     <div id="amount-group" class="form-group">
-                        <label for="amount">Amount (kg)</label>
+                        <label for="amountInput">Amount (kg)</label>
                         <input type="number" id="amountInput" min="0" max="99999999" step="0.0001" class="form-control" name="amount" placeholder="10,65">
+                    </div>
+
+                    <div id="Supplier-group" class="form-group">
+                        <label for="supplierInput">Supplier</label>
+                        <input type="text" id="supplierInput" min="2" max="20" class="form-control" name="supplier" placeholder="Novo Nordisk">
                     </div>
 
                     <button id="submitFormRawMatBatch" class="btn btn-success">Submit <span
@@ -109,9 +118,9 @@
     </div>
 </div>
 
-<!-- Modal PRODUKTBATCH-->
-<div class="modal fade" style="display:none;" id="createProduktbatchModal" tabindex="-1" role="dialog"
-     aria-labelledby="createReceptModalLabel" aria-hidden="true">
+<!-- Modal PRODUCTBATCH-->
+<div class="modal fade" style="display:none;" id="createProductBatchModal" tabindex="-1" role="dialog"
+     aria-labelledby="createProductModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -121,41 +130,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="inputForm">
+                <form id="inputFormProductBatch">
                     <div id="pdId-group" class="form-group">
-                        <label for="productBatchId">Productbatch ID</label>
-                        <input type="number" id="productBatchIdInput" min="1" max="99999999" class="form-control" name="productBatchId" placeholder="42">
+                        <label for="productBatchIdInput">Productbatch ID</label>
+                        <input type="number" id="productBatchIdInput" min="0" max="99999999" value="0" class="form-control" name="prodBatchId"
+                               placeholder="42">
                     </div>
 
-                    <div id="receptId-group" class="form-group">
-                        <label for="receptId">Recept ID</label>
-                        <input type="number" id="receptIdInput" min="1" max="99999999" class="form-control" name="receptId" placeholder="21">
+                    <div id="productId-group2" class="form-group">
+                        <label for="productIdInputDropDown">Product ID</label>
+                        <select name="prodId" class="form-control" id="productIdInputDropDown">
+                        </select>
                     </div>
 
                     <div id="status-group" class="form-group">
-                        <label for="status">Status (0 = Not Initiated / 1 = Under Prodction / 2 = Finished)</label>
+                        <label for="statusInput">Status (0 = Not Initiated / 1 = Under Production / 2 = Finished)</label>
                         <input type="number" id="statusInput" min="0" max="2" class="form-control" name="status" placeholder="1">
                     </div>
 
-                    <div id="userId-group" class="form-group">
-                        <label for="userId">User ID</label>
-                        <input type="number" id="userIDInput" min="1" max="99999999" class="form-control" name="userID" placeholder="420">
-                    </div>
-
-                    <div id="RMBId-group" class="form-group">
-                        <label for="RMBId">Raw Material Batch ID</label>
-                        <input type="number" id="RMBIdInput" min="1" max="99999999" class="form-control" name="RMBId" placeholder="69">
-                    </div>
-
-                    <div id="tara-group" class="form-group">
-                        <label for="tara">Tara (kg) </label>
-                        <input type="number" id="taraInput" min="0" max="99999999" step="0.0001" class="form-control" name="tara" placeholder="2.09">
-                    </div>
-
-                    <div id="netto-group" class="form-group">
-                        <label for="netto">Netto (kg)</label>
-                        <input type="number" id="nettoInput" min="0" max="99999999" step="0.0001" class="form-control" name="netto" placeholder="13.37">
-                    </div>
+                    <!--div id="userId-group" class="form-group">
+                        <label for="userIdInput">User ID</label>
+                        <input type="number" id="userIdInput" min="1" max="99999999" class="form-control" name="userID" placeholder="420">
+                    </div-->
 
                     <button id="submitFormProdBatch" class="btn btn-success">Submit <span
                             class="fa fa-arrow-right"></span></button>
@@ -166,7 +162,42 @@
     </div>
 </div>
 
+<!-- Display printable product batch -->
+<div class="modal fade" style="display:none;" id="printProductModel" tabindex="-1" role="dialog"
+     aria-labelledby="createManageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contents of product batch <span class="displayHeader">1 - name</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <h1>Product batch: <span class="displayHeader"></span></h1>
+                    <h3>Ingredients:</h3>
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Raw Material ID</th>
+                            <th>Name</th>
+                            <th>Amount (nominal netto in kg)</th>
+                            <th>Tolerance</th>
+                            <th>Already weighed?</th>
+                            <th>To weigh</th>
+                        </tr>
+                        <tbody id="displayTable"></tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="../JavaScript/rendersRawMatBatch.js"></script>
@@ -174,17 +205,21 @@
 <script src="../JavaScript/scriptRawMatBatch.js"></script>
 <script src="../JavaScript/scriptProductBatch.js"></script>
 <script>
+    $( function() {
+        $( "#tabs" ).tabs();
+    } );
+
     const prodBatchApp = Object.assign(utilsProdBatch, rendersProdBatch);
-    const RawBatchApp = Object.assign(utilsRawBatch, rendersRawBatch);
+    const rawMatBatApp = Object.assign(utilsRawBatch, rendersRawBatch);
 
     $(document).ready(() => {
 
-        Particles.init({ selector: '.background', maxParticles: 250, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
-        prodBatchApp.RroductBatchEl = $('#ProductBatch');
+        Particles.init({ selector: '.background', maxParticles: 70, connectParticles: true, minDistance: 150, speed: 0.35, color: '#CECECE' });
+        prodBatchApp.ProductBatchEl = $('#ProductBatch');
         prodBatchApp.FetchAllProductBatches();
 
-        RawBatchApp.RMBEl = $('#RawMaterialBatch');
-        RawBatchApp.FetchAllRawMaterialBatches();
+        rawMatBatApp.RMBEl = $('#RawMaterialBatch');
+        rawMatBatApp.FetchAllRawMaterialBatches();
 
         $('#submitFormProdBatch').on('click', (event) => {
             event.preventDefault();
@@ -196,10 +231,10 @@
 
         $('#submitFormRawMatBatch').on('click', (event) => {
             event.preventDefault();
-            if(RawBatchApp.createForm)
-                RawBatchApp.createRawMaterialBatch();
+            if(rawMatBatApp.createForm)
+                rawMatBatApp.createRawMaterialBatch();
             else
-                RawBatchApp.updateRawMaterialBatch();
+                rawMatBatApp.updateRawMaterialBatch();
         });
     })
 </script>

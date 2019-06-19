@@ -1,41 +1,76 @@
 const rendersProdBatch = {
-    renderProductBatches: function (ProductBatches) {
-        let data = '';
+	renderProductBatches: function(ProductBatches) {
+		let data = '';
 
-        if (this.ProductBatches.length > 0) {
-            for (i = 0; i < this.ProductBatches.length; i++) {
-                data += `<tr id="prodbatch${this.ProductBatches[i].prodBatchId}">`;
-                data += `<td>${this.ProductBatches[i].name}</td>`;
+		if (this.ProductBatches.length > 0) {
+			for (i = 0; i < this.ProductBatches.length; i++) {
+				data += `<tr id="prodbatch${this.ProductBatches[i].prodBatchId}">`;
                 data += `<td>${this.ProductBatches[i].prodBatchId}</td>`;
-                data += `<td>${this.ProductBatches[i].prodId}</td>`;
-                data += `<td>${this.ProductBatches[i].status}</td>`;
-                //data += `<td>${this.ProductBatches[i].userId}</td>`;
-                data += `<td>${this.ProductBatches[i].weighings.length}</td>`;
+                data += `<td>${this.ProductBatches[i].name}</td>`;
+				data += `<td>${this.ProductBatches[i].prodId}</td>`;
+				data += `<td>${this.ProductBatches[i].status}</td>`;
+				//data += `<td>${this.ProductBatches[i].userId}</td>`;
+				data += `<td>${this.ProductBatches[i].weighings.length}</td>`;
 
-                data += `<td><button type="button" onclick="prodBatchApp.setForm('update', ${this.ProductBatches[i].productBatchId}, '${this.ProductBatches[i].productBatchName}')" 
+                data += `<td><button type="button" onclick="prodBatchApp.displayProduct(${this.ProductBatches[i].prodBatchId}, '${this.ProductBatches[i].name}')" 
+                                     class="editbtn btn btn-primary" aria-label="Edit">&#128269;</button></td>`;
+				data += `<td><button type="button" onclick="prodBatchApp.setForm('update', ${this.ProductBatches[i].prodBatchId}, '${this.ProductBatches[i].name}')" 
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
-                data += `<td><button type="button" onclick="prodBatchApp.closebtn(this)" class="closebtn btn btn-danger" 
+				data += `<td><button type="button" onclick="prodBatchApp.closebtn(this)" class="closebtn btn btn-danger" 
                 data-name="${this.ProductBatches[i].productBatchName}"
-                data-id="${this.ProductBatches[i].productBatchId}" aria-label="Close">&times;</button></td>`;
-                data += `</tr>`;
-            }
-        }
-        console.log(this.ProductBatches.length)
-        this.Count(this.ProductBatches.length);
-        this.RroductBatchEl.html(data);
+                data-id="${this.ProductBatches[i].prodBatchId}" aria-label="Close">&times;</button></td>`;
+				data += `</tr>`;
+			}
+		}
+		console.log(this.ProductBatches.length);
+		this.Count(this.ProductBatches.length);
+		this.ProductBatchEl.html(data);
+	},
+
+	<!--RenderInputField PRODUKTBATCH-->
+	renderInputFields: function(id) {
+		let productBatch = this.ProductBatches.filter((el) => el.prodBatchId === id)[0];
+		if (productBatch) {
+			$("#productBatchIdInput").val(productBatch.prodBatchId);
+			$("#productIdInput").val(productBatch.prodId);
+			$("#statusInput").val(productBatch.status);
+			$("#userIDInput").val(productBatch.userId);
+			$("#RMBIdInput").val(productBatch.RMBId);
+		}
+	},
+
+    renderSelectOptions: function() {
+        $("#productIdInputDropDown").empty();
+        let populate = this.Products;
+        populate.map((el) => {
+            $("#productIdInputDropDown").append($("<option></option>")
+                .attr("value",el.productId)
+                .text(`${el.productId} - ${el.productName}`));
+        })
     },
 
-    <!--RenderInputField PRODUKTBATCH-->
-    renderInputFields: function(id){
-        ProductBatch = this.ProductBatches.filter((el) => el.productBatchId === id)[0]
-        if(ProductBatch){
-            $("#productBatchIdInput").val(ProductBatch.productBatchId);
-            $("#receptIdInput").val(ProductBatch.receptId);
-            $("#statusInput").val(ProductBatch.status);
-            $("#userIDInput").val(ProductBatch.userId);
-            $("#RMBIdInput").val(ProductBatch.RMBId);
-            $("#taraInput").val(ProductBatch.tara);
-            $("#nettoInput").val(ProductBatch.netto);
+    renderPrintTable: function(prodBatchEl) {
+        $("#displayTable").empty();
+	    let productEl = this.Products.find(x => x.productId == prodBatchEl.prodId);
+
+	    if(productEl){
+	        productEl.ingredients.map((x) =>{
+	            let weighing = prodBatchEl.weighings.filter(x => x.rawMatId == x.rawMatId);
+	            var alreadyweighed = false;
+	            var toWeigh = parseFloat(x.amount);
+	            if(weighing.length > 0){
+                    alreadyweighed = true;
+                    prodBatchEl.weighings.map(w => toWeigh -= parseFloat(w.netto));
+                }
+
+            $("#displayTable").append(`<tr><td>${x.rawMatId}</td><td>${x.name}</td><td>${x.amount}</td>
+                                   <td>${x.tolerance}</td>
+                                   <td>${alreadyweighed? "yes" : "no"}</td>
+                                   <td>${toWeigh}</td></tr>`)
+
+            })
         }
+
+
     }
-}
+};
