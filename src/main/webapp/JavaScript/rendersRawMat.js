@@ -12,7 +12,7 @@ const rendersRawMat = {
                                      class="editbtn btn btn-primary" aria-label="Edit">&#9998;</button></td>`;
 				data += `<td><button type="button" onclick="rawMatApp.closebtn(this)" class="closebtn btn btn-danger" 
                 data-name="${this.RawMaterials[i].rawMatName}"
-                data-id="${this.RawMaterials[i].rawMatId}" aria-label="Close">&times;</button></td>`;
+                data-id="${this.RawMaterials[i].rawMatID}" aria-label="Close">&times;</button></td>`;
 				data += `</tr>`;
 			}
 		}
