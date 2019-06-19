@@ -37,10 +37,10 @@ const rendersRawBatch = {
 	},
 
     renderSelectOptions: function() {
-        $("#rawMatIdInput").empty();
+        $("#rawMatIdInputDropdown").empty();
         let populate = this.RawMaterials;
         populate.map((el) => {
-            $("#rawMatIdInput").append($("<option></option>")
+            $("#rawMatIdInputDropdown").append($("<option></option>")
                 .attr("value",el.rawMatID)
                 .text(`${el.rawMatID} - ${el.rawMatName}`));
         })
