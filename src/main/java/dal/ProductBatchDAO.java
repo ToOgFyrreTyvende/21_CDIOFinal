@@ -2,14 +2,20 @@ package dal;
 
 import java.sql.*;
 import java.util.*;
-import java.math.*;
+
 import dal.exceptions.NotFoundException;
+import dal.interfaces.IDAO;
 import dto.ProductBatch;
 import dto.interfaces.IProductBatch;
 
-public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
+public class ProductBatchDAO implements IDAO<IProductBatch> {
 
-    @Override
+    private List<Object> pb;
+
+    public ProductBatchDAO() {
+         pb = new ArrayList<>();
+    }
+
     public IProductBatch createProductBatch() {
         return new ProductBatch();
     }

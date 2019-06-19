@@ -1,6 +1,7 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
+import dal.interfaces.IDAO;
 import dto.RawMatBatch;
 import dto.interfaces.IRawMatBatch;
 
@@ -8,8 +9,7 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class RawMatBatchDAO implements dal.interfaces.IRawMatBatchDAO {
-    @Override
+public class RawMatBatchDAO implements IDAO<IRawMatBatch> {
     public IRawMatBatch createrawMatBatch() {
         return new RawMatBatch();
     }

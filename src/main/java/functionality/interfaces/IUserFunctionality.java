@@ -4,7 +4,7 @@ import dto.interfaces.IUser;
 
 import java.util.List;
 
-public interface IUserFunctionality extends functionality.IUserFunctionality {
+public interface IUserFunctionality {
     void createUser(IUser user) throws Exception;
 
     IUser getUser(int userID) throws Exception;

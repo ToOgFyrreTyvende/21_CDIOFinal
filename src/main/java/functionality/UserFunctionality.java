@@ -1,7 +1,7 @@
 package functionality;
 
 import dal.UserDAO;
-import dal.interfaces.IUserDAO;
+import dal.interfaces.IDAO;
 import dto.interfaces.*;
 import services.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class UserFunctionality implements functionality.interfaces.IUserFunctionality {
-    private IUserDAO userDAO;
+    private IDAO<IUser> userDAO;
     private IDatabaseConnection dbc;
 
     public UserFunctionality() {

@@ -1,6 +1,7 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
+import dal.interfaces.IDAO;
 import dto.User;
 import dto.interfaces.IUser;
 
@@ -8,9 +9,8 @@ import java.sql.*;
 import java.util.*;
 import java.math.*;
 
-public class UserDAO implements dal.interfaces.IUserDAO {
+public class UserDAO implements IDAO<IUser> {
 
-    @Override
     public IUser createUser() {
         return new User();
     }

@@ -1,16 +1,15 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
-import dal.interfaces.IWeighedIngredientsBatchesDAO;
+import dal.interfaces.IDAO;
 import dto.WeighedIngredientsBatches;
 import dto.interfaces.IWeighedIngredientsBatches;
 
 import java.sql.*;
 import java.util.*;
 
-public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
+public class WeighedIngredientsBatchesDAO implements IDAO<IWeighedIngredientsBatches> {
 
-    @Override
     public IWeighedIngredientsBatches createweighedBatch() {
         return new WeighedIngredientsBatches();
     }
