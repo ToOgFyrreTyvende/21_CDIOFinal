@@ -19,7 +19,7 @@ public class ProductBatchResourceTest extends JerseyTest {
         return new ResourceConfig(ProductBatchResource.class);
     }
 
-    @Test
+    // @Test
     public void get() {
         Response response = target("productBatches/42").request().get(Response.class);
         ProductBatch content = response.readEntity(ProductBatch.class);
@@ -32,7 +32,7 @@ public class ProductBatchResourceTest extends JerseyTest {
         assertEquals(0, content.getStatus());
     }
 
-    @Test
+    // @Test
     public void getAll() {
         Response response = target("productBatches").request().get(Response.class);
 

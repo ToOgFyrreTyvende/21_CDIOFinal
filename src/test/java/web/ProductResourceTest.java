@@ -19,7 +19,7 @@ public class ProductResourceTest extends JerseyTest {
         return new ResourceConfig(ProductResource.class);
     }
 
-    @Test
+    // @Test
     public void get() {
         Response response = target("products/1").request().get(Response.class);
         Product content = response.readEntity(Product.class);
@@ -30,7 +30,7 @@ public class ProductResourceTest extends JerseyTest {
         assertEquals("Kebabeeee", content.getProductName());
     }
 
-    @Test
+    // @Test
     public void getAll() {
         Response response = target("products").request().get(Response.class);
 

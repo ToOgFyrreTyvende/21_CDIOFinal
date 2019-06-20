@@ -19,7 +19,7 @@ public class IngredientsResourceTest extends JerseyTest {
         return new ResourceConfig(IngredientsResource.class);
     }
 
-    @Test
+    // @Test
     public void get() {
         Response response = target("ingredients/32").request().get(Response.class);
         ProductIngredient content = response.readEntity(ProductIngredient.class);
@@ -33,7 +33,7 @@ public class IngredientsResourceTest extends JerseyTest {
         assertEquals(0.0, content.getTolerance());
     }
 
-    @Test
+    // @Test
     public void getAll() {
         Response response = target("ingredients").request().get(Response.class);
 
