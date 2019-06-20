@@ -79,8 +79,10 @@ public class WeightUI {
         double nettoWeight = 0.0;
         double tolerance = 0.0;
         double expectedAmount = 0.0;
+        displayText = "Place netto, press OK";
+
         while (true) {
-            wFunc.getConfirmation("Place netto, press OK");
+            wFunc.getConfirmation(displayText);
             Thread.sleep(2000);
             String netto = wFunc.getWeight();
             nettoWeight = Double.parseDouble(netto);
@@ -92,6 +94,10 @@ public class WeightUI {
                    Helper.lowerBound(tolerance, nettoWeight) >= Helper.lowerBound(tolerance,expectedAmount))
                     break;
             }
+            if (Helper.higherBound(tolerance, nettoWeight) > Helper.higherBound(tolerance, expectedAmount))
+                displayText = "Upper bound exceeded";
+            if (Helper.lowerBound(tolerance, nettoWeight) < Helper.lowerBound(tolerance,expectedAmount))
+                displayText = "Lower bound exceeded";
         }
         wFunc.taraWeight();
 
