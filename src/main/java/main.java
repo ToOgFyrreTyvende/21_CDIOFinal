@@ -11,6 +11,8 @@ import services.HttpService;
 import services.IMettlerScale;
 import services.MettlerScale;
 import ui.WeightUI;
+import utils.Consts;
+
 import java.util.Scanner;
 
 public class main {
@@ -40,6 +42,9 @@ public class main {
         });
 
         Scanner scanner = new Scanner(System.in);
+        System.out.print("URL local (1) / URL remote (2): ");
+        int url = scanner.nextInt();
+        Consts.URL = (url == 1 ?  Consts.URLLocal : Consts.URLRemote);
         System.out.print("Host: ");
         String host = scanner.next();
         System.out.print("Port: ");
