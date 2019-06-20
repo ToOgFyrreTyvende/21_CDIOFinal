@@ -316,6 +316,7 @@ public class WeighedIngredientsBatchesDAO implements IDAO<IWeighedIngredientsBat
 
                 weighedBatch.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 weighedBatch.setRawMatBatchId(result.getInt("rawMatBatchId"));
+                weighedBatch.setProdBatchId(result.getInt("prodBatchId"));
                 weighedBatch.setUserId(result.getInt("userId"));
                 weighedBatch.setTara(result.getDouble("tara"));
                 weighedBatch.setNetto(result.getDouble("netto"));
@@ -351,6 +352,7 @@ public class WeighedIngredientsBatchesDAO implements IDAO<IWeighedIngredientsBat
 
                 temp.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 temp.setRawMatBatchId(result.getInt("rawMatBatchId"));
+                temp.setProdBatchId(result.getInt("prodBatchId"));
                 temp.setUserId(result.getInt("userId"));
                 temp.setTara(result.getDouble("tara"));
                 temp.setNetto(result.getDouble("netto"));
