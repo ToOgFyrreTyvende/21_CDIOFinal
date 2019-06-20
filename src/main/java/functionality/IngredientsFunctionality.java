@@ -1,7 +1,7 @@
 package functionality;
 
 import dal.ProductIngredientDAO;
-import dal.interfaces.IProductIngredientDAO;
+import dal.interfaces.IDAO;
 import dto.interfaces.IProductIngredient;
 import services.DatabaseConnection;
 import services.IDatabaseConnection;
@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class IngredientsFunctionality implements functionality.interfaces.IIngredientsFunctionality {
-    private IProductIngredientDAO prodIngDAO;
+    private IDAO<IProductIngredient> prodIngDAO;
     private IDatabaseConnection dbc;
 
     public IngredientsFunctionality(){

@@ -1,8 +1,7 @@
 package functionality;
 
 import dal.ProductDAO;
-import dal.interfaces.IProductDAO;
-import dto.Product;
+import dal.interfaces.IDAO;
 import dto.interfaces.IProduct;
 import services.DatabaseConnection;
 import services.IDatabaseConnection;
@@ -11,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class ProductFunctionality implements functionality.interfaces.IProductFunctionality {
-    private IProductDAO productDAO;
+    private IDAO<IProduct> productDAO;
     private IDatabaseConnection dbc;
 
     public ProductFunctionality() {

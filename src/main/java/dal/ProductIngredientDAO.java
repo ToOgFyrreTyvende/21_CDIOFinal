@@ -1,14 +1,15 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
+import dal.interfaces.IDAO;
 import dto.ProductIngredient;
 import dto.interfaces.*;
 
 import java.sql.*;
 import java.util.*;
 
-public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDAO {
-    @Override
+public class ProductIngredientDAO implements IDAO<IProductIngredient> {
+
     public IProductIngredient createProductIngredient() {
         return new ProductIngredient();
     }
@@ -353,4 +354,5 @@ public class ProductIngredientDAO implements dal.interfaces.IProductIngredientDA
 
         return (List) searchResults;
     }
+
 }

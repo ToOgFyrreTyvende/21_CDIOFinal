@@ -1,15 +1,15 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
-import dal.interfaces.IWeighedIngredientsBatchesDAO;
+import dal.interfaces.IDAO;
 import dto.WeighedIngredientsBatches;
 import dto.interfaces.IWeighedIngredientsBatches;
 
 import java.sql.*;
 import java.util.*;
 
-public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesDAO {
-    @Override
+public class WeighedIngredientsBatchesDAO implements IDAO<IWeighedIngredientsBatches> {
+
     public IWeighedIngredientsBatches createweighedBatch() {
         return new WeighedIngredientsBatches();
     }
@@ -316,7 +316,6 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
 
                 weighedBatch.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 weighedBatch.setRawMatBatchId(result.getInt("rawMatBatchId"));
-                weighedBatch.setProdBatchId(result.getInt("prodBatchId"));
                 weighedBatch.setUserId(result.getInt("userId"));
                 weighedBatch.setTara(result.getDouble("tara"));
                 weighedBatch.setNetto(result.getDouble("netto"));
@@ -368,4 +367,5 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
 
         return (List) searchResults;
     }
+
 }

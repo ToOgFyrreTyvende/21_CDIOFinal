@@ -1,7 +1,7 @@
 package functionality;
 
 import dal.RawMatDAO;
-import dal.interfaces.IRawMatDAO;
+import dal.interfaces.IDAO;
 import dto.interfaces.IRawMat;
 import services.DatabaseConnection;
 import services.IDatabaseConnection;
@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class RawMatFunctionality implements functionality.interfaces.IRawMatFunctionality {
-    private IRawMatDAO rawMatDAO;
+    private IDAO<IRawMat> rawMatDAO;
     private IDatabaseConnection dbc;
 
     public RawMatFunctionality() {

@@ -4,11 +4,18 @@ import java.sql.*;
 import java.util.*;
 
 import dal.exceptions.NotFoundException;
+import dal.interfaces.IDAO;
 import dto.ProductBatch;
 import dto.interfaces.IProductBatch;
 
-public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
-    @Override
+public class ProductBatchDAO implements IDAO<IProductBatch> {
+
+    private List<Object> pb;
+
+    public ProductBatchDAO() {
+         pb = new ArrayList<>();
+    }
+
     public IProductBatch createProductBatch() {
         return new ProductBatch();
     }
@@ -157,7 +164,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
     }
 
     private void ensureRawMatBatches(Connection conn, IProductBatch product) throws SQLException {
-        if(product.getWeighings().length > 0){
+        if(product.getWeighings().size() > 0){
             String sql = "DELETE FROM WeighedIngredientsBatches WHERE prodBatchId = ?";
             PreparedStatement stmt =  conn.prepareStatement(sql);
             stmt.setInt(1, product.getProdBatchId());
@@ -366,7 +373,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
                 "inner join RawMats Mat on rmb.rawMatId = Mat.rawMatId\n" +
                 "where pb.prodBatchId = ?";
 
-        List<IProductBatch.IWeighings> rmblist = new ArrayList<IProductBatch.IWeighings>();
+        List<IProductBatch.IWeighings> rmblist = new ArrayList<>();
 
         PreparedStatement rmb = conn.prepareStatement(sql);
         rmb.setInt(1, pbId);
@@ -385,7 +392,7 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
             rmblist.add(temprmb);
         }
 
-        product.setWeighings(rmblist.toArray(new ProductBatch.Weighings[rmblist.size()]));
+        product.setWeighings(rmblist);
     }
 
     /**
@@ -424,4 +431,5 @@ public class ProductBatchDAO implements dal.interfaces.IProductBatchDAO {
 
         return (List) searchResults;
     }
+
 }

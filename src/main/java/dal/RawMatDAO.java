@@ -1,14 +1,16 @@
 package dal;
 
 import dal.exceptions.NotFoundException;
+import dal.interfaces.IDAO;
 import dto.RawMat;
 import dto.interfaces.IRawMat;
 
 import java.sql.*;
 import java.util.*;
+import java.math.*;
 
-public class RawMatDAO implements dal.interfaces.IRawMatDAO {
-    @Override
+public class RawMatDAO implements IDAO<IRawMat> {
+
     public IRawMat createRawMat() {
         return new RawMat();
     }
@@ -323,4 +325,5 @@ public class RawMatDAO implements dal.interfaces.IRawMatDAO {
 
         return (List) searchResults;
     }
+
 }

@@ -1,7 +1,7 @@
 package functionality;
 
 import dal.WeighedIngredientsBatchesDAO;
-import dal.interfaces.IWeighedIngredientsBatchesDAO;
+import dal.interfaces.IDAO;
 import dto.interfaces.IWeighedIngredientsBatches;
 import services.DatabaseConnection;
 import services.IDatabaseConnection;
@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class WeighingFunctionality implements functionality.interfaces.IWeighingFunctionality {
-    private IWeighedIngredientsBatchesDAO wibDAO;
+    private IDAO<IWeighedIngredientsBatches> wibDAO;
     private IDatabaseConnection dbc;
 
     public WeighingFunctionality(){

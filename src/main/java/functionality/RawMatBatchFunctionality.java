@@ -1,8 +1,7 @@
 package functionality;
 
 import dal.RawMatBatchDAO;
-import dal.RawMatDAO;
-import dal.interfaces.IRawMatBatchDAO;
+import dal.interfaces.IDAO;
 import dto.interfaces.IRawMatBatch;
 import services.DatabaseConnection;
 import services.IDatabaseConnection;
@@ -11,7 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class RawMatBatchFunctionality implements functionality.interfaces.IRawMatBatchFunctionality {
-    private IRawMatBatchDAO rawMatBatchDAO;
+    private IDAO<IRawMatBatch> rawMatBatchDAO;
     private IDatabaseConnection dbc;
 
     public RawMatBatchFunctionality() {

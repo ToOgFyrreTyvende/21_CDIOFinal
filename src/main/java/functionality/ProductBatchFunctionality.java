@@ -1,7 +1,7 @@
 package functionality;
 
 import dal.ProductBatchDAO;
-import dal.interfaces.IProductBatchDAO;
+import dal.interfaces.IDAO;
 import dto.interfaces.IProductBatch;
 import services.*;
 
@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class ProductBatchFunctionality implements functionality.interfaces.IProductBatchFunctionality {
-    private IProductBatchDAO prodBatchDAO;
+    private IDAO<IProductBatch> prodBatchDAO;
     private IDatabaseConnection dbc;
 
     public ProductBatchFunctionality() {
