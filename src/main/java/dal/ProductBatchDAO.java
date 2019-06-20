@@ -164,7 +164,7 @@ public class ProductBatchDAO implements IDAO<IProductBatch> {
     }
 
     private void ensureRawMatBatches(Connection conn, IProductBatch product) throws SQLException {
-        if(product.getWeighings().size() > 0){
+        if(product.getWeighings().length > 0){
             String sql = "DELETE FROM WeighedIngredientsBatches WHERE prodBatchId = ?";
             PreparedStatement stmt =  conn.prepareStatement(sql);
             stmt.setInt(1, product.getProdBatchId());
@@ -373,7 +373,7 @@ public class ProductBatchDAO implements IDAO<IProductBatch> {
                 "inner join RawMats Mat on rmb.rawMatId = Mat.rawMatId\n" +
                 "where pb.prodBatchId = ?";
 
-        List<IProductBatch.IWeighings> rmblist = new ArrayList<>();
+        List<IProductBatch.IWeighings> rmblist = new ArrayList<IProductBatch.IWeighings>();
 
         PreparedStatement rmb = conn.prepareStatement(sql);
         rmb.setInt(1, pbId);
@@ -392,7 +392,7 @@ public class ProductBatchDAO implements IDAO<IProductBatch> {
             rmblist.add(temprmb);
         }
 
-        product.setWeighings(rmblist);
+        product.setWeighings(rmblist.toArray(new ProductBatch.Weighings[rmblist.size()]));
     }
 
     /**
