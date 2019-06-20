@@ -131,9 +131,9 @@ const utilsProduct = {
 
 	// Naar man tilfoejer en enkelt ingrediens uden at submitte, sker denne logik
     addIngredient: function(){
-		$("#productIdInput").prop('disabled', false);
+		$("#productIdInput2").prop('disabled', false);
         let formData = getFormData($("#inputFormProductIng"));
-        $("#productIdInput").prop('disabled', true);
+        $("#productIdInput2").prop('disabled', true);
 
         var pid = parseInt(formData.productId);
 
