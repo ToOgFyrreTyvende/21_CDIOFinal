@@ -20,9 +20,9 @@ public interface IProductBatch extends Cloneable, Serializable {
 
     void setAll(int prodBatchIdIn, int prodIdIn, int rawMatBatchIdIn, int statusIn);
 
-    List<IProductBatch.IWeighings> getWeighings();
+    ProductBatch.Weighings[] getWeighings();
 
-    void setWeighings(List<IProductBatch.IWeighings> weighings);
+    void setWeighings(ProductBatch.Weighings[] weighings);
 
     String getName();
 

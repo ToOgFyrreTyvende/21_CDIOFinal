@@ -9,7 +9,7 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
     private String name;
     private int prodId;
     private int status;
-    private List<IWeighings> weighings;
+    private ProductBatch.Weighings[] weighings;
 
     public ProductBatch() {
     }
@@ -55,11 +55,11 @@ public class ProductBatch implements dto.interfaces.IProductBatch {
         this.status = statusIn;
     }
     @Override
-    public List<IWeighings> getWeighings() {
+    public ProductBatch.Weighings[] getWeighings() {
         return weighings;
     }
     @Override
-    public void setWeighings(List<IWeighings> weighings) {
+    public void setWeighings(ProductBatch.Weighings[] weighings) {
         this.weighings = weighings;
     }
     @Override
