@@ -9,14 +9,14 @@ import java.sql.*;
 import java.util.*;
 
 public class RawMatBatchDAO implements IDAO<IRawMatBatch> {
-    public IRawMatBatch createrawMatBatch() {
+    public IRawMatBatch createRawMatBatch() {
         return new RawMatBatch();
     }
 
     @Override
     public IRawMatBatch getObject(Connection conn, int rmbId) throws NotFoundException, SQLException {
 
-        IRawMatBatch rawMatBatch = createrawMatBatch();
+        IRawMatBatch rawMatBatch = createRawMatBatch();
         rawMatBatch.setRmbId(rmbId);
         load(conn, rawMatBatch);
         return rawMatBatch;
@@ -331,7 +331,7 @@ public class RawMatBatchDAO implements IDAO<IRawMatBatch> {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                IRawMatBatch temp = createrawMatBatch();
+                IRawMatBatch temp = createRawMatBatch();
 
                 temp.setName(result.getString("rawMatName"));
                 temp.setRmbId(result.getInt("rmbId"));

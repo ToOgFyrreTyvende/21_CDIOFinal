@@ -10,14 +10,14 @@ import java.util.*;
 
 public class WeighedIngredientsBatchesDAO implements IDAO<IWeighedIngredientsBatches> {
 
-    public IWeighedIngredientsBatches createweighedBatch() {
+    public IWeighedIngredientsBatches createWeighedBatch() {
         return new WeighedIngredientsBatches();
     }
 
     @Override
     public IWeighedIngredientsBatches getObject(Connection conn, int weighedIngredientId) throws NotFoundException, SQLException {
 
-        IWeighedIngredientsBatches weighedBatch = createweighedBatch();
+        IWeighedIngredientsBatches weighedBatch = createWeighedBatch();
         weighedBatch.setWeighedIngredientId(weighedIngredientId);
         load(conn, weighedBatch);
         return weighedBatch;
@@ -348,7 +348,7 @@ public class WeighedIngredientsBatchesDAO implements IDAO<IWeighedIngredientsBat
             result = stmt.executeQuery();
 
             while (result.next()) {
-                IWeighedIngredientsBatches temp = createweighedBatch();
+                IWeighedIngredientsBatches temp = createWeighedBatch();
 
                 temp.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 temp.setRawMatBatchId(result.getInt("rawMatBatchId"));

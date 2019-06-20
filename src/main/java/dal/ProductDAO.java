@@ -4,7 +4,6 @@ import dal.exceptions.NotFoundException;
 import dal.interfaces.IDAO;
 import dto.Product;
 import dto.interfaces.IProduct;
-import dto.interfaces.IProductBatch;
 
 import java.sql.*;
 import java.util.*;
@@ -12,14 +11,14 @@ import java.util.*;
 
 public class ProductDAO implements IDAO<IProduct> {
 
-    public IProduct createproduct() {
+    public IProduct createProduct() {
         return new Product();
     }
 
     @Override
     public IProduct getObject(Connection conn, int productId) throws NotFoundException, SQLException {
 
-        IProduct product = createproduct();
+        IProduct product = createProduct();
         product.setProductId(productId);
         load(conn, product);
         return product;
@@ -380,7 +379,7 @@ public class ProductDAO implements IDAO<IProduct> {
             result = stmt.executeQuery();
 
             while (result.next()) {
-                IProduct temp = createproduct();
+                IProduct temp = createProduct();
 
                 temp.setProductId(result.getInt("productId"));
                 temp.setProductName(result.getString("productName"));
