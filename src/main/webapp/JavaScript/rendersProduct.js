@@ -43,7 +43,7 @@ const rendersProduct = {
 	// denne funktion goer det samme som renderinputfields, men for addingredients formen. her sker lidt mere
     renderInputFieldsIngredients: function(id){
 		//foerst saetter vi formens id til at vaere det id vi faar i funktionen
-        $("#productIdInput").val(id);
+        $("#productIdInput2").val(id);
         // vi fjerner alle elementer i raavaremateriale listen, saa vi kan genskabe den
 		$("#rawMatIdInputIngredient").empty();
 		// vi genskaber listen ved et givet produks ingredienser, da de skal fjernes fra ingredienslisten

@@ -137,7 +137,7 @@ public class ProductDAO implements IDAO<IProduct> {
             stmt.close();
 
             if (product.getIngredients().length > 0){
-                String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount) VALUES (?, ?, ?)";
+                String sql2 = "INSERT INTO ProductIngredients (rawMatId, productId, amount, tolerance) VALUES (?, ?, ?, ?)";
                 PreparedStatement stmt2 = conn.prepareStatement(sql2);
                 int prodid = product.getProductId();
 
@@ -145,6 +145,7 @@ public class ProductDAO implements IDAO<IProduct> {
                     stmt2.setInt(1, rawmat.getRawMatId());
                     stmt2.setInt(2, prodid);
                     stmt2.setDouble(3, rawmat.getAmount());
+                    stmt2.setDouble(4, rawmat.getTolerance());
                     stmt2.execute();
                 }
             }
