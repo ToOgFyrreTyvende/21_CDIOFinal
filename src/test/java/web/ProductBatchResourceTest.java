@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductBatchResourceTest extends JerseyTest {
 
@@ -28,7 +27,7 @@ public class ProductBatchResourceTest extends JerseyTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         assertEquals(MediaType.APPLICATION_JSON, response.getHeaderString(HttpHeaders.CONTENT_TYPE));
         assertEquals(42, content.getProdBatchId());
-        assertTrue("Kebabeeee".equals(content.getName()));
+        assertEquals("Kebabeeee", content.getName());
         assertEquals(1, content.getProdId());
         assertEquals(0, content.getStatus());
     }

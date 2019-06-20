@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserResourceTest extends JerseyTest {
 
@@ -57,7 +56,7 @@ public class UserResourceTest extends JerseyTest {
                                    "userName:\tCrash Test Dummy\n\t" +
                                    "role:\tAdmin (0)");
         assertEquals(42, content.getUserId());
-        assertTrue("Crash Test Dummy".equals(content.getUserName()));
+        assertEquals("Crash Test Dummy", content.getUserName());
         assertEquals(0, content.getRole());
     }
 }

@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RawMatBatchResourceTest extends JerseyTest {
 
@@ -30,8 +29,8 @@ public class RawMatBatchResourceTest extends JerseyTest {
         assertEquals(42, content.getRmbId());
         assertEquals(42, content.getRawMatId());
         assertEquals(420.42, content.getAmount());
-        assertTrue("dråbelyd+".equals(content.getName()));
-        assertTrue("Gruppe 42/2".equals(content.getSupplier()));
+        assertEquals("dråbelyd+", content.getName());
+        assertEquals("Gruppe 42/2", content.getSupplier());
     }
 
     @Test
