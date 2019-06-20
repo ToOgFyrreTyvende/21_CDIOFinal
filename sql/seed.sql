@@ -20,6 +20,7 @@ VALUES (1, 'Titaniumoxid'),
        (4, 'NaCl'),
        (5, 'H2O');
 
+DELETE FROM ProductIngredients
 insert into ProductIngredients (productIngredientId, rawMatId, productId, amount, tolerance)
 values (1, 1, 1, 25, 1),
        (2, 2, 1, 42, 2),
@@ -29,6 +30,7 @@ values (1, 1, 1, 25, 1),
        (6, 3, 3, 15, 5),
        (7, 5, 3, 15, 2);
 
+DELETE FROM RawMatBatches
 insert into RawMatBatches (rmbId, rawMatId, amount, supplier)
 values (1, 1, 250, 'Novo Nordisk'),
        (2, 2, 150, 'Zealand Pharma'),
@@ -36,6 +38,7 @@ values (1, 1, 250, 'Novo Nordisk'),
        (4, 4, 1000, 'Borup Kemi'),
        (5, 5, 1500, 'DTU Biosustain');
 
+DELETE FROM ProductBatches
 insert into ProductBatches (prodBatchId, productId, status)
 values (1, 1, 2),
        (2, 1, 1),
@@ -43,7 +46,7 @@ values (1, 1, 2),
        (4, 2, 1),
        (5, 2, 0);
 
-select RM.rawMatId, RM.rawMatName, amount
+/*select RM.rawMatId, RM.rawMatName, amount
 from ProductIngredients
          inner join RawMats RM on ProductIngredients.rawMatId = RM.rawMatID
          inner join Products pr on ProductIngredients.productId = pr.productId
@@ -68,4 +71,4 @@ FROM ProductIngredients;
 SELECT *
 FROM RawMatBatches;
 
-select * from WeighedIngredientsBatches;
+select * from WeighedIngredientsBatches;*/
