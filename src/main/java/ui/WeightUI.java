@@ -56,7 +56,7 @@ public class WeightUI {
         while (true) {
             String rawMatBatchID = wFunc.requestInput(String.format("%s, press OK", displayText));
             rawMatBatch = http.getRawMatBatch(rawMatBatchID);
-            if (rawMatBatch != null && Helper.rawMatInProduct(product, rawMatBatch)) {
+            if (rawMatBatch != null && Helper.isRawMatInProduct(product, rawMatBatch)) {
                 break;
             } else {
                 displayText = "Invalid ID";
@@ -76,10 +76,23 @@ public class WeightUI {
         double taraWeight = Double.parseDouble(tara);
         wFunc.taraWeight();
 
-        wFunc.getConfirmation("Place netto, press OK");
-        Thread.sleep(2000);
-        String netto = wFunc.getWeight();
-        double nettoWeight = Double.parseDouble(netto);
+        double nettoWeight = 0.0;
+        double tolerance = 0.0;
+        double expectedAmount = 0.0;
+        while (true) {
+            wFunc.getConfirmation("Place netto, press OK");
+            Thread.sleep(2000);
+            String netto = wFunc.getWeight();
+            nettoWeight = Double.parseDouble(netto);
+            tolerance = Helper.rawMatInProduct(product, rawMatBatch).getTolerance();
+            expectedAmount = Helper.rawMatInProduct(product, rawMatBatch).getAmount();
+
+            if (tolerance > 0.0){
+                if(Helper.higherBound(tolerance, nettoWeight) <= Helper.higherBound(tolerance, expectedAmount) &&
+                   Helper.lowerBound(tolerance, nettoWeight) >= Helper.lowerBound(tolerance,expectedAmount))
+                    break;
+            }
+        }
         wFunc.taraWeight();
 
         wFunc.getConfirmation("Remove brutto, press OK");
