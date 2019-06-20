@@ -58,7 +58,7 @@ const rendersProduct = {
 		populate.map((el) => {
             $("#rawMatIdInputIngredient").append($("<option></option>")
                 .attr("value",el.rawMatID)
-                .text(el.rawMatName));
+                .text(`${el.rawMatID} - ${el.rawMatName}`));
         })
 	},
 
