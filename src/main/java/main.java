@@ -11,6 +11,7 @@ import services.HttpService;
 import services.IMettlerScale;
 import services.MettlerScale;
 import ui.WeightUI;
+import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) throws InterruptedException {
@@ -38,9 +39,13 @@ public class main {
             }
         });
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Host: ");
+        String host = scanner.next();
+        System.out.print("Port: ");
+        int port = scanner.nextInt();
 
-
-        IMettlerScale scale = new MettlerScale("127.0.0.1", 8000);
+        IMettlerScale scale = new MettlerScale(host, port);
 
         IWeightFunctionality wFunc = new WeightFunctionality(scale);
         WeightUI ui = new WeightUI(wFunc);

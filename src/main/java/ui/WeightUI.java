@@ -100,6 +100,7 @@ public class WeightUI {
         Thread.sleep(5000);
 
         if (result) {
+            System.out.println("Weighing saved");
             System.out.println("Tara: " + taraWeight + " kg");
             System.out.println("Netto: " + nettoWeight + " kg");
             System.out.println("Brutto: " + bruttoWeight + " kg");
