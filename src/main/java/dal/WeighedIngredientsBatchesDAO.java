@@ -316,6 +316,7 @@ public class WeighedIngredientsBatchesDAO implements IWeighedIngredientsBatchesD
 
                 weighedBatch.setWeighedIngredientId(result.getInt("weighedIngredientId"));
                 weighedBatch.setRawMatBatchId(result.getInt("rawMatBatchId"));
+                weighedBatch.setProdBatchId(result.getInt("prodBatchId"));
                 weighedBatch.setUserId(result.getInt("userId"));
                 weighedBatch.setTara(result.getDouble("tara"));
                 weighedBatch.setNetto(result.getDouble("netto"));
