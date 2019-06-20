@@ -9,7 +9,7 @@ import services.IDatabaseConnection;
 import java.sql.Connection;
 import java.util.List;
 
-public class IngredientsFunctionality implements functionality.interfaces.IIngredientsFunctionality {
+public class IngredientsFunctionality implements functionality.interfaces.IFunctionality<IProductIngredient> {
     private IDAO<IProductIngredient> prodIngDAO;
     private IDatabaseConnection dbc;
 
@@ -19,7 +19,7 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
     }
 
     @Override
-    public void createIngredient(IProductIngredient ingredient) throws Exception {
+    public void createDTO(IProductIngredient ingredient) throws Exception {
         try {
             if(ingredient.getAmount() <= 0) {
                 throw new Exception("Amount is incorrect.");
@@ -44,7 +44,7 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
     }
 
     @Override
-    public IProductIngredient getIngredient(int prodIngID) throws Exception {
+    public IProductIngredient getDTO(int prodIngID) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return prodIngDAO.getObject(conn, prodIngID);
@@ -55,7 +55,7 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
     }
 
     @Override
-    public List<IProductIngredient> getAllIngredient() throws Exception {
+    public List<IProductIngredient> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return prodIngDAO.loadAll(conn);
@@ -65,7 +65,7 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
     }
 
     @Override
-    public void updateIngredient(IProductIngredient prodIng) throws Exception {
+    public void updateDTO(IProductIngredient prodIng) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             prodIngDAO.load(conn, prodIng);
@@ -75,7 +75,7 @@ public class IngredientsFunctionality implements functionality.interfaces.IIngre
     }
 
     @Override
-    public void deleteIngredient(IProductIngredient prodIng) throws Exception {
+    public void deleteDTO(IProductIngredient prodIng) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             prodIngDAO.delete(conn, prodIng);

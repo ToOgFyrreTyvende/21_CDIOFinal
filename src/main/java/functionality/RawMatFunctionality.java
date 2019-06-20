@@ -9,7 +9,7 @@ import services.IDatabaseConnection;
 import java.sql.Connection;
 import java.util.List;
 
-public class RawMatFunctionality implements functionality.interfaces.IRawMatFunctionality {
+public class RawMatFunctionality implements functionality.interfaces.IFunctionality<IRawMat> {
     private IDAO<IRawMat> rawMatDAO;
     private IDatabaseConnection dbc;
 
@@ -19,7 +19,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
     }
 
     @Override
-    public void createRawMat(IRawMat rawmat) throws Exception {
+    public void createDTO(IRawMat rawmat) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             rawMatDAO.create(conn, rawmat);
@@ -29,7 +29,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
     }
 
     @Override
-    public IRawMat getRawMat(int rawmatid) throws Exception {
+    public IRawMat getDTO(int rawmatid) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return rawMatDAO.getObject(conn, rawmatid);
@@ -39,7 +39,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
     }
 
     @Override
-    public List<IRawMat> getAllRawMats() throws Exception {
+    public List<IRawMat> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return rawMatDAO.loadAll(conn);
@@ -49,7 +49,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
     }
 
     @Override
-    public void updateRawMat(IRawMat rawmat) throws Exception {
+    public void updateDTO(IRawMat rawmat) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             rawMatDAO.save(conn, rawmat);
@@ -59,7 +59,7 @@ public class RawMatFunctionality implements functionality.interfaces.IRawMatFunc
     }
 
     @Override
-    public void deleteRawMat(IRawMat rawmat) throws Exception {
+    public void deleteDTO(IRawMat rawmat) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             rawMatDAO.delete(conn, rawmat);

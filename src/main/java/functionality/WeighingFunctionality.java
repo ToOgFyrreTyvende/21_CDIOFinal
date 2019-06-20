@@ -9,7 +9,7 @@ import services.IDatabaseConnection;
 import java.sql.Connection;
 import java.util.List;
 
-public class WeighingFunctionality implements functionality.interfaces.IWeighingFunctionality {
+public class WeighingFunctionality implements functionality.interfaces.IFunctionality<IWeighedIngredientsBatches> {
     private IDAO<IWeighedIngredientsBatches> wibDAO;
     private IDatabaseConnection dbc;
 
@@ -19,7 +19,7 @@ public class WeighingFunctionality implements functionality.interfaces.IWeighing
     }
 
     @Override
-    public void createWeighing(IWeighedIngredientsBatches ingredient) throws Exception {
+    public void createDTO(IWeighedIngredientsBatches ingredient) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             wibDAO.create(conn, ingredient);
@@ -29,7 +29,7 @@ public class WeighingFunctionality implements functionality.interfaces.IWeighing
     }
 
     @Override
-    public IWeighedIngredientsBatches getWeighing(int weighingId) throws Exception {
+    public IWeighedIngredientsBatches getDTO(int weighingId) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return wibDAO.getObject(conn,weighingId);
@@ -40,7 +40,7 @@ public class WeighingFunctionality implements functionality.interfaces.IWeighing
     }
 
     @Override
-    public List<IWeighedIngredientsBatches> getAllWeighings() throws Exception {
+    public List<IWeighedIngredientsBatches> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return wibDAO.loadAll(conn);
@@ -50,7 +50,7 @@ public class WeighingFunctionality implements functionality.interfaces.IWeighing
     }
 
     @Override
-    public void updateWeighing(IWeighedIngredientsBatches weighing) throws Exception {
+    public void updateDTO(IWeighedIngredientsBatches weighing) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             wibDAO.load(conn,weighing);
@@ -60,7 +60,7 @@ public class WeighingFunctionality implements functionality.interfaces.IWeighing
     }
 
     @Override
-    public void deleteWeighing(IWeighedIngredientsBatches weighing) throws Exception {
+    public void deleteDTO(IWeighedIngredientsBatches weighing) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             wibDAO.delete(conn,weighing);

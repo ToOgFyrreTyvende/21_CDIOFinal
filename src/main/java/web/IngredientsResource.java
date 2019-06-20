@@ -2,7 +2,7 @@ package web;
 
 import dto.ProductIngredient;
 import functionality.IngredientsFunctionality;
-import functionality.interfaces.IIngredientsFunctionality;
+import functionality.interfaces.IFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("/ingredients")
 public class IngredientsResource {
-    private IIngredientsFunctionality ingrFunc = new IngredientsFunctionality();
+    private IFunctionality ingrFunc = new IngredientsFunctionality();
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -26,7 +26,7 @@ public class IngredientsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("productIngredientId") int id) {
         try {
-            return Response.ok(ingrFunc.getIngredient(id)).build();
+            return Response.ok(ingrFunc.getDTO(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -36,7 +36,7 @@ public class IngredientsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(ingrFunc.getAllIngredient()).build();
+            return Response.ok(ingrFunc.getAllDTOs()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -47,7 +47,7 @@ public class IngredientsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(ProductIngredient ingredient) {
         try {
-            ingrFunc.createIngredient(ingredient);
+            ingrFunc.createDTO(ingredient);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -59,7 +59,7 @@ public class IngredientsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(ProductIngredient ingredient) {
         try {
-            ingrFunc.updateIngredient(ingredient);
+            ingrFunc.updateDTO(ingredient);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -71,7 +71,7 @@ public class IngredientsResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("productIngredientId") int id) {
         try {
-            ingrFunc.deleteIngredient(ingrFunc.getIngredient(id));
+            ingrFunc.deleteDTO(ingrFunc.getDTO(id));
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

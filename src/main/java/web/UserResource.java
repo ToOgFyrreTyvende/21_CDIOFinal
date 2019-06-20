@@ -2,7 +2,7 @@ package web;
 
 import dto.User;
 import functionality.UserFunctionality;
-import functionality.interfaces.IUserFunctionality;
+import functionality.interfaces.IFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,13 +13,13 @@ import javax.ws.rs.core.Response;
  */
 @Path("/users")
 public class UserResource {
-    private IUserFunctionality userFunc = new UserFunctionality();
+    private IFunctionality userFunc = new UserFunctionality();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(userFunc.getAllUsers()).build();
+            return Response.ok(userFunc.getAllDTOs()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -50,7 +50,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("userId") int id) {
         try {
-            return Response.ok(userFunc.getUser(id)).build();
+            return Response.ok(userFunc.getDTO(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -61,7 +61,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(User user) {
         try {
-            userFunc.createUser(user);
+            userFunc.createDTO(user);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -73,7 +73,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(User user) {
         try {
-            userFunc.updateUser(user);
+            userFunc.updateDTO(user);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -85,7 +85,7 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("userId") int id) {
         try {
-            userFunc.deleteUser(userFunc.getUser(id));
+            userFunc.deleteDTO(userFunc.getDTO(id));
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

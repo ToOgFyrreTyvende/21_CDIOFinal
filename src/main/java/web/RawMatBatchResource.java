@@ -3,7 +3,7 @@ package web;
 
 import dto.RawMatBatch;
 import functionality.RawMatBatchFunctionality;
-import functionality.interfaces.IRawMatBatchFunctionality;
+import functionality.interfaces.IFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,14 +11,14 @@ import javax.ws.rs.core.Response;
 
 @Path("/rawMatBatches")
 public class RawMatBatchResource {
-    private IRawMatBatchFunctionality rawMatBatchFunc = new RawMatBatchFunctionality();
+    private IFunctionality rawMatBatchFunc = new RawMatBatchFunctionality();
 
     @GET
     @Path("{rmbId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("rmbId") int id) {
         try {
-            return Response.ok(rawMatBatchFunc.getRawMatBatch(id)).build();
+            return Response.ok(rawMatBatchFunc.getDTO(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -28,7 +28,7 @@ public class RawMatBatchResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(rawMatBatchFunc.getAllRawMatBatches()).build();
+            return Response.ok(rawMatBatchFunc.getAllDTOs()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -39,7 +39,7 @@ public class RawMatBatchResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(RawMatBatch rawmat) {
         try {
-            rawMatBatchFunc.createRawMatBatch(rawmat);
+            rawMatBatchFunc.createDTO(rawmat);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -51,7 +51,7 @@ public class RawMatBatchResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(RawMatBatch rawmatBatch) {
         try {
-            rawMatBatchFunc.updateRawMatBatch(rawmatBatch);
+            rawMatBatchFunc.updateDTO(rawmatBatch);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -63,7 +63,7 @@ public class RawMatBatchResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("rmbId") int id) {
         try {
-            rawMatBatchFunc.deleteRawMatBatch(rawMatBatchFunc.getRawMatBatch(id));
+            rawMatBatchFunc.deleteDTO(rawMatBatchFunc.getDTO(id));
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

@@ -2,7 +2,7 @@ package web;
 
 import dto.Product;
 import functionality.ProductFunctionality;
-import functionality.interfaces.IProductFunctionality;
+import functionality.interfaces.IFunctionality;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/products")
 public class ProductResource {
-    private IProductFunctionality prodFunc = new ProductFunctionality();
+    private IFunctionality prodFunc = new ProductFunctionality();
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -23,7 +23,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@DefaultValue("0") @PathParam("rawMatId") int id) {
         try {
-            return Response.ok(prodFunc.getProduct(id)).build();
+            return Response.ok(prodFunc.getDTO(id)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
@@ -33,7 +33,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         try {
-            return Response.ok(prodFunc.getAllProducts()).build();
+            return Response.ok(prodFunc.getAllDTOs()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -44,7 +44,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(Product product) {
         try {
-            prodFunc.createProduct(product);
+            prodFunc.createDTO(product);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -56,7 +56,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(Product prod) {
         try {
-            prodFunc.updateProduct(prod);
+            prodFunc.updateDTO(prod);
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -68,7 +68,7 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("rawMatId") int id) {
         try {
-            prodFunc.deleteProduct(prodFunc.getProduct(id));
+            prodFunc.deleteDTO(prodFunc.getDTO(id));
             return Response.noContent().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

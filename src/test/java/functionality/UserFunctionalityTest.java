@@ -48,23 +48,23 @@ class UserFunctionalityTest {
     @Test
     void createUpdateDeleteUser() throws IUserFunctionality.UserInputException, IUserDAO.DALException{
         // Create 'testUser1' in database
-        func.createUser(testUser1);
+        func.createDTO(testUser1);
         // Check user was correctly created
-        assertEquals(testUser1.getUserId(), func.getUser(testUser1.getUserId()).getUserId());
-        assertEquals(testUser1.getUserName(), func.getUser(testUser1.getUserId()).getUserName());
+        assertEquals(testUser1.getUserId(), func.getDTO(testUser1.getUserId()).getUserId());
+        assertEquals(testUser1.getUserName(), func.getDTO(testUser1.getUserId()).getUserName());
         // Update 'testUser1'
         testUser1.setUserName("UpdatedTestUser");
         testUser1.setIni("UTU");
         // Check 'testUser1' is different from user in database
-        assertNotEquals(testUser1.getUserName(), func.getUser(testUser1.getUserId()).getUserName());
-        assertNotEquals(testUser1.getIni(), func.getUser(testUser1.getUserId()).getIni());
+        assertNotEquals(testUser1.getUserName(), func.getDTO(testUser1.getUserId()).getUserName());
+        assertNotEquals(testUser1.getIni(), func.getDTO(testUser1.getUserId()).getIni());
         // Update user in database
-        func.updateUser(testUser1);
+        func.updateDTO(testUser1);
         // Check database user has been updated with correct values
-        assertEquals(testUser1.getUserName(), func.getUser(testUser1.getUserId()).getUserName());
-        assertEquals(testUser1.getIni(), func.getUser(testUser1.getUserId()).getIni());
+        assertEquals(testUser1.getUserName(), func.getDTO(testUser1.getUserId()).getUserName());
+        assertEquals(testUser1.getIni(), func.getDTO(testUser1.getUserId()).getIni());
         // Delete user
-        func.deleteUser(testUser1.getUserId());
+        func.deleteDTO(testUser1.getUserId());
         // Check user has been correctly deleted
         assertEquals("[]", func.getUserList().toString());
     }
@@ -72,7 +72,7 @@ class UserFunctionalityTest {
     @Test
     void exceptionTesting(){
         IUserFunctionality.UserInputException createThrown = assertThrows(IUserFunctionality.UserInputException.class,
-                () -> func.createUser(testUser2),
+                () -> func.createDTO(testUser2),
                 "Should throw a nice custom error... But i guess not");
 
         assertTrue(createThrown.getMessage().contains("Fejl"));

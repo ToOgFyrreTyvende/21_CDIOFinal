@@ -9,7 +9,7 @@ import services.IDatabaseConnection;
 import java.sql.Connection;
 import java.util.List;
 
-public class RawMatBatchFunctionality implements functionality.interfaces.IRawMatBatchFunctionality {
+public class RawMatBatchFunctionality implements functionality.interfaces.IFunctionality<IRawMatBatch> {
     private IDAO<IRawMatBatch> rawMatBatchDAO;
     private IDatabaseConnection dbc;
 
@@ -19,7 +19,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
     }
 
     @Override
-    public void createRawMatBatch(IRawMatBatch rawMatBatch) throws Exception {
+    public void createDTO(IRawMatBatch rawMatBatch) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             rawMatBatchDAO.create(conn, rawMatBatch);
@@ -29,7 +29,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
     }
 
     @Override
-    public IRawMatBatch getRawMatBatch(int rawmatbatchid) throws Exception {
+    public IRawMatBatch getDTO(int rawmatbatchid) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return rawMatBatchDAO.getObject(conn, rawmatbatchid);
@@ -39,7 +39,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
     }
 
     @Override
-    public List<IRawMatBatch> getAllRawMatBatches() throws Exception {
+    public List<IRawMatBatch> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return rawMatBatchDAO.loadAll(conn);
@@ -49,7 +49,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
     }
 
     @Override
-    public void updateRawMatBatch(IRawMatBatch rawMatBatch) throws Exception {
+    public void updateDTO(IRawMatBatch rawMatBatch) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             rawMatBatchDAO.save(conn, rawMatBatch);
@@ -59,7 +59,7 @@ public class RawMatBatchFunctionality implements functionality.interfaces.IRawMa
     }
 
     @Override
-    public void deleteRawMatBatch(IRawMatBatch rawMatBatch) throws Exception {
+    public void deleteDTO(IRawMatBatch rawMatBatch) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             rawMatBatchDAO.delete(conn, rawMatBatch);

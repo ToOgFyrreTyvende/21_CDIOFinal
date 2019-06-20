@@ -8,7 +8,7 @@ import services.*;
 import java.sql.Connection;
 import java.util.List;
 
-public class ProductBatchFunctionality implements functionality.interfaces.IProductBatchFunctionality {
+public class ProductBatchFunctionality implements functionality.interfaces.IFunctionality<IProductBatch> {
     private IDAO<IProductBatch> prodBatchDAO;
     private IDatabaseConnection dbc;
 
@@ -18,7 +18,7 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public void createProductBatch(IProductBatch prodBatch) throws Exception {
+    public void createDTO(IProductBatch prodBatch) throws Exception {
         try {
             if (prodBatch.getStatus() < 0 || prodBatch.getStatus() > 2) {
                 throw new Exception("Status on product batch is off; not within range 0-2 (inclusive)");
@@ -31,7 +31,7 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public IProductBatch getProdBatch(int pBatchId) throws Exception {
+    public IProductBatch getDTO(int pBatchId) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return prodBatchDAO.getObject(conn, pBatchId);
@@ -41,7 +41,7 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public List<IProductBatch> getAllProdBatches() throws Exception {
+    public List<IProductBatch> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return prodBatchDAO.loadAll(conn);
@@ -51,7 +51,7 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public void updateProdBatch(IProductBatch prodBatch) throws Exception {
+    public void updateDTO(IProductBatch prodBatch) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             prodBatchDAO.save(conn, prodBatch);
@@ -61,7 +61,7 @@ public class ProductBatchFunctionality implements functionality.interfaces.IProd
     }
 
     @Override
-    public void deleteProdBatch(IProductBatch prodBatch) throws Exception {
+    public void deleteDTO(IProductBatch prodBatch) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             prodBatchDAO.delete(conn, prodBatch);

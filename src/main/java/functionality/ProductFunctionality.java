@@ -9,7 +9,7 @@ import services.IDatabaseConnection;
 import java.sql.Connection;
 import java.util.List;
 
-public class ProductFunctionality implements functionality.interfaces.IProductFunctionality {
+public class ProductFunctionality implements functionality.interfaces.IFunctionality<IProduct> {
     private IDAO<IProduct> productDAO;
     private IDatabaseConnection dbc;
 
@@ -19,7 +19,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
     }
 
     @Override
-    public void createProduct(IProduct prod) throws Exception {
+    public void createDTO(IProduct prod) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             productDAO.create(conn, prod);
@@ -29,7 +29,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
     }
 
     @Override
-    public IProduct getProduct(int prodId) throws Exception {
+    public IProduct getDTO(int prodId) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return productDAO.getObject(conn, prodId);
@@ -39,7 +39,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
     }
 
     @Override
-    public List<IProduct> getAllProducts() throws Exception {
+    public List<IProduct> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return productDAO.loadAll(conn);
@@ -49,7 +49,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
     }
 
     @Override
-    public void updateProduct(IProduct product) throws Exception {
+    public void updateDTO(IProduct product) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             productDAO.save(conn, product);
@@ -59,7 +59,7 @@ public class ProductFunctionality implements functionality.interfaces.IProductFu
     }
 
     @Override
-    public void deleteProduct(IProduct product) throws Exception {
+    public void deleteDTO(IProduct product) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             productDAO.delete(conn, product);

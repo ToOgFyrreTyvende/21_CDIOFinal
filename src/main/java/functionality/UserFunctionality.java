@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 
-public class UserFunctionality implements functionality.interfaces.IUserFunctionality {
+public class UserFunctionality implements functionality.interfaces.IFunctionality<IUser> {
     private IDAO<IUser> userDAO;
     private IDatabaseConnection dbc;
 
@@ -19,7 +19,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     }
 
     @Override
-    public void createUser(IUser user) throws Exception {
+    public void createDTO(IUser user) throws Exception {
         try {
             if (user.getUserName().length() < 2 && user.getUserName().length() > 20) {
                 throw new Exception("Username is too short/long.");
@@ -38,7 +38,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     }
 
     @Override
-    public IUser getUser(int userID) throws Exception {
+    public IUser getDTO(int userID) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return userDAO.getObject(conn, userID);
@@ -48,7 +48,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     }
 
     @Override
-    public List<IUser> getAllUsers() throws Exception {
+    public List<IUser> getAllDTOs() throws Exception {
         try {
             Connection conn = dbc.getConnection();
             return userDAO.loadAll(conn);
@@ -58,7 +58,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     }
 
     @Override
-    public void updateUser(IUser user) throws Exception {
+    public void updateDTO(IUser user) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             userDAO.save(conn, user);
@@ -68,7 +68,7 @@ public class UserFunctionality implements functionality.interfaces.IUserFunction
     }
 
     @Override
-    public void deleteUser(IUser user) throws Exception {
+    public void deleteDTO(IUser user) throws Exception {
         try {
             Connection conn = dbc.getConnection();
             userDAO.delete(conn, user);
