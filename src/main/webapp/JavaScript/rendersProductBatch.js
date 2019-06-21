@@ -69,7 +69,7 @@ const rendersProdBatch = {
             $("#displayTable").append(`<tr><td>${x.rawMatId}</td><td>${x.name}</td><td>${x.amount}</td>
                                    <td>${x.tolerance}</td>
                                    <td>${alreadyweighed? "yes" : "no"}</td>
-                                   <td>${toWeigh}</td></tr>`)
+                                   </tr>`) // <td>${toWeigh}</td>
 
             })
         }
