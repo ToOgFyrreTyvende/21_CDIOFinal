@@ -1,14 +1,17 @@
 const rendersProdBatch = {
 	renderProductBatches: function(ProductBatches) {
 		let data = '';
+		let productStatusText = ["Not started", "In production", "Done"];
+
 
 		if (this.ProductBatches.length > 0) {
 			for (i = 0; i < this.ProductBatches.length; i++) {
-				data += `<tr id="prodbatch${this.ProductBatches[i].prodBatchId}">`;
+
+				data += `<tr id="prodbatch${this.ProductBatches[i].prodBatchId}" class="colourstatus${this.ProductBatches[i].status}">`;
                 data += `<td>${this.ProductBatches[i].prodBatchId}</td>`;
                 data += `<td>${this.ProductBatches[i].name}</td>`;
 				data += `<td>${this.ProductBatches[i].prodId}</td>`;
-				data += `<td>${this.ProductBatches[i].status}</td>`;
+				data += `<td>${productStatusText[this.ProductBatches[i].status]}</td>`;
 				//data += `<td>${this.ProductBatches[i].userId}</td>`;
 				data += `<td>${this.ProductBatches[i].weighings.length}</td>`;
 

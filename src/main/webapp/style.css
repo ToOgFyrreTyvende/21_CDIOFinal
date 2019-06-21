@@ -1,52 +1,52 @@
 html, body {
     background-image: url("https://wallpapersite.com/images/wallpapers/stars-3840x2160-galaxy-4k-6362.jpg");
-    margin:0;
+    margin: 0;
     padding: 0;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
-.container{
+.container {
     padding-top: 60px;
 }
 
-.container2{
-    padding-top:50px;
-    width:80%;
+.container2 {
+    padding-top: 50px;
+    width: 80%;
     margin: 0 auto;
     z-index: 69;
 }
 
-.container3{
-    padding-top:50px;
-    width:100%;
+.container3 {
+    padding-top: 50px;
+    width: 100%;
     margin: 0 auto;
     z-index: 69;
 }
 
-#tableRow{
+#tableRow {
     width: 100%;
 }
 
-table{
+table {
     background-color: darkgrey;
 }
 
-#counter{
+#counter {
     background-color: #DCDCDC;
     padding: 6px;
     border-radius: 10%;
 }
 
-.counters{
+.counters {
     background-color: #DCDCDC;
     padding: 6px;
     border-radius: 10%;
 }
 
 /* nav bar */
-#nav{
+#nav {
     z-index: 2;
 }
 
@@ -84,7 +84,6 @@ table{
 }
 
 
-
 #bg {
     position: absolute;
     display: block;
@@ -96,7 +95,7 @@ table{
     pointer-events: none;
 }
 
-#containerSR{
+#containerSR {
     padding-top: 55px;
 }
 
@@ -110,4 +109,16 @@ ul {
     text-align: center;
     maring: 0 auto;
     padding-bottom: 5px;
+}
+
+.colourstatus0 {
+    background-color: rgba(230, 112, 94, 0.2) !important;
+}
+
+.colourstatus1 {
+    background-color: rgba(244, 255, 99, 0.2) !important;
+}
+
+.colourstatus2 {
+    background-color: rgba(109, 204, 88, 0.2) !important;
 }
