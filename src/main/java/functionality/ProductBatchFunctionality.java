@@ -54,6 +54,8 @@ public class ProductBatchFunctionality implements functionality.interfaces.IFunc
     public void updateDTO(IProductBatch prodBatch) throws Exception {
         try {
             Connection conn = dbc.getConnection();
+            if (prodBatch.getStatus() == 0 && prodBatch.getWeighings().length > 0)
+                prodBatch.setStatus(1);
             prodBatchDAO.save(conn, prodBatch);
         } catch (Exception e){
             throw new Exception("Could not update product batch: " + e.getMessage());
