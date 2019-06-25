@@ -181,9 +181,11 @@ const utilsProduct = {
 
 	// naar man submitter sine ingredienser for et produkt, samler vi ingredienserne og udfoerer en HTTP put paa /api/products
     submitIngredients: function(){
-	    let id = $("#productIdInput").val();
-	    let prod = this.Products.find((x) => x.productId == id )
+        $("#productIdInput2").prop('disabled', false);
+        let id = $("#productIdInput2").val();
+        $("#productIdInput2").prop('disabled', true);
 
+        let prod = this.Products.find((x) => x.productId == id )
         var objToSend = {...prod};
 	    objToSend.ingredients = [];
         this.Ingredients[id].map((x) => {

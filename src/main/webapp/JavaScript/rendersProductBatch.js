@@ -35,8 +35,8 @@ const rendersProdBatch = {
 		let productBatch = this.ProductBatches.filter((el) => el.prodBatchId === id)[0];
 		if (productBatch) {
 			$("#productBatchIdInput").val(productBatch.prodBatchId);
-			$("#productIdInput").val(productBatch.prodId);
-			$("#statusInput").val(productBatch.status);
+            $("#productIdInputDropDown").val(productBatch.prodId);
+            $("#statusInput").val(productBatch.status);
 			$("#userIDInput").val(productBatch.userId);
 			$("#RMBIdInput").val(productBatch.RMBId);
 		}
