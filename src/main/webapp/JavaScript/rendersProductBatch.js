@@ -58,9 +58,10 @@ const rendersProdBatch = {
 
 	    if(productEl){
 	        productEl.ingredients.map((x) =>{
-	            let weighing = prodBatchEl.weighings.filter(x => x.rawMatId == x.rawMatId);
+	            let weighing = prodBatchEl.weighings.filter(y => x.rawMatId == y.rawMatId);
 	            var alreadyweighed = false;
 	            var toWeigh = parseFloat(x.amount);
+	            debugger;
 	            if(weighing.length > 0){
                     alreadyweighed = true;
                     prodBatchEl.weighings.map(w => toWeigh -= parseFloat(w.netto));
